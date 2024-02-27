@@ -8,8 +8,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
-    public class MainFx extends Application {
+public class MainFx extends Application {
         public static void main(String[] args) {
         launch(args);
     }
@@ -17,24 +18,21 @@ import java.io.IOException;
         public void start(Stage primaryStage) throws IOException {
 
 
-           // FXMLLoader loader= new FXMLLoader(getClass().getResource("//AfficherCourNV.fxml"));
-           // Parent root= loader.load(getClass().getResource("/AfficherCourNV.fxml"));
-           // FXMLLoader loader= new FXMLLoader(getClass().getResource("//AfficherCourFront.fxml"));
-           // Parent root= loader.load(getClass().getResource("/AfficherCourFront.fxml"));
-            // FXMLLoader loader= new FXMLLoader(getClass().getResource("/AfficherCourFrontNV.fxml"));
-             //Parent root= loader.load(getClass().getResource("/AfficherCourFrontNV.fxml"));
+           // Parent root= FXMLLoader.load(getClass().getResource("/AfficherCourNV.fxml"));
+          //  Parent root= FXMLLoader.load(getClass().getResource("/AfficherCourFront.fxml"));
+           
+           // Parent root=FXMLLoader.load(getClass().getResource("/AfficherCourFrontNV.fxml"));
 
 
 
-            Parent root=FXMLLoader.load(getClass().getResource("/AjouterCourNV.fxml"));
+          // Parent root=FXMLLoader.load(getClass().getResource("/AjouterCourNV.fxml"));
 
-           // Parent root=FXMLLoader.load(getClass().getResource("/AjouterAtelierNV.fxml"));
+           Parent root=FXMLLoader.load(getClass().getResource("/AjouterAtelierNV.fxml"));
 
 
 
-           // FXMLLoader loader= new FXMLLoader(getClass().getResource("//AjouterAtelier.fxml"));
-            //Parent root=loader.load(getClass().getResource("/AjouterAtelier.fxml"));
-          //  FXMLLoader loader= new FXMLLoader(getClass().getResource("/AfficherAtelierNV.fxml"));
+
+           //FXMLLoader loader= new FXMLLoader(getClass().getResource("/AfficherAtelierNV.fxml"));
            // Parent root=loader.load(getClass().getResource("/AfficherAtelierNV.fxml"));
             Scene scene=new Scene(root);
             primaryStage.setScene(scene);

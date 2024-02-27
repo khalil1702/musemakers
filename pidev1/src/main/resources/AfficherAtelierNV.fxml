@@ -53,7 +53,7 @@
             <center>
                 <AnchorPane prefHeight="534.0" prefWidth="665.0" BorderPane.alignment="CENTER">
                     <children>
-                        <AnchorPane layoutY="7.0" prefHeight="514.0" prefWidth="802.0" style="-fx-background-color: ffff;">
+                        <AnchorPane layoutY="7.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="514.0" prefWidth="802.0" style="-fx-background-color: ffff;">
                             <children>
                                 <Text fx:id="erreurDescriptionLabel" layoutX="369.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                 <Text fx:id="erreurDateLabel" layoutX="23.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
@@ -61,15 +61,19 @@
                                 <Text fx:id="erreurNomLabel" layoutX="27.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                 <Text fx:id="erreurCategorieLabel" layoutX="23.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                 <Text fx:id="erreurImageLabel" layoutX="369.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                        <TextField fx:id="tflien" layoutX="16.0" layoutY="264.0" promptText="Lien" />
-                        <DatePicker fx:id="datePickerDebut" layoutX="215.0" layoutY="263.0" promptText="Date Début" />
-                        <DatePicker fx:id="datePickerFin" layoutX="412.0" layoutY="264.0" promptText="Date Fin" />
-                        <Button fx:id="btnSave" layoutX="599.0" layoutY="261.0" onAction="#saveChanges" text="Enregistrer" />
-                        <Button fx:id="ajouterid" layoutX="412.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleAjouterAtelier" text="AjouterAtelier" />
-                       
+                        <TextField fx:id="tflien" layoutX="7.0" layoutY="380.0" promptText="Lien" />
+                        <DatePicker fx:id="datePickerDebut" layoutX="185.0" layoutY="380.0" promptText="Date Début" />
+                        <DatePicker fx:id="datePickerFin" layoutX="394.0" layoutY="380.0" promptText="Date Fin" />
+                        <Button fx:id="btnSave" layoutX="599.0" layoutY="380.0" onAction="#saveChanges" text="Enregistrer" />
+                        <ImageView fitHeight="355.0" fitWidth="357.0" layoutX="361.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/tab.png" />
+                           </image>
+                        </ImageView>
+
                             </children>
                         </AnchorPane>
-                  <TableView fx:id="tableAtelier" layoutX="10.0" layoutY="10.0" prefHeight="229.0" prefWidth="342.0">
+                  <TableView fx:id="tableAtelier" layoutX="10.0" layoutY="10.0" prefHeight="305.0" prefWidth="342.0">
                      <columns>
                         <TableColumn fx:id="colDescription" text="Lien" />
                         <TableColumn fx:id="colDateDebut" text="Date Début" />

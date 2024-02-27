@@ -1,28 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherCourNV">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherCourFrontNV">
     <stylesheets>
         <URL value="@style.css" />
-
-
     </stylesheets>
     <children>
         <BorderPane prefHeight="200.0" prefWidth="200.0" />
@@ -30,32 +21,34 @@
             <left>
                 <VBox prefHeight="200.0" prefWidth="230.0" styleClass="sidebar_admin" BorderPane.alignment="CENTER">
                     <children>
-                        <AnchorPane prefHeight="639.0" prefWidth="230.0" style="-fx-background-color: d0d7ac;">
+                        <AnchorPane prefHeight="523.0" prefWidth="248.0" style="-fx-background-color: d0d7ac;" />
+                    </children>
+                </VBox>
+            </left>
+            <top>
+                <HBox prefHeight="110.0" prefWidth="1034.0" styleClass="navbar_admin" BorderPane.alignment="CENTER">
+                    <children>
+                        <AnchorPane prefHeight="119.0" prefWidth="1034.0" style="-fx-background-color: ffff;">
                             <children>
-                                <TextField layoutX="8.0" layoutY="172.0" prefHeight="40.0" prefWidth="214.0" promptText="tapez ici pour rechercher" styleClass="transparent" stylesheets="@style.css">
-                                    <font>
-                                        <Font name="Cambria" size="18.0" />
-                                    </font>
-                                </TextField>
-                                <Button layoutX="8.0" layoutY="132.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="search-button" stylesheets="@style.css" text="rechercher" textFill="#333333" />
-                                <ImageView fitHeight="125.0" fitWidth="229.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../../../../../../Downloads/unnamed.png" />
-                                    </image>
-                                </ImageView>
-                                <ImageView fitHeight="82.0" fitWidth="84.0" layoutX="79.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="473.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@img/logo.png" />
                                     </image>
                                 </ImageView>
-                            </children></AnchorPane>
+                                <Button layoutX="143.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Les artistes" />
+                                <Button fx:id="button_afficher" layoutX="300.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="Les chefs d'oeuvres" />
+                                <Button layoutX="719.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" styleClass="underline-button" text="Réservations" />
+                                <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" styleClass="underline-button" text="Expositions" />
+                                <Button layoutX="873.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Reclamations" />
+                            </children>
+                        </AnchorPane>
                     </children>
-                </VBox>
-            </left>
+                </HBox>
+            </top>
             <center>
                 <AnchorPane prefHeight="534.0" prefWidth="665.0" BorderPane.alignment="CENTER">
                     <children>
-                        <AnchorPane layoutX="-8.0" layoutY="4.0" prefHeight="634.0" prefWidth="894.0" style="-fx-background-color: ffff;">
+                        <AnchorPane layoutY="4.0" prefHeight="514.0" prefWidth="802.0" style="-fx-background-color: ffff;">
                             <children>
                                 <Text fx:id="erreurDescriptionLabel" layoutX="369.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                 <Text fx:id="erreurDateLabel" layoutX="23.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
@@ -63,91 +56,9 @@
                                 <Text fx:id="erreurNomLabel" layoutX="27.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                 <Text fx:id="erreurCategorieLabel" layoutX="23.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                 <Text fx:id="erreurImageLabel" layoutX="369.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                <HBox alignment="CENTER" layoutX="-4.0" prefHeight="66.0" prefWidth="805.0">
-                                    <children>
-                                        <Pane prefHeight="66.0" prefWidth="51.0" />
-                                        <Label alignment="CENTER" layoutX="320.0" layoutY="24.0" prefHeight="22.0" prefWidth="127.0" text="Notifications" textFill="#878787">
-                                            <font>
-                                                <Font name="Cambria Bold" size="21.0" />
-                                            </font>
-                                            <HBox.margin>
-                                                <Insets right="13.0" />
-                                            </HBox.margin>
-                                        </Label>
-                                        <ImageView fitHeight="53.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@img/notification.png" />
-                                            </image>
-                                        </ImageView>
-                                        <Label alignment="CENTER" layoutX="243.0" layoutY="24.0" prefHeight="38.0" prefWidth="210.0" text="liste Cours favoris" textFill="#878787">
-                                            <font>
-                                                <Font name="Cambria Bold" size="21.0" />
-                                            </font>
-                                        </Label>
-                                        <Pane prefHeight="66.0" prefWidth="73.0">
-                                            <children>
-                                                <ImageView fitHeight="56.0" fitWidth="71.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@img/bookmark.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </children>
-                                        </Pane>
-                                        <Label alignment="CENTER" layoutX="185.0" layoutY="24.0" prefHeight="44.0" prefWidth="153.0" text="mon compte" textFill="#878787">
-                                            <font>
-                                                <Font name="Cambria Bold" size="21.0" />
-                                            </font>
-                                        </Label>
-                                        <ImageView fitHeight="37.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@img/google.png" />
-                                            </image>
-                                        </ImageView>
-                                    </children>
-                                </HBox>
-                                <VBox layoutX="422.0" layoutY="100.0" prefHeight="100.0" prefWidth="318.0" />
-                                <Pane layoutX="422.0" layoutY="66.0" prefHeight="42.0" prefWidth="367.0" />
-                                <VBox layoutX="201.0" layoutY="86.0" prefHeight="101.0" prefWidth="190.0" />
-                                <ImageView fitHeight="47.0" fitWidth="36.0" layoutX="877.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@img/event.png" />
-                                    </image>
-                                </ImageView>
-                                <Label alignment="BOTTOM_CENTER" layoutX="718.0" layoutY="-16.0" prefHeight="60.0" prefWidth="207.0" text="Nos cours" textFill="#878787">
-                                    <font>
-                                        <Font name="Cambria Bold" size="24.0" />
-                                    </font>
-                                </Label>
-                                <AnchorPane layoutX="2.0" layoutY="119.0" prefHeight="514.0" prefWidth="921.0" style="-fx-background-color: ffff;">
-                                    <children>
-                                        <Text fx:id="erreurDescriptionLabel1" layoutX="369.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                        <Text fx:id="erreurDateLabel1" layoutX="23.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                        <Text fx:id="erreurprix1" layoutX="22.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                        <Text fx:id="erreurNomLabel1" layoutX="27.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                        <Text fx:id="erreurCategorieLabel1" layoutX="23.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                        <TextField fx:id="txtTitre" layoutX="23.0" layoutY="404.0" promptText="Titre" />
-                                        <TextField fx:id="txtDescription" layoutX="196.0" layoutY="404.0" promptText="Description" />
-                                        <DatePicker fx:id="datePickerDebut" layoutX="360.0" layoutY="404.0" promptText="Date Début" />
-                                        <DatePicker fx:id="datePickerFin" layoutX="543.0" layoutY="404.0" promptText="Date Fin" />
-                                        <Button fx:id="btnSave" layoutX="701.0" layoutY="435.0" onAction="#saveChanges" text="Enregistrer" />
-                                        <TableView fx:id="tableCour" layoutX="41.0" layoutY="18.0" prefHeight="286.0" prefWidth="322.0">
-                                            <columns>
-                                                <TableColumn fx:id="colTitre" text="Titre" />
-                                                <TableColumn fx:id="colDescription" text="Description" />
-                                                <TableColumn fx:id="colDateDebut" text="Date Début" />
-                                                <TableColumn fx:id="colDateFin" text="Date Fin" />
-                                            </columns>
-                                        </TableView>
-                                        <ImageView fitHeight="345.0" fitWidth="320.0" layoutX="407.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
-                                        <ImageView fitHeight="394.0" fitWidth="303.0" layoutX="425.0" layoutY="-3.0">
-                                            <image>
-                                                <Image url="@../../../../../../../../../xampp/htdocs/omar/View/images.png" />
-                                            </image>
-                                        </ImageView>
-                                    </children>
-                                </AnchorPane>
                             </children>
                         </AnchorPane>
+                        <ListView fx:id="listCour" layoutX="10.0" layoutY="10.0" prefHeight="286.0" prefWidth="406.0" />
                     </children>
                 </AnchorPane>
             </center>
