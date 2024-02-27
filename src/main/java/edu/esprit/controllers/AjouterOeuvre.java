@@ -6,11 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
 import javafx.scene.Parent;
-import javafx.scene.control.TextField;
 
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -41,7 +38,7 @@ public class AjouterOeuvre {
     private DatePicker date_id;
 
     @FXML
-    private TextField description_id;
+    private TextArea description_id;
 
     @FXML
     private TextField image_id;
@@ -109,7 +106,7 @@ public class AjouterOeuvre {
 
         // Validation du champ description
         String description = description_id.getText();
-        String erreurDescription = (description.isEmpty() || description.length() > 30 || !description.matches("[a-zA-Z0-9,\\-]+")) ? "La description ne peut pas être vide, ne doit pas dépasser 30 caractères et doit contenir uniquement des lettres, des chiffres, des virgules et des tirets." : "";
+        String erreurDescription = (description.isEmpty() || description.length() > 30 || !description.matches("[a-zA-Z0-9,\\- ]+")) ? "Le description est vide, ou elle a  dépasse 30 caractères et doit contenir uniquement des lettres, des chiffres, des virgules et des tirets." : "";
 
         // Validation du champ image
         String image = image_id.getText();

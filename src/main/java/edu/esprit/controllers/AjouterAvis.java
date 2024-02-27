@@ -72,12 +72,14 @@ public class AjouterAvis {
     private int currentOeuvreId;
 
 
+
     private boolean likeClique = false;
     private boolean dislikeClique = false;
     ServicePersonne servicePersonne = new ServicePersonne();
     ServiceAvis serviceAvis = new ServiceAvis();
     Avis a=new Avis();
 
+    private int ClientId = servicePersonne.getOneById(4).getId_user();;
 
 
     @FXML
@@ -91,12 +93,14 @@ public class AjouterAvis {
     public void setOeuvre(Oeuvre oeuvre) {
         vbox1.getChildren().clear();
         this.oeuvre = oeuvre;
-        currentOeuvreId = oeuvre.getId(); // Supposons que getId() retourne l'ID de l'œuvre
+        currentOeuvreId = oeuvre.getId();
+
+        // Supposons que getId() retourne l'ID de l'œuvre
 
         // Set the image in the ImageView
         //details_id.setText("Exposition: " + oeuvre.getNom() );
         // Récupérez les avis de la base de données
-        List<Avis> avisList = serviceAvis.getAvisByOeuvre(oeuvre);
+        List<Avis> avisList = serviceAvis.getAvisByOeuvre(oeuvre); 
 
         // Ajoutez les avis au VBox
         for (Avis avis : avisList) {
@@ -108,11 +112,11 @@ public class AjouterAvis {
             avisBox.setPadding(new Insets(10, 0, 10, 0));  // Ajoutez du padding autour de chaque avis
             vbox1.getChildren().add(avisBox);
         }
-        preferences = Preferences.userNodeForPackage(getClass());
+        preferences = Preferences.userNodeForPackage(getClass()).node("user_" + ClientId);
 
-        likeClique = preferences.getBoolean("likeClique_" + currentOeuvreId, false);
-        dislikeClique = preferences.getBoolean("dislikeClique_" + currentOeuvreId, false);
-        if (currentOeuvreId != -1) {
+        likeClique = preferences.getBoolean("likeClique_" + currentOeuvreId , false);
+        dislikeClique = preferences.getBoolean("dislikeClique_" + currentOeuvreId , false);
+        if (currentOeuvreId != -1  ) {
             if (likeClique) {
                 like_id.setStyle("-fx-background-color: green;");
             }
@@ -125,7 +129,7 @@ public class AjouterAvis {
 
     @FXML
     private void likeAction(ActionEvent event) {
-        preferences.putBoolean("likeClique_" + currentOeuvreId, !likeClique);
+        preferences.putBoolean("likeClique_" + currentOeuvreId , !likeClique);
         preferences.putBoolean("dislikeClique_" + currentOeuvreId, false);
 
         if (!likeClique) {
@@ -145,8 +149,8 @@ public class AjouterAvis {
     // Méthode pour gérer l'action du bouton Dislike
     @FXML
     private void dislikeAction(ActionEvent event) {
-        preferences.putBoolean("dislikeClique_" + currentOeuvreId, !dislikeClique);
-        preferences.putBoolean("likeClique_" + currentOeuvreId, false);
+        preferences.putBoolean("dislikeClique_" + currentOeuvreId , !dislikeClique);
+        preferences.putBoolean("likeClique_" + currentOeuvreId , false);
         if (!dislikeClique) {
             dislikeClique = true;
             likeClique = false;
@@ -173,11 +177,11 @@ public class AjouterAvis {
 
             // Get the comment entered by the user
             String commentaire = comment_id.getText();
-            String  erreurCommentaire = (commentaire.isEmpty() || commentaire.length() > 30 || !commentaire.matches("[a-zA-Z0-9,\\-]+")) ? "Le commentaire est vide, ou il a  dépasse 30 caractères et doit contenir uniquement des lettres, des chiffres, des virgules et des tirets." : "";
+            String  erreurCommentaire = (commentaire.isEmpty() || commentaire.length() > 30 || !commentaire.matches("[a-zA-Z0-9,\\- ]+")) ? "Le commentaire est vide, ou il a  dépasse 30 caractères et doit contenir uniquement des lettres, des chiffres, des virgules et des tirets." : "";
 
 
             // Get the user with ID 4  (You can modify this part based on your requirements)
-            User client = servicePersonne.getOneById(3);
+            User client = servicePersonne.getOneById(4);
 
             // Récupérer la date sélectionnée dans le DatePicker
             LocalDate localdate = dateex_id.getValue();

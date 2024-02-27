@@ -18,6 +18,8 @@
     -fx-border-color: black;
 }
 
+
+
 .submit_button:hover {
     -fx-background-color: lightgray; /* Change to the desired hover color */
 }

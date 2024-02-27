@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -19,7 +20,14 @@
         <URL value="@../style.css" />
     </stylesheets>
     <children>
-        <BorderPane prefHeight="200.0" prefWidth="200.0" />
+        <BorderPane prefHeight="200.0" prefWidth="200.0">
+         <top>
+            <ImageView fitHeight="200.0" fitWidth="155.0" BorderPane.alignment="CENTER">
+               <image>
+                  <Image url="@../art/scul.jpg" />
+               </image>
+            </ImageView>
+         </top></BorderPane>
         <BorderPane layoutY="-3.0" prefHeight="634.0" prefWidth="1033.0">
             <left>
                 <VBox prefHeight="200.0" prefWidth="230.0" styleClass="sidebar_admin" BorderPane.alignment="CENTER">
@@ -59,19 +67,19 @@
                                 <Label layoutX="19.0" layoutY="122.0" prefHeight="18.0" prefWidth="124.0" text="Categorie:" />
                                 <Button fx:id="button_ajouter" layoutX="335.0" layoutY="379.0" mnemonicParsing="false" onAction="#add" prefHeight="34.0" prefWidth="157.0" styleClass="submit_button" text="Ajouter Oeuvre" />
                                 <Label layoutX="369.0" layoutY="13.0" prefHeight="18.0" prefWidth="124.0" text="Description:" />
-                                <Button fx:id="browseButton" layoutX="377.0" layoutY="268.0" mnemonicParsing="false" onAction="#browseImage" styleClass="browseButton" text="télecharger image" textFill="#4b4747" />
+                                <Button fx:id="browseButton" layoutX="381.0" layoutY="281.0" mnemonicParsing="false" onAction="#browseImage" styleClass="browseButton" text="télecharger image" textFill="#4b4747" />
                         <TextField fx:id="Nom_id" layoutX="23.0" layoutY="48.0" />
-                        <ChoiceBox fx:id="categorie_id" layoutX="22.0" layoutY="148.0" prefWidth="150.0" />
-                        <TextField fx:id="description_id" layoutX="369.0" layoutY="39.0" prefHeight="99.0" prefWidth="165.0" />
+                        <ChoiceBox fx:id="categorie_id" layoutX="22.0" layoutY="148.0" prefWidth="150.0" styleClass="submit_button" />
                         <TextField fx:id="prix_id" layoutX="23.0" layoutY="268.0" />
                         <DatePicker fx:id="date_id" layoutX="21.0" layoutY="383.0" prefHeight="26.0" prefWidth="150.0" />
-                        <TextField fx:id="image_id" layoutX="377.0" layoutY="226.0" promptText="image" />
-                        <Text fx:id="erreurDescriptionLabel" layoutX="369.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
+                        <TextField fx:id="image_id" layoutX="381.0" layoutY="244.0" promptText="image" />
+                        <Text fx:id="erreurDescriptionLabel" layoutX="375.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="266.936767578125" />
                         <Text fx:id="erreurDateLabel" layoutX="22.0" layoutY="426.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                         <Text fx:id="erreurprix" layoutX="22.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                         <Text fx:id="erreurNomLabel" layoutX="23.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                         <Text fx:id="erreurCategorieLabel" layoutX="23.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                         <Text fx:id="erreurImageLabel" layoutX="377.0" layoutY="324.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
+                        <TextArea fx:id="description_id" layoutX="377.0" layoutY="33.0" prefHeight="112.0" prefWidth="262.0" />
                             </children>
                         </AnchorPane>
                     </children>
