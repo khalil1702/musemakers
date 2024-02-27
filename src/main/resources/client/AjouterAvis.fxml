@@ -55,6 +55,11 @@
                 <AnchorPane prefHeight="534.0" prefWidth="665.0" BorderPane.alignment="CENTER">
                     <children>
                         <AnchorPane layoutY="7.0" prefHeight="518.0" prefWidth="803.0" style="-fx-background-color: ffff;">
+                            <ImageView fitHeight="95.0" fitWidth="807.0" layoutY="429.0">
+                                <image>
+                                    <Image url="@../art/fond1.jpg" />
+                                </image>
+                            </ImageView>
                             <children>
                                 <Button fx:id="button_ajouter" layoutX="533.0" layoutY="440.0" mnemonicParsing="false" onAction="#submitAvis" prefHeight="34.0" prefWidth="157.0" styleClass="submit_button" text="Ajouter Avis" />
                                 <Label layoutX="415.0" layoutY="35.0" prefHeight="18.0" prefWidth="124.0" text="Votre Note:" />

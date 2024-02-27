@@ -50,6 +50,7 @@
           <VBox alignment="CENTER" prefHeight="545.0" prefWidth="820.0" spacing="10">
               <AnchorPane prefHeight="53.0" prefWidth="610.0">
                   <children>
+
                       <TextField fx:id="nameSearchID" layoutX="154.0" layoutY="14.0" promptText="Nom Oeuvre" />
                       <TextField fx:id="categorieSearchID" layoutX="358.0" layoutY="14.0" promptText="Categorie" />
                       <Text fill="#b1aeae" layoutX="157.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="saisir le nom de l'oeuvre" />

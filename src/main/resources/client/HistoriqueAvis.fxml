@@ -54,15 +54,19 @@
                     <children>
                         <AnchorPane layoutX="4.0" layoutY="9.0" prefHeight="514.0" prefWidth="822.0" style="-fx-background-color: ffff;">
                             <children>
-
-                        <TableView fx:id="TableView" layoutX="44.0" layoutY="175.0" prefHeight="228.0" prefWidth="428.0">
+                                <ImageView fitHeight="95.0" fitWidth="807.0" layoutY="429.0">
+                                    <image>
+                                        <Image url="@../art/fond1.jpg" />
+                                    </image>
+                                </ImageView>
+                        <TableView fx:id="TableView" layoutX="45.0" layoutY="97.0" prefHeight="228.0" prefWidth="428.0">
                            <columns>
                               <TableColumn fx:id="commentaire_id" prefWidth="92.0" text="Commentaire" />
                               <TableColumn fx:id="dateexp_id" prefWidth="216.7999725341797" text="Date experience" />
                               <TableColumn fx:id="Note_id" prefWidth="118.39996337890625" text="Note " />
                            </columns>
                         </TableView>
-                        <ImageView fx:id="image_id" fitHeight="175.0" fitWidth="179.0" layoutX="545.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="image_id" fitHeight="207.0" fitWidth="207.0" layoutX="539.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true" />
                             </children>
                         </AnchorPane>
                     </children>

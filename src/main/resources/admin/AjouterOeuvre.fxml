@@ -30,9 +30,9 @@
          </top></BorderPane>
         <BorderPane layoutY="-3.0" prefHeight="634.0" prefWidth="1033.0">
             <left>
-                <VBox prefHeight="200.0" prefWidth="230.0" styleClass="sidebar_admin" BorderPane.alignment="CENTER">
+                <VBox prefHeight="527.0" prefWidth="230.0" styleClass="sidebar_admin" BorderPane.alignment="CENTER">
                     <children>
-                        <AnchorPane prefHeight="523.0" prefWidth="248.0" style="-fx-background-color: d0d7ac;" />
+                        <AnchorPane prefHeight="533.0" prefWidth="223.0" style="-fx-background-color: d0d7ac;" />
 
                     </children>
                 </VBox>
@@ -59,8 +59,13 @@
             <center>
                 <AnchorPane prefHeight="534.0" prefWidth="665.0" BorderPane.alignment="CENTER">
                     <children>
-                        <AnchorPane layoutY="7.0" prefHeight="514.0" prefWidth="802.0" style="-fx-background-color: ffff;">
+                        <AnchorPane layoutY="4.0" prefHeight="512.0" prefWidth="807.0" style="-fx-background-color: ffff;">
                             <children>
+                        <ImageView fitHeight="95.0" fitWidth="807.0" layoutY="429.0">
+                           <image>
+                              <Image url="@../art/fond1.jpg" />
+                           </image>
+                        </ImageView>
                                 <Label layoutX="26.0" layoutY="239.0" prefHeight="18.0" prefWidth="124.0" text="Prix:" />
                                 <Label layoutX="26.0" layoutY="352.0" prefHeight="18.0" prefWidth="139.0" text="Date de creation:" />
                                 <Label layoutX="26.0" layoutY="22.0" text="Nom de l'oeuvre:" />

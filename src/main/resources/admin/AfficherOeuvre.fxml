@@ -59,6 +59,11 @@
                     <children>
                         <AnchorPane layoutY="7.0" prefHeight="497.0" prefWidth="790.0" style="-fx-background-color: ffff;">
                      <children>
+                         <ImageView fitHeight="95.0" fitWidth="807.0" layoutY="429.0">
+                             <image>
+                                 <Image url="@../art/fond1.jpg" />
+                             </image>
+                         </ImageView>
                          <AnchorPane prefHeight="74.0" prefWidth="767.0">
                              <children>
                                  <TextField fx:id="nameSearchID" layoutX="154.0" layoutY="14.0" promptText="Nom Oeuvre" />
