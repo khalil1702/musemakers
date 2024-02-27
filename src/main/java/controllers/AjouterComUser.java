@@ -60,6 +60,13 @@ public class AjouterComUser {
         EMOJI_MAP.put("-_-", "😑");
     }
 
+    private Reclamation reclamation;
+
+    public void setReclamation(Reclamation reclamation) {
+        this.reclamation = reclamation;
+        // Faites ce que vous devez faire avec la réclamation ici
+    }
+
     public void initialize() throws IOException {
         TableViewCommentaire.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) { // Vérifie si c'est un simple clic

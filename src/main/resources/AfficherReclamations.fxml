@@ -2,7 +2,6 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -11,7 +10,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="626.0" prefWidth="981.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherReclamations">
     <stylesheets>
@@ -23,7 +21,7 @@
             <left>
                 <VBox prefHeight="200.0" prefWidth="230.0" styleClass="sidebar_admin" BorderPane.alignment="CENTER">
                     <children>
-                        <AnchorPane prefHeight="523.0" prefWidth="248.0" style="-fx-background-color: d0d7ac;">
+                        <AnchorPane prefHeight="534.0" prefWidth="230.0" style="-fx-background-color: d0d7ac;">
                             <children>
                                 <Button fx:id="exit" layoutX="-7.0" layoutY="471.0" mnemonicParsing="false" onAction="#exit" prefHeight="52.0" prefWidth="94.0" style="-fx-background-color: transparante;" />
                                 <ImageView fitHeight="26.0" fitWidth="32.0" layoutX="14.0" layoutY="484.0" pickOnBounds="true" preserveRatio="true">
@@ -38,18 +36,18 @@
             <top>
                 <HBox prefHeight="110.0" prefWidth="1034.0" styleClass="navbar_admin" BorderPane.alignment="CENTER">
                     <children>
-                        <AnchorPane prefHeight="119.0" prefWidth="1034.0" style="-fx-background-color: ffff;">
+                        <AnchorPane prefHeight="111.0" prefWidth="1167.0" style="-fx-background-color: ffff;">
                             <children>
                                 <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="473.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@img/logo.png" />
                                     </image>
                                 </ImageView>
-                                <Button layoutX="143.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Les artistes" />
-                                <Button fx:id="button_afficher" layoutX="300.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="Les chefs d'oeuvres" />
-                                <Button layoutX="719.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" styleClass="underline-button" text="Réservations" />
-                                <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" styleClass="underline-button" text="Expositions" />
-                                <Button layoutX="873.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Reclamations" />
+                                <Button layoutX="143.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: transparante;" styleClass="underline-button" text="Les artistes" underline="true" />
+                                <Button fx:id="button_afficher" layoutX="300.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" style="-fx-background-color: transparante;" styleClass="underline-button" text="Les chefs d'oeuvres" underline="true" />
+                                <Button layoutX="719.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: transparante;" styleClass="underline-button" text="Réservations" underline="true" />
+                                <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" style="-fx-background-color: transparante;" styleClass="underline-button" text="Expositions" underline="true" />
+                                <Button layoutX="873.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: transparante;" styleClass="underline-button" text="Reclamations" underline="true" />
                             </children>
                         </AnchorPane>
                     </children></HBox>
@@ -59,27 +57,25 @@
                     <children>
                         <AnchorPane layoutY="7.0" prefHeight="514.0" prefWidth="802.0" style="-fx-background-color: ffff;">
                             <children>
-                                <Text fx:id="erreurDescriptionLabel" layoutX="369.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                <Text fx:id="erreurDateLabel" layoutX="23.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                <Text fx:id="erreurprix" layoutX="22.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                <Text fx:id="erreurCategorieLabel" layoutX="23.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                <Text fx:id="erreurImageLabel" layoutX="369.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                <ImageView fitHeight="26.0" fitWidth="25.0" layoutX="274.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="527.0" fitWidth="1032.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="415.0" fitWidth="785.0" layoutX="99.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/table.png" />
+                           </image>
+                        </ImageView>
+                              <ListView fx:id="ListViewRec" layoutX="243.0" layoutY="67.0" prefHeight="317.0" prefWidth="449.0" />
+                                <ImageView fitHeight="23.0" fitWidth="16.0" layoutX="556.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@img/chercher.png" />
                                     </image>
                                 </ImageView>
-                                <Button fx:id="supp" layoutX="9.0" layoutY="284.0" mnemonicParsing="false" onAction="#supprimer" text="Supprimer" />
-                                <Button fx:id="mod" layoutX="106.0" layoutY="284.0" mnemonicParsing="false" onAction="#modifier" text="Modifier" />
-                                <Button fx:id="ajout" layoutX="200.0" layoutY="284.0" mnemonicParsing="false" onAction="#ajouter" text="Ajouter" />
-                        <TextField fx:id="CategorieRecTF" layoutX="40.0" layoutY="75.0" prefHeight="19.0" prefWidth="94.0" promptText="Categorie" />
-                        <TextField fx:id="descriRecTF" alignment="TOP_LEFT" layoutX="45.0" layoutY="155.0" prefHeight="109.0" prefWidth="231.0" promptText="Description" />
-                        <Label fx:id="desc" layoutX="51.0" layoutY="135.0" text="Description :" />
-                        <Label fx:id="cate" layoutX="39.0" layoutY="46.0" prefHeight="18.0" prefWidth="98.0" text="Categorie :" />
+                              <TextField fx:id="searchTF" layoutX="381.0" layoutY="18.0" promptText="Search" />
                             </children>
                         </AnchorPane>
-                        <TextField fx:id="searchTF" layoutX="306.0" layoutY="32.0" promptText="Search" />
-                        <ListView fx:id="ListViewRec" layoutX="306.0" layoutY="83.0" prefHeight="354.0" prefWidth="466.0" />
                     </children>
                 </AnchorPane>
             </center>

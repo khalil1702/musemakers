@@ -7,10 +7,12 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import service.ReclamationService;
 import service.ServiceUser;
@@ -48,90 +50,10 @@ public class AfficherReclamations {
 
     List<Reclamation> RecList;
 
+    private Reclamation selectedReservation;
+
     public void initialize() throws IOException {
         ShowReclamation();
-    }
-
-    @FXML
-    void ajouter(ActionEvent event) throws IOException {
-        Reclamation r = new Reclamation();
-        User userAdd = su.getOneById(2);
-        String descriRec = descriRecTF.getText();
-
-        // Ajouter le contrôle de saisie ici
-        if (descriRec.length() > 50) {
-            System.out.println("Vous avez dépassé 50 caractères.");
-            return;
-        } else if (descriRec.isEmpty()) {
-            System.out.println("La description est vide.");
-            return;
-        }
-
-        r.setCategorieRec(CategorieRecTF.getText());
-        r.setStatutRec("En cours");
-        r.setDescriRec(descriRec);
-        r.setUser(userAdd);
-        r.setDateRec(new Date(System.currentTimeMillis()));
-
-        try {
-            rs.ajouter(r);
-            ShowReclamation(); // Rafraîchir les données de la liste
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    void modifier(ActionEvent event) throws IOException {
-        // Obtenez la réclamation sélectionnée dans la liste
-        Reclamation r = ListViewRec.getSelectionModel().getSelectedItem();
-        if (r != null) {
-            String descriRec = descriRecTF.getText();
-
-            // Ajouter le contrôle de saisie ici
-            if (descriRec.length() > 50) {
-                System.out.println("Vous avez dépassé 50 caractères.");
-                return;
-            } else if (descriRec.isEmpty()) {
-                System.out.println("La description est vide.");
-                return;
-            }
-
-            // Mettez à jour les champs de la réclamation
-            r.setCategorieRec(CategorieRecTF.getText());
-            r.setDescriRec(descriRec);
-
-            try {
-                // Mettez à jour la réclamation dans la base de données
-                rs.modifier(r);
-                // Rafraîchir les données de la liste
-                ShowReclamation();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    @FXML
-    void supprimer(ActionEvent event) throws IOException, SQLException {
-        // Obtenez l'objet Reclamation sélectionné
-        Reclamation selectedReclamation = ListViewRec.getSelectionModel().getSelectedItem();
-
-        // Vérifiez si une réclamation est sélectionnée
-        if (selectedReclamation != null) {
-            // Supprimez cet objet de votre base de données
-            try {
-                rs.supprimer(selectedReclamation.getIdRec());
-            } catch (SQLException e) {
-                System.out.println("Erreur lors de la suppression de la réclamation: " + e.getMessage());
-                return;
-            }
-
-            // Rafraîchir les données de la liste
-            ShowReclamation();
-        } else {
-            System.out.println("Aucune réclamation sélectionnée.");
-        }
     }
 
     public void ShowReclamation() throws IOException {
@@ -139,15 +61,6 @@ public class AfficherReclamations {
             RecList = rs.getAll();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
-
-        User userAdd = su.getOneById(2);
-        List<Reclamation> filteredRecList = new ArrayList<>();
-
-        for (Reclamation r : RecList) {
-            if (r.getUser().equals(userAdd)) {
-                filteredRecList.add(r);
-            }
         }
 
         // Créer une FilteredList
@@ -179,7 +92,7 @@ public class AfficherReclamations {
         ListViewRec.setItems(sortedData);
 
         // Définir la cellFactory personnalisée pour afficher les réclamations
-        ListViewRec.setCellFactory(param -> new ListCell<>() {
+       /* ListViewRec.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Reclamation item, boolean empty) {
                 super.updateItem(item, empty);
@@ -187,10 +100,66 @@ public class AfficherReclamations {
                 if (empty || item == null) {
                     setText(null);
                 } else {
-                    setText("Catégorie: " + item.getCategorieRec() + "\nDescription: " + item.getDescriRec() + "\nDate: " + item.getDateRec()+ "\nStatut: " + item.getStatutRec());
+                    setText("Nom du client: " + item.getUserNom1() + "\nCatégorie: " + item.getCategorieRec() + "\nDescription: " + item.getDescriRec() + "\nDate: " + item.getDateRec()+ "\nStatut: " + item.getStatutRec());
+                }
+            }
+        });*/
+        // Ajoutez ceci à votre méthode initialize() après l'initialisation de la cellFactory
+        ListViewRec.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(Reclamation item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null); // Assurez-vous de vider également le graphique si l'élément est vide
+                } else {
+                    // Créer un bouton pour chaque ligne
+                    Button button = new Button("Commenter"); // Vous pouvez changer le texte selon vos besoins
+                    button.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; -fx-text-fill: black; -fx-underline: true;");
+                    button.setOnAction(event -> {
+                        // Récupérer la réclamation associée à cette ligne
+                        Reclamation reclamation = getItem();
+                        // Logique pour ouvrir une autre interface
+                        try {
+                            /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterComUser.fxml"));
+                            Parent root = loader.load();
+                            // Vous pouvez accéder au contrôleur de la nouvelle interface si nécessaire
+                            AjouterComUser controller = loader.getController();*/
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterComUser.fxml"));
+                            Parent root = loader.load();
+                            AjouterComUser controller = loader.getController();
+                            controller.setReclamation(reclamation); // Passer la réclamation au contrôleur de la nouvelle interface
+
+                            // Créer une nouvelle scène
+                            Scene scene = new Scene(root);
+
+                            // Configurer la nouvelle scène dans une nouvelle fenêtre
+                            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                            stage.setScene(scene);
+                            stage.setTitle("Commenter pour : " + reclamation.getDescriRec());
+
+
+                            // Afficher la nouvelle fenêtre
+                            stage.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            // Gérer l'exception
+                        }
+                    });
+
+                    // Ajouter le texte à gauche et le bouton à droite dans un conteneur HBox
+                    // Créer un conteneur HBox pour disposer le bouton à droite et le texte à gauche
+                    HBox hbox = new HBox();
+                    hbox.getChildren().addAll(new Label("Nom du client: " + item.getUserNom1() + "\nCatégorie: " + item.getCategorieRec() + "\nDescription: " + item.getDescriRec() + "\nDate: " + item.getDateRec()+ "\nStatut: " + item.getStatutRec()), button);
+                    hbox.setAlignment(Pos.CENTER_LEFT); // Aligner le texte à gauche
+                    hbox.setSpacing(170); // Espace entre le texte et le bouton
+
+                    setGraphic(hbox); // Ajouter le conteneur HBox à la cellule
                 }
             }
         });
+
     }
 
     @FXML

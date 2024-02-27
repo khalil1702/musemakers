@@ -103,9 +103,13 @@ return  r;
         ResultSet rst = ps.executeQuery();
         while (rst.next()) {
             Reclamation r = new Reclamation();
-            User user = new User();
+            ServiceUser us = new ServiceUser();
+            /*User user = new User();
             user.setId_user(rst.getInt("IdU"));  // Utilisez 'user.setId_user(rst.getInt("IdU"))' au lieu de 'r.setIdRec(rst.getInt("IdU"))'
-            r.setUser(user);  // Ajoutez cette ligne
+            r.setUser(user);  // Ajoutez cette ligne*/
+            User u = new User();
+            u = us.getOneById(rst.getInt("idU"));
+            r.setUser(u);
             r.setIdRec(rst.getInt("idRec"));
             r.setDescriRec(rst.getString("DescriRec"));
             r.setDateRec(rst.getDate("dateRec"));

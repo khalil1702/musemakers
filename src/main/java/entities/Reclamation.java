@@ -46,9 +46,9 @@ public class Reclamation {
 
     /* public Reclamation(User userAdd, String text, String text1, String text2) {
         }*/
-   public String getNom_user() {
-       return this.user.getNom_user();
-   }
+    public String getNom_user() {
+        return this.user.getNom_user();
+    }
 
 
     public Reclamation(String descriRec, Date dateRec, String categorieRec, String statutRec) {
@@ -141,5 +141,14 @@ public class Reclamation {
     }
 
     public void setUser(String nomUser) {
+    }
+
+    public String getUserNom1() {
+        return user != null ? user.getNom_user() : null;
+    }
+
+    // Ajoutez un accesseur pour la propriété activiteNom
+    public StringProperty userNom1Property() {
+        return new SimpleStringProperty(getUserNom1());
     }
 }
