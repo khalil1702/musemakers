@@ -58,6 +58,7 @@
          </image>
       </ImageView>
       <Button fx:id="ajouter" layoutX="404.0" layoutY="247.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="26.0" prefWidth="126.0" styleClass="submit_button" text="Ajouter Reclamation" />
+      <Button fx:id="ajouter1" layoutX="387.0" layoutY="523.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="26.0" prefWidth="90.0" styleClass="round-button" stylesheets="@../style.css" text="Ajouter" />
 
    </children>
 </AnchorPane>

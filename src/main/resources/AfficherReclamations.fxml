@@ -72,17 +72,13 @@
                                 <Button fx:id="supp" layoutX="9.0" layoutY="284.0" mnemonicParsing="false" onAction="#supprimer" text="Supprimer" />
                                 <Button fx:id="mod" layoutX="106.0" layoutY="284.0" mnemonicParsing="false" onAction="#modifier" text="Modifier" />
                                 <Button fx:id="ajout" layoutX="200.0" layoutY="284.0" mnemonicParsing="false" onAction="#ajouter" text="Ajouter" />
-                                <Label layoutX="75.0" layoutY="128.0" text="Commentaire contenu :" />
                         <TextField fx:id="CategorieRecTF" layoutX="40.0" layoutY="75.0" prefHeight="19.0" prefWidth="94.0" promptText="Categorie" />
                         <TextField fx:id="descriRecTF" alignment="TOP_LEFT" layoutX="45.0" layoutY="155.0" prefHeight="109.0" prefWidth="231.0" promptText="Description" />
+                        <Label fx:id="desc" layoutX="51.0" layoutY="135.0" text="Description :" />
+                        <Label fx:id="cate" layoutX="39.0" layoutY="46.0" prefHeight="18.0" prefWidth="98.0" text="Categorie :" />
                             </children>
                         </AnchorPane>
                         <TextField fx:id="searchTF" layoutX="306.0" layoutY="32.0" promptText="Search" />
-                        <ImageView fitHeight="87.0" fitWidth="50.0" layoutX="238.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@img/profile.png" />
-                            </image>
-                        </ImageView>
                         <ListView fx:id="ListViewRec" layoutX="306.0" layoutY="83.0" prefHeight="354.0" prefWidth="466.0" />
                     </children>
                 </AnchorPane>

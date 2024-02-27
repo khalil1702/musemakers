@@ -3,9 +3,9 @@
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="626.0" prefWidth="981.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterReclamationUser">
     <stylesheets>
@@ -27,7 +27,7 @@
                     <children>
                         <AnchorPane prefHeight="529.0" prefWidth="230.0" style="-fx-background-color: d0d7ac;">
                             <children>
-                                <Button fx:id="rec" layoutX="40.0" layoutY="121.0" mnemonicParsing="false" onAction="#rec" text="Voir Reclamation" />
+                                <Button fx:id="rec" layoutX="40.0" layoutY="121.0" mnemonicParsing="false" onAction="#rec" style="-fx-background-color: transparante;" text="Voir toutes les Reclamation" underline="true" />
                             </children></AnchorPane>
                     </children>
                 </VBox>
@@ -47,11 +47,11 @@
                                         <String fx:value="underline-button" />
                                         <String fx:value="underline-button" />
                                     </styleClass></Button>
-                                <Button layoutX="207.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Les artistes" />
-                                <Button fx:id="button_afficher" layoutX="392.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="Les chefs d'oeuvres" />
-                                <Button layoutX="719.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" styleClass="underline-button" text="Réservations" />
-                                <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" styleClass="underline-button" text="Expositions" />
-                                <Button layoutX="873.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Reclamations" />
+                                <Button layoutX="207.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: tansparente;" styleClass="underline-button" text="Les artistes" underline="true" />
+                                <Button fx:id="button_afficher" layoutX="392.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" style="-fx-background-color: transparante;" styleClass="underline-button" text="Les chefs d'oeuvres" underline="true" />
+                                <Button layoutX="719.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: transparante;" styleClass="underline-button" text="Réservations" underline="true" />
+                                <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" style="-fx-background-color: transparante;" styleClass="underline-button" text="Expositions" underline="true" />
+                                <Button layoutX="873.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: transparante;" styleClass="underline-button" text="Reclamations" underline="true" />
 
                             </children>
                         </AnchorPane>
@@ -67,41 +67,35 @@
                                         <Image url="@img/2.png" />
                                     </image>
                                 </ImageView>
-                                <ImageView fitHeight="415.0" fitWidth="759.0" layoutX="197.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="347.0" fitWidth="738.0" layoutX="316.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@img/table.png" />
                                     </image>
                                 </ImageView>
-                                <Button fx:id="ajouter" layoutX="140.0" layoutY="120.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="34.0" prefWidth="157.0" styleClass="submit_button" text="Ajouter Reclamation" />
-                                <Text fx:id="erreurDescriptionLabel" layoutX="369.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                <Text fx:id="erreurDateLabel" layoutX="23.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                <Text fx:id="erreurprix" layoutX="22.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                <Text fx:id="erreurImageLabel" layoutX="369.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                <TextField fx:id="CategorieRecTF" layoutX="22.0" layoutY="125.0" prefHeight="19.0" prefWidth="94.0" promptText="Categorie" />
-                                <TextField fx:id="descriRecTF" alignment="TOP_LEFT" layoutX="13.0" layoutY="210.0" prefHeight="109.0" prefWidth="231.0" promptText="Description" />
-                                <Button fx:id="supprimer" layoutX="14.0" layoutY="334.0" mnemonicParsing="false" onAction="#supprimer" text="Supprimer" />
-                                <Button fx:id="modifier" layoutX="109.0" layoutY="334.0" mnemonicParsing="false" onAction="#modifier" text="Modifier" />
+                                <Button fx:id="ajouter" layoutX="202.0" layoutY="334.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="26.0" prefWidth="90.0" styleClass="round-button" stylesheets="@style.css" text="Ajouter" />
+                                <TextField fx:id="descriRecTF" alignment="TOP_LEFT" layoutX="27.0" layoutY="188.0" prefHeight="109.0" prefWidth="231.0" promptText="Description" />
+                                <Button fx:id="supprimer" layoutX="14.0" layoutY="334.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="26.0" prefWidth="85.0" styleClass="round-button" stylesheets="@style.css" text="Supprimer" />
+                                <Button fx:id="modifier" layoutX="109.0" layoutY="334.0" mnemonicParsing="false" onAction="#modifier" prefHeight="26.0" prefWidth="84.0" styleClass="round-button" stylesheets="@style.css" text="Modifier" />
                                 <ImageView fitHeight="220.0" fitWidth="389.0" layoutX="403.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@img/anbeyeb.png" />
                                     </image>
                                 </ImageView>
-                                <TableView fx:id="TableViewRec" layoutX="340.0" layoutY="70.0" prefHeight="317.0" prefWidth="452.0">
-                                    <columns>
-                                        <TableColumn fx:id="CvDescri" prefWidth="151.20004272460938" text="Description" />
-                                        <TableColumn fx:id="CvDate" prefWidth="83.19998168945312" text="Date" />
-                                        <TableColumn fx:id="CvCat" prefWidth="112.00006103515625" text="Categorie" />
-                                        <TableColumn fx:id="CvStatut" minWidth="5.60009765625" prefWidth="103.20001220703125" text="Statut" />
-                                    </columns>
-                                </TableView>
-                                <Label fx:id="desc" layoutX="27.0" layoutY="178.0" text="Description :" />
-                                <Label fx:id="cate" layoutX="31.0" layoutY="99.0" prefHeight="18.0" prefWidth="98.0" text="Categorie :" />
-                        <TextField fx:id="searchTF" layoutX="351.0" layoutY="21.0" promptText="Search" />
-                        <ImageView fitHeight="56.0" fitWidth="24.0" layoutX="316.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                                <Label fx:id="desc" layoutX="27.0" layoutY="157.0" text="Description :" />
+                                <Label fx:id="cate" layoutX="36.0" layoutY="77.0" prefHeight="18.0" prefWidth="98.0" text="Categorie :" />
+                        <TextField fx:id="searchTF" layoutX="669.0" layoutY="86.0" promptText="Search" />
+                        <ImageView fitHeight="17.0" fitWidth="18.0" layoutX="647.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@img/chercher.png" />
                            </image>
                         </ImageView>
+                        <ListView fx:id="ListViewRec" layoutX="437.0" layoutY="127.0" prefHeight="265.0" prefWidth="374.0" />
+                        <Label layoutX="437.0" layoutY="91.0" text="Vos Réclamations">
+                           <font>
+                              <Font name="Arial Black" size="14.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="CatRecCB" layoutX="27.0" layoutY="107.0" prefWidth="150.0" promptText="Catégorie" />
                             </children>
                         </AnchorPane>
                     </children>

@@ -15,7 +15,7 @@ public class Main {
         ReclamationService service = new ReclamationService();
 /*
         // Créer un nouvel utilisateur et une nouvelle réclamation
-        User user = new User();
+        User user = new User();DD
         user.setId_user(2);
         // ... initialiser les autres attributs de l'utilisateur ...
 

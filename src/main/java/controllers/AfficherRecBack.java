@@ -60,7 +60,7 @@ public class AfficherRecBack {
             throw new RuntimeException(e);
         }
 
-        User userAdd = su.getOneById(3); // Assurez-vous que cette méthode retourne l'utilisateur correct
+        User userAdd = su.getOneById(2); // Assurez-vous que cette méthode retourne l'utilisateur correct
 
         List<Reclamation> filteredRecList = new ArrayList<>();
 

@@ -32,3 +32,19 @@
 .browseButton:hover {
     -fx-background-color: darkgray; /* Change to the desired hover color */
 }
+
+.round-button{
+    -fx-background-radius: 30;
+    -fx-background-color: #000000; /* Jaune */
+    -fx-text-fill: #ffffff; /* Bleu roi pour le texte */
+}
+
+.round-button:hover {
+    -fx-background-color: #D0D7AC; /* Bleu au survol */
+    -fx-text-fill: #000000; /* Bleu roi pour le texte */
+}
+
+.round-button:pressed {
+    -fx-background-color: #D0D7AC; /* Bleu clair enfoncé */
+    -fx-text-fill: #000000; /* Bleu roi pour le texte */
+}

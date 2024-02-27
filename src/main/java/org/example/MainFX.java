@@ -13,12 +13,12 @@ public class MainFX extends Application {  public static void main(String[] args
 }
     @Override
     public void start(Stage primaryStage) throws IOException {
-    //FXMLLoader loader= new FXMLLoader(getClass().getResource("/AjouterReclamationUser.fxml"));
-       FXMLLoader loader= new FXMLLoader(getClass().getResource("/AfficherReclamations.fxml"));
-    //FXMLLoader loader= new FXMLLoader(getClass().getResource("/AfficherRecBack.fxml"));
+    FXMLLoader loader= new FXMLLoader(getClass().getResource("/AjouterReclamationUser.fxml"));
+      // FXMLLoader loader= new FXMLLoader(getClass().getResource("/AfficherReclamations.fxml"));
+   // FXMLLoader loader= new FXMLLoader(getClass().getResource("/AfficherRecBack.fxml"));
        //FXMLLoader loader= new FXMLLoader(getClass().getResource("/AjouterComUser.fxml"));
-       // FXMLLoader loader= new FXMLLoader(getClass().getResource("/AjouterComAdmin.fxml"));
- //FXMLLoader loader= new FXMLLoader(getClass().getResource("/jj.fxml"));
+       // FXMLLoader loader= new FXMLLoader(getClass().getResource("/jj.fxml"));
+
         Parent root=loader.load();
         Scene scene=new Scene(root);
         primaryStage.setScene(scene);

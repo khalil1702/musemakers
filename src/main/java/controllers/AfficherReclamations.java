@@ -151,7 +151,7 @@ public class AfficherReclamations {
         }
 
         // Créer une FilteredList
-        FilteredList<Reclamation> filteredData = new FilteredList<>(FXCollections.observableArrayList(filteredRecList), p -> true);
+        FilteredList<Reclamation> filteredData = new FilteredList<>(FXCollections.observableArrayList(RecList), p -> true);
 
         // Ajouter un listener à searchTF pour qu'il réagisse aux changements de texte
         searchTF.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -187,7 +187,7 @@ public class AfficherReclamations {
                 if (empty || item == null) {
                     setText(null);
                 } else {
-                    setText("Catégorie: " + item.getCategorieRec() + "\nDescription: " + item.getDescriRec() + "\nStatut: " + item.getStatutRec());
+                    setText("Catégorie: " + item.getCategorieRec() + "\nDescription: " + item.getDescriRec() + "\nDate: " + item.getDateRec()+ "\nStatut: " + item.getStatutRec());
                 }
             }
         });

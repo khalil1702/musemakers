@@ -4,6 +4,7 @@ import entities.Reclamation;
 import entities.User;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -20,10 +21,7 @@ import service.ServiceUser;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class AjouterReclamationUser {
     private final ReclamationService rs= new ReclamationService( );
@@ -71,8 +69,33 @@ public class AjouterReclamationUser {
 
     List<Reclamation> RecList;
 
+    @FXML
+    private ListView<Reclamation> ListViewRec;
+
+    @FXML
+    private ComboBox<String> CatRecCB;
+
     public void initialize() throws IOException {
+        ObservableList<String> options = FXCollections.observableArrayList(
+                "Produits", "Service Client", "Problème Technique"
+        );
+        CatRecCB.setItems(options);
+        ListViewRec.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) { // Vérifie si c'est un simple clic
+                    Reclamation selectedReclamation = ListViewRec.getSelectionModel().getSelectedItem();
+                if (selectedReclamation != null) {
+                    // Afficher les informations de la séance sélectionnée dans le formulaire
+                    displayActiviteInfo(selectedReclamation);
+                }
+            }
+        });
         ShowReclamation();
+    }
+
+    private void displayActiviteInfo(Reclamation r) {
+        CatRecCB.setValue(r.getCategorieRec());
+        descriRecTF.setText(r.getDescriRec());
+
     }
 
     @FXML
@@ -89,8 +112,8 @@ public class AjouterReclamationUser {
             System.out.println("La description est vide.");
             return;
         }
-
-        r.setCategorieRec(CategorieRecTF.getText());
+        r.setCategorieRec(CatRecCB.getValue());
+        //r.setCategorieRec(CategorieRecTF.getText());
         r.setStatutRec("En cours");
         r.setDescriRec(descriRec);
         r.setUser(userAdd);
@@ -98,6 +121,12 @@ public class AjouterReclamationUser {
 
         try {
             rs.ajouter(r);
+            // Afficher un message de succès
+            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+            successAlert.setTitle("Message d'information");
+            successAlert.setHeaderText(null);
+            successAlert.setContentText("Ajouté avec succès !");
+            successAlert.showAndWait();
             ShowReclamation(); // Rafraîchir les données de la table
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -105,9 +134,9 @@ public class AjouterReclamationUser {
     }
 
     @FXML
-    void modifier(ActionEvent event) throws IOException {
+    void modifier(ActionEvent event) throws IOException, SQLException {
         // Obtenez la réclamation sélectionnée dans la table
-        Reclamation r = TableViewRec.getSelectionModel().getSelectedItem();
+        Reclamation r = ListViewRec.getSelectionModel().getSelectedItem();
         if (r != null) {
             String descriRec = descriRecTF.getText();
 
@@ -121,17 +150,22 @@ public class AjouterReclamationUser {
             }
 
             // Mettez à jour les champs de la réclamation
-            r.setCategorieRec(CategorieRecTF.getText());
+            r.setCategorieRec(CatRecCB.getValue());
             r.setDescriRec(descriRec);
+            // Demander une confirmation à l'utilisateur (vous pouvez personnaliser cela selon vos besoins)
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation de modification");
+            alert.setHeaderText("Modifier la reclamation");
+            alert.setContentText("Êtes-vous sûr de vouloir modifier la reclamation sélectionnée ?");
 
-            try {
+            Optional<ButtonType> result = alert.showAndWait();
+            // Si l'utilisateur confirme la suppression, procéder
+            if (result.isPresent() && result.get() == ButtonType.OK) {
                 // Mettez à jour la réclamation dans la base de données
                 rs.modifier(r);
                 // Rafraîchir les données de la table
                 ShowReclamation();
-                TableViewRec.refresh(); // Ajoutez cette ligne
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+                ListViewRec.refresh(); // Ajoutez cette ligne
             }
         }
     }
@@ -139,24 +173,34 @@ public class AjouterReclamationUser {
     @FXML
     void supprimer(ActionEvent event) throws IOException, SQLException {
         // Obtenez l'objet Reclamation sélectionné
-        Reclamation selectedReclamation = TableViewRec.getSelectionModel().getSelectedItem();
+        Reclamation selectedReclamation = ListViewRec.getSelectionModel().getSelectedItem();
 
         // Vérifiez si une réclamation est sélectionnée
         if (selectedReclamation != null) {
             // Supprimez cet objet de votre base de données
-            try {
-                rs.supprimer(selectedReclamation.getIdRec());
-            } catch (SQLException e) {
-                System.out.println("Erreur lors de la suppression de la réclamation: " + e.getMessage());
-                return;
-            }
 
+            // Demander une confirmation à l'utilisateur (vous pouvez personnaliser cela selon vos besoins)
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation de suppression");
+            alert.setHeaderText("supprimer la reclamation");
+            alert.setContentText("Êtes-vous sûr de vouloir supprimer la réclamation sélectionnée ?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            // Si l'utilisateur confirme la suppression, procéder
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                rs.supprimer(selectedReclamation.getIdRec());
+            }
 
 
             // Rafraîchir les données de la table
             ShowReclamation();
         } else {
-            System.out.println("Aucune réclamation sélectionnée.");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Aucune réclamation sélectionnée");
+            alert.setHeaderText("Aucune réclamation sélectionnée");
+            alert.setContentText("Veuillez sélectionner une réclamation à supprimer.");
+            alert.showAndWait();
+
         }
     }
 
@@ -195,20 +239,6 @@ public class AjouterReclamationUser {
         // Créer une FilteredList
         FilteredList<Reclamation> filteredData = new FilteredList<>(FXCollections.observableArrayList(filteredRecList), p -> true);
 
-        // Envelopper la FilteredList dans une SortedList
-        SortedList<Reclamation> sortedData = new SortedList<>(filteredData);
-
-        // Lier le comparateur de la SortedList au comparateur de TableView
-        sortedData.comparatorProperty().bind(TableViewRec.comparatorProperty());
-
-        // Ajouter les données triées (et filtrées) à la TableView
-        TableViewRec.setItems(sortedData);
-
-        CvDescri.setCellValueFactory(new PropertyValueFactory<>("descriRec"));
-        CvDate.setCellValueFactory(new PropertyValueFactory<>("DateRec"));
-        CvCat.setCellValueFactory(new PropertyValueFactory<>("CategorieRec"));
-        CvStatut.setCellValueFactory(new PropertyValueFactory<>("StatutRec"));
-
         // Ajouter un listener à searchTF pour qu'il réagisse aux changements de texte
         searchTF.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(reclamation -> {
@@ -227,6 +257,26 @@ public class AjouterReclamationUser {
                 return false; // Aucune correspondance
             });
         });
+
+        // Envelopper la FilteredList dans une SortedList
+        SortedList<Reclamation> sortedData = new SortedList<>(filteredData);
+
+        // Ajouter les données triées (et filtrées) à la ListView
+        ListViewRec.setItems(sortedData);
+
+        // Définir la cellFactory personnalisée pour afficher les réclamations
+        ListViewRec.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(Reclamation item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText("Catégorie: " + item.getCategorieRec() + "\nDescription: " + item.getDescriRec() + "\nDate: " + item.getDateRec()+ "\nStatut: " + item.getStatutRec());
+                }
+            }
+        });
+    }
     }
 
-}
