@@ -2,17 +2,16 @@ package edu.esprit.controllers;
 
 import edu.esprit.entities.Exposition;
 import edu.esprit.entities.Reservation;
+import edu.esprit.entities.User;
 import edu.esprit.services.ServiceExposition;
 import edu.esprit.services.ServicePersonne;
 import edu.esprit.services.ServiceReservation;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -20,7 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
+import java.sql.Date;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -35,10 +34,11 @@ public class AfficherExpositionClient {
     @FXML
     private ComboBox<String> themeSearchID;
 
-
+    private final Date currentDate = new Date(System.currentTimeMillis());
     private final Reservation reser = new Reservation();
     private final ServicePersonne servicePersonne = new ServicePersonne();
     private final ServiceExposition exp = new ServiceExposition();
+    private final ServiceReservation serviceReservation = new ServiceReservation();
 
     private Set<Exposition> listexpo = exp.getAll();
 
@@ -65,6 +65,10 @@ public class AfficherExpositionClient {
     // Méthode pour afficher toutes les expositions
     private void displayExhibitions() {
         for (Exposition expo : listexpo) {
+            if (expo.getDateDebut().toLocalDate().isBefore(currentDate.toLocalDate())) {
+                continue;  // Skip this exhibition
+            }
+
             HBox exhibitionBox = new HBox(10);
             exhibitionBox.setAlignment(javafx.geometry.Pos.CENTER);
 
@@ -99,12 +103,47 @@ public class AfficherExpositionClient {
             Label descriptionLabel = new Label("Description: " + expo.getDescription());
             descriptionLabel.getStyleClass().addAll("bold-label");
 
-
             Button reserveButton = new Button("Réserver");
             reserveButton.setId("btnreserverexposition");
-            reserveButton.setOnAction(event -> showReservationDialog(expo));
 
-            detailsVBox.getChildren().addAll(nameLabel, dateTimeLabel, themeLabel, descriptionLabel, timeLabel, reserveButton);
+            // Check if the exhibition is already reserved by the current user
+            User currentUser = getCurrentUser();
+            boolean isAlreadyReserved = currentUser != null && userHasReservationForExhibition(currentUser, expo);
+
+            if (isAlreadyReserved) {
+                reserveButton.setDisable(true); // Disable the button if already reserved
+
+                // Get the Reservation object for the current user and exhibition
+                Reservation existingReservation = serviceReservation.getReservationByUserAndExposition(currentUser, expo);
+
+                // Show "In Progress" or "Accepté" based on accessByAdmin
+                double progressValue = (existingReservation.getAccessByAdmin() == 0) ? 0.5 : 1.0;
+                ProgressBar progressBar = new ProgressBar(progressValue);
+
+                Label statusLabel = new Label((existingReservation.getAccessByAdmin() == 0) ? "En Cours" : "Accepté");
+                statusLabel.getStyleClass().add("status-label");
+
+// Apply different styles based on the status
+                if (existingReservation.getAccessByAdmin() == 0) {
+                    statusLabel.setStyle("-fx-text-fill: blue;");
+                } else {
+                    statusLabel.setStyle("-fx-text-fill: green;");
+                }
+                detailsVBox.getChildren().addAll(nameLabel, dateTimeLabel, themeLabel, descriptionLabel, timeLabel, reserveButton, progressBar, statusLabel);
+            } else {
+                ProgressBar progressBar = new ProgressBar(0.0);
+
+                reserveButton.setOnAction(event -> {
+                    // Perform reservation logic here
+                    // For demonstration purposes, I'll set the progress to 0.5 (50%)
+                    progressBar.setProgress(0.5);
+                    showReservationDialog(expo);
+
+                    Platform.runLater(() -> reserveButton.setDisable(true));
+                });
+
+                detailsVBox.getChildren().addAll(nameLabel, dateTimeLabel, themeLabel, descriptionLabel, timeLabel, reserveButton, progressBar);
+            }
 
             exhibitionBox.getChildren().addAll(imageView, detailsVBox);
             exhibitionBox.getStyleClass().add("exhibition-box");
@@ -116,6 +155,28 @@ public class AfficherExpositionClient {
             exhibitionVBox.getChildren().add(noResultLabel);
         }
     }
+
+
+
+
+
+
+
+    //
+    private boolean userHasReservationForExhibition(User user, Exposition exposition) {
+        // Use your actual logic to check if the user has a reservation for the given exhibition
+        // For example, you can call a service method to check if a reservation exists
+        // Return true if the user has a reservation, false otherwise
+        Reservation existingReservation = serviceReservation.getReservationByUserAndExposition(user, exposition);
+        return existingReservation != null;
+    }
+
+    // Replace this with your actual logic to get the current user
+    private User getCurrentUser() {
+        // Simulated logic to get the current user (replace with your actual logic)
+        return servicePersonne.getOneById(5);
+    }
+    //
 
     private String formatDateTime(java.util.Date date) {
         SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -214,6 +275,7 @@ public class AfficherExpositionClient {
             e.printStackTrace();
         }
     }
+
 
 
     ////////

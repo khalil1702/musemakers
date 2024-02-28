@@ -102,9 +102,12 @@ public class DemandeReservation {
                         String nomExpo=reservation.getExpositionNom();
                         String dateDebut = reservation.getExpositionDateD().toString();
                         String dateFin = reservation.getExpositionDateF().toString();
+                        String timeD = reservation.getHeureDebutExpo().toString();
+                        String timeF = reservation.getHeureFinExpo().toString();
+
 
                         // Envoyez l'e-mail
-                        SendEmailExpo.send(toEmail, dateDebut, dateFin,nomExpo);
+                        SendEmailExpo.send(toEmail, dateDebut, dateFin,nomExpo,timeD,timeF);
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("email envoyé avec succes");
                         alert.setHeaderText(null);
@@ -139,8 +142,8 @@ public class DemandeReservation {
     private boolean showConfirmationDialog(String action) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
-        alert.setHeaderText("Confirmer la suppression" );
-        alert.setContentText("vous voulez vraiment refuser cette demande?" );
+        alert.setHeaderText("Confirmer l'action" );
+        alert.setContentText("vous etes sure?" );
 
         Optional<ButtonType> result = alert.showAndWait();
         return result.isPresent() && result.get() == ButtonType.OK;

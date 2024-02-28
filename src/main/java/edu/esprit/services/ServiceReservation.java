@@ -4,11 +4,16 @@ import edu.esprit.entities.Exposition;
 import edu.esprit.entities.Reservation;
 import edu.esprit.entities.User;
 import edu.esprit.utils.DataSource;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
+import javafx.scene.paint.Color;
 import java.sql.*;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class ServiceReservation implements IService<Reservation> {
     Connection cnx= DataSource.getInstance().getCnx();
@@ -358,6 +363,84 @@ public class ServiceReservation implements IService<Reservation> {
 
         return expositionReservations;
     }
+    public Reservation getReservationByUserAndExposition(User user, Exposition exposition) {
+        String req = "SELECT * FROM reservation WHERE id_user = ? AND id_exposition = ? AND accessByAdmin IN (0, 1)";
+
+        try (PreparedStatement statement = cnx.prepareStatement(req)) {
+            statement.setInt(1, user.getId_user());
+            statement.setInt(2, exposition.getId());
+            ResultSet res = statement.executeQuery();
+
+            if (res.next()) {
+                int id = res.getInt(1);
+                Timestamp dateReser = res.getTimestamp("date_reser");
+                int ticketsNumber = res.getInt("tickets_number");
+                int accessByAdmin = res.getInt("accessByAdmin");
+
+                return new Reservation(id, dateReser, ticketsNumber, accessByAdmin, exposition, user);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    public void afficherStatistiques() {
+        ObservableList<PieChart.Data> accessData = FXCollections.observableArrayList();
+
+        try {
+            Statement st = cnx.createStatement();
+            ResultSet res = st.executeQuery("SELECT accessByAdmin, COUNT(*) as count FROM reservation GROUP BY accessByAdmin");
+
+            while (res.next()) {
+                int accessByAdmin = res.getInt("accessByAdmin");
+                int count = res.getInt("count");
+
+                String accessCategory;
+                switch (accessByAdmin) {
+                    case 0:
+                        accessCategory = "En cours";
+                        break;
+                        case 1:
+                        accessCategory = "Acceptés";
+                        break;
+                    case 2:
+                        accessCategory = "Refusés";
+                        break;
+                    case 3:
+                        accessCategory = "Annulés";
+                        break;
+                    default:
+                        continue;
+                }
+
+                accessData.add(new PieChart.Data(accessCategory + " (" + count + ")", count));
+            }
+
+            final PieChart accessChart = new PieChart(accessData);
+            accessChart.setTitle("Statistique de reservation");
+
+            // Create the dialog for overall statistics
+            Dialog<Void> dialog = new Dialog<>();
+            dialog.initStyle(StageStyle.UTILITY);
+            dialog.getDialogPane().setContent(accessChart);
+
+            // Add a close button for overall statistics
+            ButtonType closeButton = new ButtonType("Close");
+            dialog.getDialogPane().getButtonTypes().add(closeButton);
+            dialog.showAndWait();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
 
 
 

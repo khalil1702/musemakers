@@ -33,7 +33,7 @@
                 </VBox>
             </left>
             <top>
-                <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                <HBox prefHeight="111.0" prefWidth="1056.0" style="-fx-background-color: ffff;" BorderPane.alignment="CENTER">
                     <children>
                         <AnchorPane prefHeight="119.0" prefWidth="1034.0" style="-fx-background-color: ffff;">
                             <children>
@@ -47,6 +47,11 @@
                                 <Button layoutX="719.0" layoutY="76.0" mnemonicParsing="false" onAction="#demandeNav" prefHeight="26.0" prefWidth="117.0" styleClass="underline-button" text="Réservations" />
                                 <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" onAction="#Afficher" prefHeight="26.0" prefWidth="145.0" styleClass="underline-button" text="Expositions" />
                                 <Button layoutX="873.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Reclamations" />
+                        <Button layoutX="40.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Les clients" />
+                                <ImageView fx:id="imageView" fitHeight="50.0" fitWidth="62.0" layoutX="983.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/icons/logout.png" />
+                           </image></ImageView>
                             </children>
                         </AnchorPane>
                     </children></HBox>
@@ -73,8 +78,7 @@
 
                                     </columns>
                                 </TableView>
-                                <Button fx:id="supprimer" layoutX="484.0" layoutY="387.0" mnemonicParsing="false" onAction="#supprimer" styleClass="submit_button" text="Supprimer" />
-                                <ImageView fx:id="imageView" fitHeight="327.0" fitWidth="264.0" layoutX="512.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
+                                <Button fx:id="supprimer" layoutX="484.0" layoutY="387.0" mnemonicParsing="false" onAction="#supprimer" styleClass="round-button" text="Supprimer" />
                                 <Text fill="#fff9f9" layoutX="328.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="custom-font" text="Liste exposition" />
                             </children>
                         </AnchorPane>

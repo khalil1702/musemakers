@@ -193,6 +193,11 @@ public class FullListAdmin {
 
     }
     @FXML
+    private void displayStatistics(ActionEvent event) {
+        ServiceReservation serviceReservation = new ServiceReservation(/* pass your database connection */);
+        serviceReservation.afficherStatistiques();
+    }
+    @FXML
     void histoAdminNav(ActionEvent event) throws IOException {
         try {
             // Load the new FXML file
