@@ -58,9 +58,9 @@
 
                   </children>
               </AnchorPane>
-              <ScrollPane prefHeight="535.0" prefWidth="857.0">
-                  <VBox fx:id="exhibitionVBox" alignment="CENTER" spacing="10">
-                      <!-- This VBox will contain the exhibitions -->
+              <ScrollPane prefHeight="535.0" prefWidth="857.0" >
+                  <VBox fx:id="exhibitionVBox" alignment="CENTER" spacing="10" >
+                      <!-- Articles -->
                     </VBox>
                 </ScrollPane>
           </VBox>

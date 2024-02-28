@@ -35,3 +35,10 @@
     -fx-background-color: darkgray; /* Change to the desired hover color */
 }
 
+.exhibition-box {
+    -fx-border-radius: 10px;
+    -fx-border-color: #7A6FAC; /* Border color */
+    -fx-border-width: 2px;
+    -fx-background-color: #B3A4C9; /* Background color */
+    -fx-padding: 10px;
+}

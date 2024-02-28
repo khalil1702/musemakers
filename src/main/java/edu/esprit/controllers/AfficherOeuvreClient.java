@@ -112,6 +112,7 @@ public class AfficherOeuvreClient {
             VBox detailsVBox = new VBox(5);
             detailsVBox.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
 
+
             // Labels pour les détails de l'oeuvre
             Label nomLabel = new Label("Nom: " + o.getNom());
             Label categorieLabel = new Label("Catégorie: " + o.getCategorie());
@@ -125,37 +126,18 @@ public class AfficherOeuvreClient {
             avisButton.setOnAction(event ->showAvisDialog(o));
             avisButton.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-border-color: black;");
 
-            //{
-                // Get the source of the event, which is the button
-                //Node sourceNode = (Node) event.getSource();
-
-                // Get the current stage using the button's scene
-                //Stage currentStage = (Stage) sourceNode.getScene().getWindow();
-
-                // Call the showAvisDialog method with the Oeuvre and currentStage
-                //showAvisDialog(o, currentStage);
-            //});
-
-            // Bouton pour consulter les avis des autres clients
-            //Button avisButton1 = new Button("voir Avis");
-            //avisButton1.setId("buttonavis1");
-            //avisButton1.setOnAction(event ->  showAvisDialog1(o));
 
             // Ajouter les composants au VBox des détails
             detailsVBox.getChildren().addAll(nomLabel, categorieLabel, prixLabel,dateCreationLabel, descriptionLabel, avisButton);
 
             // Ajouter les composants à l'HBox principale
             exhibitionBox.getChildren().addAll(imageView, detailsVBox);
+            exhibitionBox.getStyleClass().add("exhibition-box");
+
 
             // Ajouter HBox à la VBox principale
             exhibitionVBox.getChildren().add(exhibitionBox);
         }
-    }
-
-    // Méthode pour formater la date
-    private String formatDateTime(java.util.Date date) {
-        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
-        return dateTimeFormat.format(date);
     }
 
     private void showAvisDialog(Oeuvre o) {
