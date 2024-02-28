@@ -63,49 +63,65 @@
                                     <Text fx:id="erreurImageLabel" layoutX="369.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                 </children>
                             </AnchorPane>
-                  <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="489.0" prefWidth="688.0">
+                  <AnchorPane layoutY="-2.0" prefHeight="532.0" prefWidth="822.0">
                      <children>
                         <VBox layoutX="50.0" layoutY="50.0" spacing="10.0">
                            <children>
                               <Text fx:id="title" />
                               <VBox spacing="10.0">
                                  <children>
-                                    <Label text="Titre" />
+                                    <Label text="Titre">
+                                       <font>
+                                          <Font name="System Italic" size="19.0" />
+                                       </font>
+                                    </Label>
                                     <TextField fx:id="titreField" />
                                  </children>
                               </VBox>
                               <VBox spacing="10.0">
                                  <children>
-                                    <Label text="Description" />
+                                    <Label text="Description">
+                                       <font>
+                                          <Font name="System Italic" size="20.0" />
+                                       </font>
+                                    </Label>
                                     <TextField fx:id="descriptionField" />
                                  </children>
                               </VBox>
                               <VBox spacing="10.0">
                                  <children>
-                                    <Label text="Date de début" />
+                                    <Label text="Date de début">
+                                       <font>
+                                          <Font name="Corbel" size="18.0" />
+                                       </font>
+                                    </Label>
                                     <DatePicker fx:id="datePicker" />
                                  </children>
                               </VBox>
                               <VBox spacing="10.0">
                                  <children>
-                                    <Label text="Date de fin" />
+                                    <Label text="Date de fin">
+                                       <font>
+                                          <Font name="Georgia" size="18.0" />
+                                       </font>
+                                    </Label>
                                     <DatePicker fx:id="datefin" />
                                  </children>
                               </VBox>
-                              <Button layoutX="465.0" layoutY="316.0" mnemonicParsing="false" onAction="#Ajouterr" text="Ajouter" />
                            </children>
                         </VBox>
-                        <Button fx:id="afficherid" layoutX="386.0" layoutY="360.0" mnemonicParsing="false" onAction="#afficheriid" text="Afficher liste des cours" />
-                        <ImageView fitHeight="311.0" fitWidth="408.0" layoutX="264.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@img/tableau.png" />
-                           </image>
-                        </ImageView>
+                        <Button fx:id="afficherid" layoutX="157.0" layoutY="462.0" mnemonicParsing="false" onAction="#afficheriid" styleClass="round-button" stylesheets="@style.css" text="Afficher liste des cours" />
                         <Label layoutX="12.0" layoutY="34.0" text="Ajouter un nouveau cours" underline="true">
                            <font>
-                              <Font name="System Bold Italic" size="21.0" />
+                              <Font name="Franklin Gothic Medium" size="21.0" />
                            </font>
                         </Label>
+                        <ImageView fitHeight="518.0" fitWidth="451.0" layoutX="363.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/neww.png" />
+                           </image>
+                        </ImageView>
+                        <Button layoutX="67.0" layoutY="395.0" mnemonicParsing="false" onAction="#Ajouterr" styleClass="round-button" stylesheets="@style.css" text="Ajouter" />
                      </children>
                   </AnchorPane>
                         </children>

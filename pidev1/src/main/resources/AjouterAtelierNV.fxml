@@ -65,40 +65,49 @@
                                     <Text fx:id="erreurNomLabel" layoutX="27.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                     <Text fx:id="erreurCategorieLabel" layoutX="23.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                     <Text fx:id="erreurImageLabel" layoutX="369.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                    <Button fx:id="afficheriiid" layoutX="557.0" layoutY="334.0" mnemonicParsing="false" onAction="#handle" text="AfficherAtelier" />
+                                    <Button fx:id="afficheriiid" layoutX="496.0" layoutY="393.0" mnemonicParsing="false" onAction="#handle" styleClass="round-button" stylesheets="@style.css" text="AfficherAtelier" />
                         <AnchorPane layoutY="-1.0" prefHeight="358.0" prefWidth="285.0">
                            <children>
                               <VBox layoutX="38.0" layoutY="83.0" spacing="10.0">
                                  <children>
                                     <VBox spacing="10.0">
                                        <children>
-                                          <Label text="Date de début" />
+                                          <Label text="Date de début">
+                                             <font>
+                                                <Font name="Corbel Italic" size="18.0" />
+                                             </font></Label>
                                           <DatePicker fx:id="datePickerDebut" />
                                        </children>
                                     </VBox>
                                     <VBox spacing="10.0">
                                        <children>
-                                          <Label text="Date de fin" />
+                                          <Label text="Date de fin">
+                                             <font>
+                                                <Font name="System Italic" size="18.0" />
+                                             </font></Label>
                                           <DatePicker fx:id="datePickerFin" />
                                        </children>
                                     </VBox>
                                     <VBox spacing="10.0">
                                        <children>
-                                          <Label text="Lien" />
+                                          <Label text="Lien">
+                                             <font>
+                                                <Font name="System Italic" size="20.0" />
+                                             </font></Label>
                                           <TextField fx:id="lienField" />
                                        </children>
                                     </VBox>
-                                    <Button layoutX="465.0" layoutY="316.0" mnemonicParsing="false" onAction="#Ajouter" text="Ajouter" />
                                  </children>
                               </VBox>
                               <Text layoutX="14.0" layoutY="37.0" text="Ajouter un nouvel atelier" underline="true">
                                  <font>
-                                    <Font name="System Italic" size="21.0" />
+                                    <Font name="System Bold Italic" size="21.0" />
                                  </font>
                               </Text>
+                              <Button layoutX="40.0" layoutY="329.0" mnemonicParsing="false" onAction="#Ajouter" styleClass="round-button" stylesheets="@style.css" text="Ajouter" />
                            </children>
                         </AnchorPane>
-                        <ImageView fitHeight="303.0" fitWidth="455.0" layoutX="262.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="366.0" fitWidth="532.0" layoutX="276.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@img/dessin.png" />
                            </image>

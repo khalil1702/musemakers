@@ -25,9 +25,9 @@ public class MainFx extends Application {
 
 
 
-          // Parent root=FXMLLoader.load(getClass().getResource("/AjouterCourNV.fxml"));
+           Parent root=FXMLLoader.load(getClass().getResource("/AjouterCourNV.fxml"));
 
-           Parent root=FXMLLoader.load(getClass().getResource("/AjouterAtelierNV.fxml"));
+          // Parent root=FXMLLoader.load(getClass().getResource("/AjouterAtelierNV.fxml"));
 
 
 

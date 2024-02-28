@@ -60,11 +60,16 @@
                                 <Text fx:id="erreurNomLabel" layoutX="27.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                 <Text fx:id="erreurCategorieLabel" layoutX="23.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                 <Text fx:id="erreurImageLabel" layoutX="369.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                        <TextField fx:id="txtTitre" layoutX="23.0" layoutY="409.0" promptText="Titre" />
-                        <TextField fx:id="txtDescription" layoutX="190.0" layoutY="409.0" promptText="Description" />
-                        <DatePicker fx:id="datePickerDebut" layoutX="360.0" layoutY="404.0" promptText="Date Début" />
-                        <DatePicker fx:id="datePickerFin" layoutX="543.0" layoutY="404.0" promptText="Date Fin" />
-                        <Button fx:id="btnSave" layoutX="701.0" layoutY="435.0" onAction="#saveChanges" text="Enregistrer" />
+                        <TextField fx:id="txtTitre" layoutX="14.0" layoutY="378.0" promptText="Titre" styleClass="browseButton" stylesheets="@style.css" />
+                        <TextField fx:id="txtDescription" layoutX="208.0" layoutY="378.0" promptText="Description" styleClass="browseButton" stylesheets="@style.css" />
+                        <DatePicker fx:id="datePickerDebut" layoutX="409.0" layoutY="378.0" promptText="Date Début" styleClass="browseButton" stylesheets="@style.css" />
+                        <DatePicker fx:id="datePickerFin" layoutX="619.0" layoutY="378.0" promptText="Date Fin" styleClass="browseButton" stylesheets="@style.css" />
+                        <Button fx:id="btnSave" layoutX="346.0" layoutY="437.0" onAction="#saveChanges" styleClass="round-button" stylesheets="@style.css" text="Enregistrer" />
+                        <ImageView fitHeight="422.0" fitWidth="398.0" layoutX="420.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/-peinture.jpg" />
+                           </image>
+                        </ImageView>
                             </children>
                         </AnchorPane>
                   <TableView fx:id="tableCour" layoutX="10.0" layoutY="10.0" prefHeight="286.0" prefWidth="406.0">

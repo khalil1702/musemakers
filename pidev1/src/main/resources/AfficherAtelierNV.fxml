@@ -61,11 +61,11 @@
                                 <Text fx:id="erreurNomLabel" layoutX="27.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                 <Text fx:id="erreurCategorieLabel" layoutX="23.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                 <Text fx:id="erreurImageLabel" layoutX="369.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                        <TextField fx:id="tflien" layoutX="7.0" layoutY="380.0" promptText="Lien" />
-                        <DatePicker fx:id="datePickerDebut" layoutX="185.0" layoutY="380.0" promptText="Date Début" />
-                        <DatePicker fx:id="datePickerFin" layoutX="394.0" layoutY="380.0" promptText="Date Fin" />
-                        <Button fx:id="btnSave" layoutX="599.0" layoutY="380.0" onAction="#saveChanges" text="Enregistrer" />
-                        <ImageView fitHeight="355.0" fitWidth="357.0" layoutX="361.0" pickOnBounds="true" preserveRatio="true">
+                        <TextField fx:id="tflien" layoutX="108.0" layoutY="397.0" promptText="Lien" styleClass="browseButton" stylesheets="@style.css" />
+                        <DatePicker fx:id="datePickerDebut" layoutX="209.0" layoutY="354.0" promptText="Date Début" styleClass="browseButton" stylesheets="@style.css" />
+                        <DatePicker fx:id="datePickerFin" layoutX="8.0" layoutY="354.0" promptText="Date Fin" styleClass="browseButton" stylesheets="@style.css" />
+                        <Button fx:id="btnSave" layoutX="310.0" layoutY="455.0" onAction="#saveChanges" styleClass="round-button" stylesheets="@style.css" text="Enregistrer" />
+                        <ImageView fitHeight="397.0" fitWidth="418.0" layoutX="401.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@img/tab.png" />
                            </image>
