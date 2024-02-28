@@ -26,9 +26,18 @@
                <children>
                   <AnchorPane prefHeight="569.0" prefWidth="189.0" style="-fx-background-color: d0d7ac;">
                      <children>
-                        <Button layoutX="21.0" layoutY="163.0" mnemonicParsing="false" onAction="#histoClientNav" prefHeight="26.0" prefWidth="214.0" styleClass="underline-button" text="Historique des Reservations" textFill="#696666" />
-                        <Button layoutX="17.0" layoutY="42.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" styleClass="underline-button" text="Consulter les oeuvres" textFill="#696666" />
-                        <Button layoutX="21.0" layoutY="101.0" mnemonicParsing="false" onAction="#reserverNav" prefHeight="26.0" prefWidth="213.0" styleClass="underline-button" text="Réserver des expositions" textFill="#696666" />
+                        <Button layoutX="40.0" layoutY="131.0" mnemonicParsing="false" onAction="#histoClientNav" prefHeight="26.0" prefWidth="170.0" styleClass="underline-button" text="Historique des Reservations" textFill="#696666" />
+                        <Button layoutX="11.0" layoutY="71.0" mnemonicParsing="false" onAction="#reserverNav" prefHeight="26.0" prefWidth="213.0" styleClass="underline-button" text="Réserver des expositions" textFill="#696666" />
+                        <ImageView fitHeight="54.0" fitWidth="50.0" layoutY="57.0">
+                           <image>
+                              <Image url="@../assets/icons/sculpture.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="51.0" fitWidth="46.0" layoutX="1.0" layoutY="119.0">
+                           <image>
+                              <Image url="@../assets/icons/art-gallery.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
                </children></VBox>
@@ -38,16 +47,21 @@
                <children>
                   <AnchorPane prefHeight="119.0" prefWidth="1034.0" style="-fx-background-color: ffff;">
                      <children>
-                        <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="473.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../assets/logo.png" />
                            </image>
                         </ImageView>
-                        <Button layoutX="143.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Cours Artistique" />
-                        <Button layoutX="300.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="Les chefs d'oeuvres" />
+                        <Button layoutX="173.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Cours Artistique" />
+                        <Button layoutX="371.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="Les chefs d'oeuvres" />
                         <Button layoutX="719.0" layoutY="76.0" mnemonicParsing="false" onAction="#histoClientNav" prefHeight="26.0" prefWidth="117.0" styleClass="underline-button" text="Réservations" />
                         <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" onAction="#reserverNav" prefHeight="26.0" prefWidth="145.0" styleClass="underline-button" text="Expositions" />
                         <Button layoutX="873.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Reclamations" />
+                        <ImageView fitHeight="51.0" fitWidth="74.0" layoutX="932.0" layoutY="10.0">
+                           <image>
+                              <Image url="@../assets/icons/logout.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
                </children></HBox>
@@ -57,8 +71,8 @@
                     <AnchorPane prefHeight="53.0" prefWidth="610.0">
                         <children>
                             <!-- <Button fx:id="searchButton" layoutX="645.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleSearch" text="chercher" /> -->
-                            <TextField fx:id="nameSearchID" layoutX="154.0" layoutY="14.0" promptText="Nom exposition" styleClass="submit_button"/>
-                            <ComboBox fx:id="themeSearchID" styleClass="submit_button" layoutX="383.0" layoutY="14.0" promptText="Choisissez un thème">
+                            <TextField fx:id="nameSearchID" layoutX="154.0" layoutY="14.0" promptText="Nom exposition" styleClass="submit_button" />
+                            <ComboBox fx:id="themeSearchID" layoutX="383.0" layoutY="14.0" promptText="Choisissez un thème" styleClass="submit_button">
                                 <items>
                                     <FXCollections fx:factory="observableArrayList">
                                         <String fx:value="" /> <!-- Add an empty value for displaying all exhibitions -->

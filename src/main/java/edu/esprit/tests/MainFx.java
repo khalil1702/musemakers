@@ -13,7 +13,12 @@ public class MainFx extends Application {
     public void start(Stage stage) throws IOException {
 //        FXMLLoader loader= new FXMLLoader(getClass().getResource("/admin/ajouterexpo.fxml"));
 //       FXMLLoader loader= new FXMLLoader(getClass().getResource("/admin/afficherExpo.fxml"));
-       FXMLLoader loader= new FXMLLoader(getClass().getResource("/client/histoReservationClient.fxml"));
+//       FXMLLoader loader= new FXMLLoader(getClass().getResource("/client/afficherExpoClient.fxml"));
+
+
+       FXMLLoader loader= new FXMLLoader(getClass().getResource("/AccueilAdmin.fxml"));
+//    FXMLLoader loader= new FXMLLoader(getClass().getResource("/AcceuilUser.fxml"));
+
         Parent root=loader.load();
         Scene scene=new Scene(root);
         //scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());

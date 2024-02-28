@@ -30,9 +30,17 @@
                      <children>
 
                         <Button layoutX="27.0" layoutY="108.0" mnemonicParsing="false" onAction="#Afficher" prefHeight="26.0" prefWidth="200.0" styleClass="underline-button" text="Modifier expositions" textFill="#696666" />
-                        <Button layoutX="8.0" layoutY="233.0" mnemonicParsing="false" onAction="#demandeNav" prefHeight="26.0" prefWidth="240.0" styleClass="underline-button" text="Demandes de Reservation" textFill="#696666" />
-                        <Button layoutX="6.0" layoutY="276.0" mnemonicParsing="false" onAction="#histoAdminNav" prefHeight="26.0" prefWidth="241.0" styleClass="underline-button" text="Historique de Reservation" textFill="#696666" />
                         <Button layoutX="29.0" layoutY="50.0" mnemonicParsing="false" onAction="#ajouterNav" prefHeight="26.0" prefWidth="190.0" styleClass="underline-button" text="Ajouter Expositions" textFill="#696666" />
+                        <ImageView fitHeight="50.0" fitWidth="58.0" layoutX="14.0" layoutY="38.0">
+                           <image>
+                              <Image url="@../assets/icons/modern-art.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="48.0" fitWidth="49.0" layoutX="19.0" layoutY="97.0">
+                           <image>
+                              <Image url="@../assets/icons/art-gallery.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
                </children>
@@ -43,13 +51,13 @@
                <children>
                   <AnchorPane prefHeight="119.0" prefWidth="1034.0" style="-fx-background-color: ffff;">
                      <children>
-                        <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="473.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="27.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../assets/logo.png" />
                            </image>
                         </ImageView>
-                        <Button layoutX="143.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Les artistes" />
-                        <Button layoutX="300.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="Les chefs d'oeuvres" />
+                        <Button layoutX="240.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Les artistes" />
+                        <Button layoutX="392.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="Les chefs d'oeuvres" />
                         <Button layoutX="719.0" layoutY="76.0" mnemonicParsing="false" onAction="#demandeNav" prefHeight="26.0" prefWidth="117.0" styleClass="underline-button" text="Réservations" />
                         <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" onAction="#Afficher" prefHeight="26.0" prefWidth="145.0" styleClass="underline-button" text="Expositions" />
                         <Button layoutX="873.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Reclamations" />
@@ -58,7 +66,7 @@
                               <Image url="@../assets/icons/logout.png" />
                            </image>
                         </ImageView>
-                        <Button layoutX="40.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Les clients" />
+                        <Button layoutX="114.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Les clients" />
                      </children>
                   </AnchorPane>
                </children></HBox>

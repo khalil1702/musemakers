@@ -23,10 +23,20 @@
             <left>
                 <VBox prefHeight="534.0" prefWidth="211.0" style="-fx-background-color: E8DBCE;" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane prefHeight="523.0" prefWidth="248.0" style="-fx-background-color: d0d7ac;">
+                  <AnchorPane prefHeight="530.0" prefWidth="229.0" style="-fx-background-color: d0d7ac;">
                      <children>
                         <Button layoutX="27.0" layoutY="49.0" mnemonicParsing="false" onAction="#demandeNav" prefHeight="26.0" prefWidth="200.0" styleClass="underline-button" text="Demandes de Reservation" textFill="#696666" />
-                        <Button layoutX="3.0" layoutY="89.0" mnemonicParsing="false" onAction="#histoAdminNav" prefHeight="26.0" prefWidth="241.0" styleClass="underline-button" text="Historique de Reservation" textFill="#696666" />
+                        <Button layoutX="51.0" layoutY="104.0" mnemonicParsing="false" onAction="#histoAdminNav" prefHeight="26.0" prefWidth="177.0" styleClass="underline-button" text="Historique de Reservation" textFill="#696666" />
+                        <ImageView fitHeight="51.0" fitWidth="49.0" layoutX="7.0" layoutY="100.0">
+                           <image>
+                              <Image url="@../assets/icons/abstract.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="50.0" fitWidth="48.0" layoutX="3.0" layoutY="37.0">
+                           <image>
+                              <Image url="@../assets/icons/theatre.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
                </children>
@@ -37,17 +47,17 @@
                <children>
                   <AnchorPane prefHeight="111.0" prefWidth="1135.0" style="-fx-background-color: ffff;">
                      <children>
-                        <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="473.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="14.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../assets/logo.png" />
                            </image>
                         </ImageView>
-                        <Button layoutX="143.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Les artistes" />
-                        <Button layoutX="300.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="Les chefs d'oeuvres" />
+                        <Button layoutX="332.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Les artistes" />
+                        <Button layoutX="458.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="Les chefs d'oeuvres" />
                         <Button layoutX="719.0" layoutY="76.0" mnemonicParsing="false" onAction="#demandeNav" prefHeight="26.0" prefWidth="117.0" styleClass="underline-button" text="Réservations" />
                         <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" onAction="#Afficher" prefHeight="26.0" prefWidth="145.0" styleClass="underline-button" text="Expositions" />
                         <Button layoutX="873.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Reclamations" />
-                        <Button layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Les clients" />
+                        <Button layoutX="177.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Les clients" />
                         <ImageView fx:id="imageView" fitHeight="50.0" fitWidth="62.0" layoutX="1062.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../assets/icons/logout.png" />
@@ -65,7 +75,7 @@
                             <children>
                                 <AnchorPane prefHeight="374.0" prefWidth="448.0">
                                     <children>
-                              <ImageView fitHeight="523.0" fitWidth="887.0">
+                              <ImageView fitHeight="530.0" fitWidth="887.0">
                                  <image>
                                     <Image url="@../assets/expos/back10.jpg" />
                                  </image>

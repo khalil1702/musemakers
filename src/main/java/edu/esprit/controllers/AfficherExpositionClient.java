@@ -85,6 +85,8 @@ public class AfficherExpositionClient {
             VBox detailsVBox = new VBox(5);
             detailsVBox.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
 
+
+
             Label nameLabel = new Label("Nom: " + expo.getNom());
             nameLabel.getStyleClass().addAll("bold-label");
 

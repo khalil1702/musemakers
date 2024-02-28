@@ -24,11 +24,20 @@
             <left>
                 <VBox prefHeight="200.0" prefWidth="230.0" style="-fx-background-color: E8DBCE;" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane prefHeight="569.0" prefWidth="189.0" style="-fx-background-color: d0d7ac;">
+                  <AnchorPane prefHeight="578.0" prefWidth="236.0" style="-fx-background-color: d0d7ac;">
                      <children>
-                        <Button layoutX="21.0" layoutY="163.0" mnemonicParsing="false" onAction="#histoClientNav" prefHeight="26.0" prefWidth="214.0" styleClass="underline-button " text="Historique des Reservations" textFill="#696666" />
-                        <Button layoutX="17.0" layoutY="42.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" styleClass="underline-button" text="Consulter les oeuvres" textFill="#696666" />
-                        <Button layoutX="21.0" layoutY="101.0" mnemonicParsing="false" onAction="#reserverNav" prefHeight="26.0" prefWidth="213.0" styleClass="underline-button" text="Réserver des expositions" textFill="#696666" />
+                        <Button layoutX="43.0" layoutY="136.0" mnemonicParsing="false" onAction="#histoClientNav" prefHeight="26.0" prefWidth="170.0" styleClass="underline-button " text="Historique des Reservations" textFill="#696666" />
+                        <Button layoutX="31.0" layoutY="76.0" mnemonicParsing="false" onAction="#reserverNav" prefHeight="26.0" prefWidth="174.0" styleClass="underline-button" text="Réserver des expositions" textFill="#696666" />
+                        <ImageView fitHeight="54.0" fitWidth="50.0" layoutX="6.0" layoutY="62.0">
+                           <image>
+                              <Image url="@../assets/icons/sculpture.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="51.0" fitWidth="46.0" layoutX="8.0" layoutY="124.0">
+                           <image>
+                              <Image url="@../assets/icons/art-gallery.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
                </children>
@@ -39,16 +48,21 @@
                <children>
                   <AnchorPane prefHeight="119.0" prefWidth="1034.0" style="-fx-background-color: ffff;">
                      <children>
-                        <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="473.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="105.0" fitWidth="94.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../assets/logo.png" />
                            </image>
                         </ImageView>
                         <Button layoutX="143.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Cours Artistique" />
-                        <Button layoutX="300.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="Les chefs d'oeuvres" />
+                        <Button layoutX="351.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="Les chefs d'oeuvres" />
                         <Button layoutX="719.0" layoutY="76.0" mnemonicParsing="false" onAction="#histoClientNav" prefHeight="26.0" prefWidth="117.0" styleClass="underline-button" text="Réservations" />
                         <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" onAction="#reserverNav" prefHeight="26.0" prefWidth="145.0" styleClass="underline-button" text="Expositions" />
                         <Button layoutX="873.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Reclamations" />
+                        <ImageView fitHeight="49.0" fitWidth="61.0" layoutX="966.0" layoutY="14.0">
+                           <image>
+                              <Image url="@../assets/icons/logout.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
                </children></HBox>
