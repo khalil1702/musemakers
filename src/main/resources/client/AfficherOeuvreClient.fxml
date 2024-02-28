@@ -21,9 +21,14 @@
             <left>
                 <VBox prefHeight="569.0" prefWidth="176.0" style="-fx-background-color: #e9d9d0;" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane prefHeight="523.0" prefWidth="248.0" style="-fx-background-color: d0d7ac;">
+                  <AnchorPane prefHeight="644.0" prefWidth="176.0" style="-fx-background-color: d0d7ac;">
                      <children>
-                        <Button fx:id="Historique_id" layoutX="26.0" layoutY="174.0" mnemonicParsing="false" onAction="#Afficherhistoriqueavis" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Historique Avis" />
+                        <Button fx:id="Historique_id" layoutX="46.0" layoutY="204.0" mnemonicParsing="false" onAction="#Afficherhistoriqueavis" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Historique Avis" />
+                        <ImageView fitHeight="33.0" fitWidth="33.0" layoutX="20.0" layoutY="201.0">
+                           <image>
+                              <Image url="@../art/history.png" />
+                           </image>
+                        </ImageView>
                      </children></AnchorPane>
              </children></VBox>
           </left>
@@ -37,7 +42,7 @@
                             <Image url="@../art/logo.png" />
                          </image>
                       </ImageView>
-                      <Button layoutX="92.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Les artistes" />
+                      <Button layoutX="92.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Cours Artistiques" />
                       <Button fx:id="button_afficher" layoutX="260.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="Les chefs d'oeuvres" />
                       <Button layoutX="719.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" styleClass="underline-button" text="Réservations" />
                       <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" styleClass="underline-button" text="Expositions" />
@@ -58,8 +63,8 @@
 
                   </children>
               </AnchorPane>
-              <ScrollPane prefHeight="535.0" prefWidth="857.0" >
-                  <VBox fx:id="exhibitionVBox" alignment="CENTER" spacing="10" >
+              <ScrollPane prefHeight="591.0" prefWidth="858.0">
+                  <VBox fx:id="exhibitionVBox" alignment="CENTER" spacing="10">
                       <!-- Articles -->
                     </VBox>
                 </ScrollPane>
