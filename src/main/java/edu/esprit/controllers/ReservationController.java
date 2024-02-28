@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -31,10 +32,12 @@ public class ReservationController {
 
     public void setExposition(Exposition exposition) {
         this.exposition = exposition;
+        String heureDebutFormatted = formatHourMinute(exposition.getHeure_debut());
+        String heureFinFormatted = formatHourMinute(exposition.getHeure_fin());
         // Set the exhibition details in the label when the exposition is set
         expositionDetailsLabel.setText("Nom de l'exposition: " + exposition.getNom() + "\n" +
-                "Date et Heure de début: " + formatDateTime(exposition.getDateDebut()) + "\n" +
-                "Date et Heure de fin: " + formatDateTime(exposition.getDateFin()) + "\n" +
+                "Date début: " +exposition.getDateDebut() + "\n" +
+                "Date fin: " + exposition.getHeure_fin() + "\n" +"Heure debut: " + heureDebutFormatted+ "\n" +"Heure fin: " + heureFinFormatted+"\n"+
                 "Thème: " + exposition.getTheme());
 
     }
@@ -75,8 +78,13 @@ public class ReservationController {
             alert.showAndWait();
         }
     }
-    private String formatDateTime(java.util.Date date) {
-        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        return dateTimeFormat.format(date);
+    private String formatHourMinute(Time time) {
+        // Extract hours and minutes from the Time object
+        int hours = time.toLocalTime().getHour();
+        int minutes = time.toLocalTime().getMinute();
+
+        // Format as "HH:mm"
+        return String.format("%02d:%02d", hours, minutes);
     }
+
 }

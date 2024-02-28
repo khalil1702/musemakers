@@ -21,11 +21,15 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -47,14 +51,18 @@ public class AfficherExposition {
     @FXML
     private ImageView imageView;
 
-    @FXML
-    private TableColumn<Exposition, String> img;
+//    @FXML
+//    private TableColumn<Exposition, String> img;
 
     @FXML
     private TableColumn<Exposition, String> nom_expo;
 
     @FXML
     private TableColumn<Exposition, String> theme;
+    @FXML
+    private TableColumn<Exposition, Time> heure_debut;
+    @FXML
+    private TableColumn<Exposition, Time> heure_fin;
     @FXML
     private ServiceExposition expo=new ServiceExposition();
     @FXML
@@ -90,7 +98,34 @@ public class AfficherExposition {
         date_debut.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
         date_fin.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
         theme.setCellValueFactory(new PropertyValueFactory<>("theme"));
-        img.setCellValueFactory(new PropertyValueFactory<>("image"));
+       // img.setCellValueFactory(new PropertyValueFactory<>("image"));
+        heure_debut.setCellValueFactory(new PropertyValueFactory<>("heure_debut"));
+        heure_fin.setCellValueFactory(new PropertyValueFactory<>("heure_fin"));
+
+        heure_debut.setCellFactory(column -> new TableCell<Exposition, Time>() {
+            @Override
+            protected void updateItem(Time time, boolean empty) {
+                super.updateItem(time, empty);
+                if (empty || time == null) {
+                    setText("");
+                } else {
+                    setText(formatHourMinute(time));
+                }
+            }
+        });
+
+        heure_fin.setCellFactory(column -> new TableCell<Exposition, Time>() {
+            @Override
+            protected void updateItem(Time time, boolean empty) {
+                super.updateItem(time, empty);
+                if (empty || time == null) {
+                    setText("");
+                } else {
+                    setText(formatHourMinute(time));
+                }
+            }
+        });
+
     }
 
     private void handleTableViewClick() {
@@ -143,8 +178,11 @@ public class AfficherExposition {
 
         // Customize the controls in the dialog for editing
         TextField nomField = new TextField(exposition.getNom());
+        TextField heureDField = new TextField(exposition.getHeure_debut().toString());
+        TextField heureFField = new TextField(exposition.getHeure_fin().toString());
         DatePicker dateDebutField = new DatePicker(exposition.getDateDebut().toLocalDate());
         DatePicker dateFinField = new DatePicker(exposition.getDateFin().toLocalDate());
+
         TextArea descriptionField = new TextArea(exposition.getDescription());
 
         // Ajout du ComboBox pour le thème
@@ -165,21 +203,27 @@ public class AfficherExposition {
         TextField imageField = new TextField(exposition.getImage());
 
         GridPane grid = new GridPane();
+        grid.setVgap(10); // Set the vertical gap between rows
+
         grid.add(new Label("Nom de l'exposition:"), 0, 0);
         grid.add(nomField, 1, 0);
         grid.add(new Label("Date Début:"), 0, 1);
         grid.add(dateDebutField, 1, 1);
-        grid.add(new Label("Date Fin:"), 0, 2);
-        grid.add(dateFinField, 1, 2);
-        grid.add(new Label("Description:"), 0, 3);
-        grid.add(descriptionField, 1, 3);
-        grid.add(themeLabel, 0, 4);
-        grid.add(themeComboBox, 1, 4);
-        grid.add(new Label("Image:"), 0, 5);
+        grid.add(new Label("heure Début:"), 0, 2); // Increase row index to add space
+        grid.add(heureDField, 1, 2); // Increase row index to add space
+        grid.add(new Label("Date Fin:"), 0, 3); // Increase row index to add space
+        grid.add(dateFinField, 1, 3); // Increase row index to add space
+        grid.add(new Label("heure fin:"), 0, 4); // Increase row index to add space
+        grid.add(heureFField, 1, 4); // Increase row index to add space
+        grid.add(new Label("Description:"), 0, 5); // Increase row index to add space
+        grid.add(descriptionField, 1, 5); // Increase row index to add space
+        grid.add(themeLabel, 0, 6); // Increase row index to add space
+        grid.add(themeComboBox, 1, 6); // Increase row index to add space
+        //grid.add(new Label("Image:"), 0, 7); // Increase row index to add space
 
         HBox imageBox = new HBox();
         imageBox.getChildren().addAll(imageField, createBrowseButton(imageField));
-        grid.add(imageBox, 1, 5);
+        grid.add(imageBox, 1, 7);
 
         dialog.getDialogPane().setContent(grid);
 
@@ -194,13 +238,32 @@ public class AfficherExposition {
                 String newDescription = descriptionField.getText();
                 String newTheme = themeComboBox.getValue(); // Utilisez le ComboBox pour obtenir la valeur du thème
                 String newImage = imageField.getText();
+                String newHeureD=heureDField.getText();
+                String newHeureF=heureFField.getText();
 
-                if (newNom.isEmpty() || dateDebutField.getValue() == null ||
+                try {
+                    LocalTime.parse(newHeureD);
+                    LocalTime.parse(newHeureF);
+                } catch (DateTimeParseException e) {
+                    showAlert("Erreur", "Format de l'heure invalide, veuillez réessayer avec cette format: (hh:mm)", Alert.AlertType.ERROR);
+                    return null;
+                }
+
+                if (newHeureD.isEmpty() || newHeureF.isEmpty()||newNom.isEmpty() || dateDebutField.getValue() == null ||
                         dateFinField.getValue() == null || newDescription.isEmpty() ||
                         newTheme == null || newImage.isEmpty()) {
                     showAlert("Erreur", "Veuillez remplir tous les champs", Alert.AlertType.ERROR);
                     return null;
                 }
+                if (!isImageFile(Paths.get(newImage))) {
+                    showAlert("Erreur", "Veuillez sélectionner un fichier image valide (png, jpg, jpeg)", Alert.AlertType.ERROR);
+                    return null;
+                }
+                // Convert String to Time
+                Time heureDebut = Time.valueOf(LocalTime.parse(newHeureD));
+                Time heureFin = Time.valueOf(LocalTime.parse(newHeureF));
+
+
 
                 LocalDate newLocalDateDebut = dateDebutField.getValue();
                 LocalDate newLocalDateFin = dateFinField.getValue();
@@ -219,6 +282,8 @@ public class AfficherExposition {
                     exposition.setNom(newNom);
                     exposition.setDateDebut(Date.valueOf(newLocalDateDebut));
                     exposition.setDateFin(Date.valueOf(newLocalDateFin));
+                    exposition.setHeure_debut(heureDebut);
+                    exposition.setHeure_debut(heureFin);
                     exposition.setDescription(newDescription);
                     exposition.setTheme(newTheme);
                     exposition.setImage(newImage);
@@ -237,6 +302,15 @@ public class AfficherExposition {
         });
 
         dialog.showAndWait();
+    }
+
+    private boolean isImageFile(Path path) {
+        try {
+            String contentType = Files.probeContentType(path);
+            return contentType != null && contentType.startsWith("image/");
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 
@@ -335,26 +409,26 @@ public class AfficherExposition {
             // Handle the exception (e.g., show an error message)
         }
     }
-@FXML
+    @FXML
     void demandeNav(ActionEvent event) throws IOException {
-    try {
-        // Load the new FXML file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/admin/demandeReser.fxml"));
-        Parent root = loader.load();
+        try {
+            // Load the new FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/admin/demandeReser.fxml"));
+            Parent root = loader.load();
 
-        // Create a new scene
-        Scene scene = new Scene(root);
+            // Create a new scene
+            Scene scene = new Scene(root);
 
-        // Get the stage from the event source (button) and set the new scene
-        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
+            // Get the stage from the event source (button) and set the new scene
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
 
-        // Show the stage
-        stage.show();
-    } catch (IOException e) {
-        e.printStackTrace();
-        // Handle the exception (e.g., show an error message)
-    }
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception (e.g., show an error message)
+        }
 
     }
     @FXML
@@ -378,9 +452,16 @@ public class AfficherExposition {
             // Handle the exception (e.g., show an error message)
         }
     }
+    private String formatHourMinute(Time time) {
+        // Extract hours and minutes from the Time object
+        int hours = time.toLocalTime().getHour();
+        int minutes = time.toLocalTime().getMinute();
 
+        // Format as "HH:mm"
+        return String.format("%02d:%02d", hours, minutes);
     }
 
+}
 
 
 

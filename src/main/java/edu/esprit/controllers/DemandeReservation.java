@@ -85,12 +85,13 @@ public class DemandeReservation {
         dateReservationColumn.setCellValueFactory(new PropertyValueFactory<>("dateReser"));
 //        etatrdv.setCellValueFactory(new PropertyValueFactory<>("accessByAdmin"));
         action.setCellFactory(column -> new TableCell<Reservation, Void>() {
-            private final Button checkButton = new Button("Check");
+            private final Button checkButton = new Button("✔");
             private final Button xButton = new Button("X");
 
             {
 
                 checkButton.setOnAction(event -> {
+                    checkButton.getStyleClass().add("edit-button");
                     Reservation reservation = getTableRow().getItem();
                     if (reservation != null && showConfirmationDialog("accepter cette reservation")) {
                         serviceReservation.acceptReservation(reservation.getIdReservation());
@@ -107,13 +108,14 @@ public class DemandeReservation {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("email envoyé avec succes");
                         alert.setHeaderText(null);
-                        alert.setContentText("L'e-mail a été envoyé avec succès à \" + toEmail");
+                        alert.setContentText("L'e-mail a été envoyé avec succès à \" "+ toEmail);
                         alert.showAndWait();
                     }
                 });
                 xButton.setOnAction(event -> {
+                    xButton.getStyleClass().add("x-button");
                     Reservation reservation = getTableRow().getItem();
-                    if (reservation != null && showConfirmationDialog("Annuler cette Reservation")) {
+                    if (reservation != null && showConfirmationDialog("X")) {
                         serviceReservation.refuserReservation(reservation.getIdReservation());
                         refreshTable();
                     }
@@ -137,8 +139,8 @@ public class DemandeReservation {
     private boolean showConfirmationDialog(String action) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
-        alert.setHeaderText("Confirmer: " + action);
-        alert.setContentText("vous voulez" + action.toLowerCase() + "?");
+        alert.setHeaderText("Confirmer la suppression" );
+        alert.setContentText("vous voulez vraiment refuser cette demande?" );
 
         Optional<ButtonType> result = alert.showAndWait();
         return result.isPresent() && result.get() == ButtonType.OK;

@@ -79,6 +79,80 @@
     -fx-background-color: #ecf0f1; /* Background color */
     -fx-padding: 10px;
 }
+.vbox-center {
+    -fx-alignment: CENTER;
+}
+
+
+
+/* rservation historique */
+
+/* style.css */
+
+/* style.css */
+
+.historique-reservation-table {
+    -fx-table-cell-border-color: derive(-fx-base, 20%);
+    -fx-table-cell-border-width: 0.5;
+}
+
+.historique-reservation-table .column-header-background {
+    -fx-background-color: #FDF2E9; /* Beige clair */
+}
+
+.historique-reservation-table .column-header,
+.historique-reservation-table .table-cell {
+    -fx-alignment: CENTER;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.historique-reservation-table .table-row-cell {
+    -fx-background-color: #FDF2E9; /* Beige foncé */
+}
+.historique-reservation-table .table-row-cell {
+    -fx-border-color: derive(-fx-base, 100%);
+    -fx-border-width:3;
+}
+
+
+
+.historique-reservation-table .table-row-cell:selected {
+    -fx-background-color: rgba(217, 183, 183, 0.78); /* Beige foncé plus clair */
+    -fx-text-fill: white;
+}
+.x-button {
+    -fx-text-fill: red; /* Set the text color to red */
+    /* Add any other styles you want for the button */
+}
+/* edit button */
+
+.edit-button {
+    -fx-background-color: rgb(131, 105, 105); /* Couleur de fond verte */
+    -fx-text-fill: #ffffff;         /* Couleur du texte blanc */
+    -fx-background-radius: 5;
+    -fx-pref-width:45;          /* Largeur préférée */
+    -fx-pref-height: 30;
+    -fx-font-size: 16px;
+
+    /* Rayon pour arrondir les coins */
+}
+.custom-font {
+    -fx-font-family: 'Dubai';
+    -fx-font-size: 30px;
+    -fx-background-color: rgb(131, 105, 105);
+    -fx-alignment: center;
+
+}
+/* Style pour les labels en gras */
+.bold-label {
+    -fx-font-weight: bold;
+}
+
+
+
+
+
 
 
 

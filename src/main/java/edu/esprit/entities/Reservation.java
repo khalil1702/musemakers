@@ -1,6 +1,7 @@
 package edu.esprit.entities;
 
 import java.net.ProtocolFamily;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Date;
@@ -128,10 +129,18 @@ public String getExpositionNom() {
     }
     public Date getExpositionDateD() {
         return exposition.getDateDebut();
-    }public Date getExpositionDateF() {
+    }
+    public Date getExpositionDateF() {
         return exposition.getDateFin();
     }
 
+    public Time getHeureDebutExpo(){
+        return exposition.getHeure_debut();
+    }
+
+    public Time getHeureFinExpo(){
+        return exposition.getHeure_fin();
+    }
 
 
 }

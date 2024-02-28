@@ -25,6 +25,7 @@ public class Main {
 
         Exposition e=new Exposition();
         User p = new User();
+        System.out.println(exposition.chercherParThemeOuNom("Art numérique","aa"));
 
         int num_exp=11;
         int num_user=5;

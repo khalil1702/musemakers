@@ -24,6 +24,7 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Set;
 
@@ -49,6 +50,7 @@ public class AfficherExpositionClient {
     // Méthode appelée lors de l'initialisation de la vue
     @FXML
     public void initialize() {
+
         // Add a ChangeListener to the nameSearchID TextField
         nameSearchID.textProperty().addListener((observable, oldValue, newValue) -> handleSearch());
 
@@ -62,13 +64,10 @@ public class AfficherExpositionClient {
 
     // Méthode pour afficher toutes les expositions
     private void displayExhibitions() {
-
         for (Exposition expo : listexpo) {
-            // Créer un HBox pour chaque exposition (to arrange components horizontally)
             HBox exhibitionBox = new HBox(10);
             exhibitionBox.setAlignment(javafx.geometry.Pos.CENTER);
 
-            // ImageView pour l'image de l'exposition
             ImageView imageView = new ImageView();
             try {
                 Image image = new Image(new File(expo.getImage()).toURI().toString());
@@ -77,66 +76,60 @@ public class AfficherExpositionClient {
                 imageView.setFitHeight(200);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                // Gérer l'exception, par exemple, définir une image par défaut
             }
 
-            // VBox pour les détails de l'exposition
             VBox detailsVBox = new VBox(5);
             detailsVBox.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
 
-            // Labels pour les détails de l'exposition
             Label nameLabel = new Label("Nom: " + expo.getNom());
-//            Label dateLabel = new Label("Date: " + formatDate(expo.getDateDebut()) + " - " + formatDate(expo.getDateFin()));
-            Label dateTimeLabel = new Label("Date d: " + formatDateTime(expo.getDateDebut()) + " - " + formatDateTime(expo.getDateFin()));
+            nameLabel.getStyleClass().addAll("bold-label");
+
+            Label dateTimeLabel = new Label("Date : " + formatDateTime(expo.getDateDebut()) + " - " + formatDateTime(expo.getDateFin()));
+            dateTimeLabel.getStyleClass().addAll("bold-label");
+
+            Label timeLabel = new Label("Heure: " +
+                    formatHourMinute(expo.getHeure_debut()) +
+                    " - " +
+                    formatHourMinute(expo.getHeure_fin()));
+            timeLabel.getStyleClass().addAll("bold-label");
 
             Label themeLabel = new Label("Thème: " + expo.getTheme());
+            themeLabel.getStyleClass().addAll("bold-label");
+
             Label descriptionLabel = new Label("Description: " + expo.getDescription());
+            descriptionLabel.getStyleClass().addAll("bold-label");
 
 
-            // Bouton pour réserver l'exposition
             Button reserveButton = new Button("Réserver");
             reserveButton.setId("btnreserverexposition");
             reserveButton.setOnAction(event -> showReservationDialog(expo));
 
-            // Ajouter les composants au VBox des détails
-            detailsVBox.getChildren().addAll(nameLabel, dateTimeLabel, themeLabel, descriptionLabel, reserveButton);
+            detailsVBox.getChildren().addAll(nameLabel, dateTimeLabel, themeLabel, descriptionLabel, timeLabel, reserveButton);
 
-            // Ajouter les composants à l'HBox principale
             exhibitionBox.getChildren().addAll(imageView, detailsVBox);
             exhibitionBox.getStyleClass().add("exhibition-box");
 
-            // Ajouter HBox à la VBox principale
             exhibitionVBox.getChildren().add(exhibitionBox);
         }
         if (listexpo.isEmpty()) {
-            // Aucune exposition trouvée, afficher un message
             Label noResultLabel = new Label("Aucune exposition trouvée.");
             exhibitionVBox.getChildren().add(noResultLabel);
-        } else {
-            // Afficher les expositions normalement
-            for (Exposition expo : listexpo) {
-                // ... (Votre code existant pour afficher chaque exposition)
-            }
         }
     }
 
-    // Méthode pour formater la date
     private String formatDateTime(java.util.Date date) {
         SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
         return dateTimeFormat.format(date);
     }
+
     private void showReservationDialog(Exposition expo) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/Reservation.fxml"));
-
-            // Load the FXML after setting the controller
             Parent root = loader.load();
 
-            // Set the exposition to the controller
             ReservationController controller = loader.getController();
             controller.setExposition(expo);
 
-            // Create a new stage (window)
             Stage stage = new Stage();
             stage.setTitle("Formulaire de Réservation");
 
@@ -148,13 +141,10 @@ public class AfficherExpositionClient {
             stage.setScene(new Scene(root));
             stage.showAndWait();
 
-            // You can refresh the exhibition display here if needed
-            // displayExhibitions();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
 
     @FXML
@@ -205,18 +195,38 @@ public class AfficherExpositionClient {
         String name = nameSearchID.getText();
 
         try {
-            Set<Exposition> searchResult = exp.chercherParThemeOuNom(theme, name);
-            listexpo = searchResult; // Update the listexpo
+            if ((theme == null || theme.isEmpty()) && (name == null || name.isEmpty())) {
+                // If both theme and name are empty, fetch all exhibitions
+                listexpo = exp.getAll();
+            } else {
+                // Otherwise, execute the search
+                Set<Exposition> searchResult = exp.chercherParThemeOuNom(theme, name);
+                listexpo.clear(); // Clear the existing list
+                listexpo.addAll(searchResult); // Update the listexpo
+            }
 
             // Clear the previous search results from exhibitionVBox
             exhibitionVBox.getChildren().clear();
 
-            // Display the search results in exhibitionVBox
+            // Display the updated listexpo in exhibitionVBox
             displayExhibitions();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+
+    ////////
+    private String formatHourMinute(Time time) {
+        // Extract hours and minutes from the Time object
+        int hours = time.toLocalTime().getHour();
+        int minutes = time.toLocalTime().getMinute();
+
+        // Format as "HH:mm"
+        return String.format("%02d:%02d", hours, minutes);
+    }
+
+
 
 
 

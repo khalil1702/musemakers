@@ -10,18 +10,19 @@ import java.util.Set;
 
 public class ServiceExposition implements IService<Exposition> {
     Connection cnx = DataSource.getInstance().getCnx();
-
     @Override
     public void ajouter(Exposition exp) throws SQLException {
-        String req = "INSERT INTO `exposition` (nom, Date_debut, Date_fin, Description, Theme, image) VALUES (?, ?, ?, ?, ?, ?)";
+        String req = "INSERT INTO `exposition` (nom, Date_debut, Heure_debut, Date_fin, Heure_fin, Description, Theme, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, exp.getNom());
             ps.setDate(2, exp.getDateDebut());
-            ps.setDate(3, exp.getDateFin());
-            ps.setString(4, exp.getDescription());
-            ps.setString(5, exp.getTheme());
-            ps.setString(6, exp.getImage());
+            ps.setTime(3, exp.getHeure_debut());
+            ps.setDate(4, exp.getDateFin());
+            ps.setTime(5, exp.getHeure_fin());
+            ps.setString(6, exp.getDescription());
+            ps.setString(7, exp.getTheme());
+            ps.setString(8, exp.getImage());
             ps.executeUpdate();
             System.out.println("Exposition ajoutée avec succès!");
 
@@ -32,16 +33,18 @@ public class ServiceExposition implements IService<Exposition> {
 
     @Override
     public void modifier(Exposition exp) throws SQLException {
-        String req = "UPDATE exposition SET nom=?, Date_debut=?, Date_fin=?, Description=?, Theme=?, image=? WHERE id_exposition=?";
+        String req = "UPDATE exposition SET nom=?, Date_debut=?, Heure_debut=?, Date_fin=?, Heure_fin=?, Description=?, Theme=?, image=? WHERE id_exposition=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, exp.getNom());
             ps.setDate(2, exp.getDateDebut());
-            ps.setDate(3, exp.getDateFin());
-            ps.setString(4, exp.getDescription());
-            ps.setString(5, exp.getTheme());
-            ps.setString(6, exp.getImage());
-            ps.setInt(7, exp.getId());
+            ps.setTime(3, exp.getHeure_debut());
+            ps.setDate(4, exp.getDateFin());
+            ps.setTime(5, exp.getHeure_fin());
+            ps.setString(6, exp.getDescription());
+            ps.setString(7, exp.getTheme());
+            ps.setString(8, exp.getImage());
+            ps.setInt(9, exp.getId());
             int line_tomodify = ps.executeUpdate();
             if (line_tomodify > 0) {
                 System.out.println("Exposition modifiée !");
@@ -53,7 +56,6 @@ public class ServiceExposition implements IService<Exposition> {
             System.out.println(e.getMessage());
         }
     }
-
     @Override
     public void supprimer(int id) throws SQLException {
         String req = "DELETE FROM exposition WHERE id_exposition=?";
@@ -83,12 +85,14 @@ public class ServiceExposition implements IService<Exposition> {
             if (res.next()) {
                 String nom = res.getString("nom");
                 Date dateDebut = res.getDate("Date_debut");
+                Time heureDebut = res.getTime("Heure_debut");
                 Date dateFin = res.getDate("Date_fin");
+                Time heureFin = res.getTime("Heure_fin");
                 String description = res.getString("Description");
                 String theme = res.getString("Theme");
                 String image = res.getString("image");
                 System.out.println("Exposition trouvée !");
-                return new Exposition(id, nom, dateDebut, dateFin, description, theme, image);
+                return new Exposition(id, nom, dateDebut, dateFin, heureDebut, heureFin, description, theme, image);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -96,6 +100,7 @@ public class ServiceExposition implements IService<Exposition> {
 
         return null;
     }
+
 
     @Override
     public Set<Exposition> getAll() throws SQLException {
@@ -107,12 +112,14 @@ public class ServiceExposition implements IService<Exposition> {
             while (res.next()) {
                 int id = res.getInt(1);
                 String nom = res.getString(2);
-                Date date_debut = res.getDate(3);
-                Date date_fin = res.getDate(4);
-                String description = res.getString(5);
-                String theme = res.getString(6);
-                String image = res.getString(7);
-                Exposition exp = new Exposition(id, nom, date_debut, date_fin, description, theme, image);
+                Date dateDebut = res.getDate("Date_debut");
+                Time heureDebut = res.getTime("Heure_debut");
+                Date dateFin = res.getDate("Date_fin");
+                Time heureFin = res.getTime("Heure_fin");
+                String description = res.getString("Description");
+                String theme = res.getString("Theme");
+                String image = res.getString("image");
+                Exposition exp = new Exposition(id, nom, dateDebut, dateFin, heureDebut, heureFin, description, theme, image);
                 expositions.add(exp);
             }
         } catch (SQLException e) {
@@ -120,6 +127,8 @@ public class ServiceExposition implements IService<Exposition> {
         }
         return expositions;
     }
+
+
 
     public Set<Exposition> chercherParThemeOuNom(String theme, String nom) throws SQLException {
         Set<Exposition> result = new HashSet<>();
@@ -131,17 +140,24 @@ public class ServiceExposition implements IService<Exposition> {
             ResultSet res = ps.executeQuery();
 
             while (res.next()) {
-                int id = res.getInt(1);
-                String expositionNom = res.getString(2);
-                Date dateDebut = res.getDate(3);
-                Date dateFin = res.getDate(4);
+                try {
+                    int id = res.getInt(1);
+                    String expositionNom = res.getString(2);
+                    Date dateDebut = res.getDate("Date_debut");
+                    Time heureDebut = res.getTime("Heure_debut");
+                    Date dateFin = res.getDate("Date_fin");
+                    Time heureFin = res.getTime("Heure_fin");
+                    String description = res.getString("Description");
+                    String themeE = res.getString("Theme");
+                    String image = res.getString("image");
 
-                String description = res.getString(5);
-                String expositionTheme = res.getString(6);
-                String image = res.getString(7);
 
-                Exposition exp = new Exposition(id, expositionNom, dateDebut, dateFin, description, expositionTheme, image);
-                result.add(exp);
+
+                    Exposition exp = new Exposition(id, expositionNom, dateDebut, dateFin, heureDebut, heureFin, description, themeE, image);
+                    result.add(exp);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -149,4 +165,17 @@ public class ServiceExposition implements IService<Exposition> {
 
         return result;
     }
+
+    private Date tryGetDate(ResultSet resultSet, int columnIndex) throws SQLException {
+        try {
+            return resultSet.getDate(columnIndex);
+        } catch (SQLException e) {
+            // Log or print a message to indicate the issue
+            System.out.println("Error getting Date from ResultSet: " + e.getMessage());
+            return null; // Return null as a placeholder for the Date
+        }
+    }
+
+
+
 }

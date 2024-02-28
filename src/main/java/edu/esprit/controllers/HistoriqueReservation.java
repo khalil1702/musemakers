@@ -14,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Optional;
 
@@ -27,14 +28,20 @@ public class HistoriqueReservation {
     @FXML
     private TableColumn<Reservation, Integer> etatrdv;
 
+
+    @FXML
+    private TableColumn<Exposition, Time> timeDebutColumn;
+    @FXML
+    private TableColumn<Exposition, Time> timeFinColumn;
+
     @FXML
     private TableColumn<Exposition, String> nomExpositionColumn;
 
     @FXML
     private TableView<Reservation> reservationTableView;
 
-    @FXML
-    private TableColumn<Exposition, String> themeExpositionColumn;
+//    @FXML
+//    private TableColumn<Exposition, String> themeExpositionColumn;
 
     @FXML
     private TableColumn<Reservation, Integer> ticketsNumberColumn;
@@ -98,9 +105,39 @@ public class HistoriqueReservation {
         // Set up the columns (you might need to adjust the properties based on your Reservation class)
         dateDebutColumn.setCellValueFactory(new PropertyValueFactory<>("expositionDateD"));
         dateFinColumn.setCellValueFactory(new PropertyValueFactory<>("expositionDateF"));
+
+        // Set up the columns (vous devrez peut-être ajuster les propriétés en fonction de votre classe Reservation)
+        timeDebutColumn.setCellValueFactory(new PropertyValueFactory<>("heureDebutExpo"));
+        timeFinColumn.setCellValueFactory(new PropertyValueFactory<>("heureFinExpo"));
+
+        timeDebutColumn.setCellFactory(column -> new TableCell<Exposition, Time>() {
+            @Override
+            protected void updateItem(Time time, boolean empty) {
+                super.updateItem(time, empty);
+                if (empty || time == null) {
+                    setText("");
+                } else {
+                    setText(formatHourMinute(time));
+                }
+            }
+        });
+
+        timeFinColumn.setCellFactory(column -> new TableCell<Exposition, Time>() {
+            @Override
+            protected void updateItem(Time time, boolean empty) {
+                super.updateItem(time, empty);
+                if (empty || time == null) {
+                    setText("");
+                } else {
+                    setText(formatHourMinute(time));
+                }
+            }
+        });
+
+
         ticketsNumberColumn.setCellValueFactory(new PropertyValueFactory<>("ticketsNumber"));
         nomExpositionColumn.setCellValueFactory(new PropertyValueFactory<>("expositionNom"));
-        themeExpositionColumn.setCellValueFactory(new PropertyValueFactory<>("expositionTheme"));
+//        themeExpositionColumn.setCellValueFactory(new PropertyValueFactory<>("expositionTheme"));
         etatrdv.setCellValueFactory(new PropertyValueFactory<>("accessByAdmin"));
 
         etatrdv.setCellFactory(column -> new TableCell<Reservation, Integer>() {
@@ -134,9 +171,11 @@ public class HistoriqueReservation {
 
 
         ticketsNumberColumn.setCellFactory(column -> new TableCell<Reservation, Integer>() {
-            private final Button editButton = new Button("modifier");
+            private final Button editButton = new Button("✎");
+
 
             {
+                editButton.getStyleClass().add("edit-button");
                 editButton.setOnAction(event -> {
                     Reservation reservation = getTableView().getItems().get(getIndex());
                     handleEditButtonAction(reservation);
@@ -171,6 +210,7 @@ public class HistoriqueReservation {
             private final Button xButton = new Button("X");
 
             {
+                xButton.getStyleClass().add("x-button");
                 xButton.setOnAction(event -> {
                     Reservation reservation = getTableView().getItems().get(getIndex());
                     handleXButtonAction(reservation);
@@ -248,6 +288,14 @@ public class HistoriqueReservation {
             e.printStackTrace();
             // Handle the exception (e.g., show an error message)
         }
+    }
+    private String formatHourMinute(Time time) {
+        // Extract hours and minutes from the Time object
+        int hours = time.toLocalTime().getHour();
+        int minutes = time.toLocalTime().getMinute();
+
+        // Format as "HH:mm"
+        return String.format("%02d:%02d", hours, minutes);
     }
 
 

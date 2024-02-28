@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="626.0" prefWidth="971.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.HistoriqueReservation">
@@ -25,7 +26,7 @@
                <children>
                   <AnchorPane prefHeight="569.0" prefWidth="189.0" style="-fx-background-color: d0d7ac;">
                      <children>
-                        <Button layoutX="21.0" layoutY="163.0" mnemonicParsing="false" onAction="#histoClientNav" prefHeight="26.0" prefWidth="214.0" styleClass="underline-button" text="Historique des Reservations" textFill="#696666" />
+                        <Button layoutX="21.0" layoutY="163.0" mnemonicParsing="false" onAction="#histoClientNav" prefHeight="26.0" prefWidth="214.0" styleClass="underline-button " text="Historique des Reservations" textFill="#696666" />
                         <Button layoutX="17.0" layoutY="42.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" styleClass="underline-button" text="Consulter les oeuvres" textFill="#696666" />
                         <Button layoutX="21.0" layoutY="101.0" mnemonicParsing="false" onAction="#reserverNav" prefHeight="26.0" prefWidth="213.0" styleClass="underline-button" text="Réserver des expositions" textFill="#696666" />
                      </children>
@@ -60,20 +61,29 @@
                             <children>
                                 <AnchorPane prefHeight="374.0" prefWidth="448.0">
                                     <children>
+                              <ImageView fitHeight="581.0" fitWidth="811.0" layoutX="-15.0" layoutY="-4.0">
+                                 <image>
+                                    <Image url="@../assets/expos/back10.jpg" />
+                                 </image>
+                              </ImageView>
                                         <AnchorPane layoutX="23.0" layoutY="14.0" prefHeight="348.0" prefWidth="607.0">
                                             <children>
-                                                <TableView fx:id="reservationTableView" layoutX="-14.0" layoutY="39.0" prefHeight="390.0" prefWidth="808.0">
+                                                <TableView fx:id="reservationTableView" layoutX="14.0" layoutY="102.0" prefHeight="388.0" prefWidth="731.0" style="-fx-background-color: #FDF2E9;" styleClass="historique-reservation-table">
                                                     <columns>
-                                                        <TableColumn fx:id="nomExpositionColumn" prefWidth="124.0000228881836" text="nom exposition" />
-                                                        <TableColumn fx:id="themeExpositionColumn" prefWidth="92.0" text="theme exposition" />
-                                                        <TableColumn fx:id="dateDebutColumn" prefWidth="115.20001220703125" text="date debut" />
-                                                        <TableColumn fx:id="dateFinColumn" prefWidth="131.19998168945312" text="date fin" />
-                                                        <TableColumn fx:id="ticketsNumberColumn" prefWidth="123.2000732421875" text="nombre tickets" />
-                                                        <TableColumn fx:id="etatrdv" minWidth="0.0" prefWidth="122.39996337890625" text="etat" />
-                                                        <TableColumn fx:id="action" prefWidth="100.0" text="action" />
+                                                        <TableColumn fx:id="nomExpositionColumn" prefWidth="95.19998168945312" text="Exposition" />
+                                                        <TableColumn fx:id="dateDebutColumn" prefWidth="107.20001220703125" text="Date debut" />
+                                                        <TableColumn fx:id="timeDebutColumn" prefWidth="105.60000610351562" text="Heure debut" />
+                                                        <TableColumn fx:id="dateFinColumn" prefWidth="90" text="Date fin" />
+                                                        <TableColumn fx:id="timeFinColumn" prefWidth="90" text="Heure fin" />
+                                                        <TableColumn fx:id="ticketsNumberColumn" prefWidth="80" text="Tickets" />
+                                                        <TableColumn fx:id="etatrdv" minWidth="0.0" prefWidth="80.7999267578125" text="Etat" />
+                                                        <TableColumn fx:id="action" prefWidth="89.59995117187498" text="Action" />
                                                     </columns>
                                                 </TableView>
-                                    <Text layoutX="43.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Historique reservation" />
+                                    <Text fill="#714747" layoutX="246.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="custom-font" text="Mes réservations" wrappingWidth="453.1900329589844">
+                                       <font>
+                                          <Font name="System Bold Italic" size="12.0" />
+                                       </font></Text>
                                             </children>
                                         </AnchorPane>
                                     </children>

@@ -56,11 +56,12 @@
                 <VBox alignment="CENTER" prefHeight="545.0" prefWidth="820.0" spacing="10">
                     <AnchorPane prefHeight="53.0" prefWidth="610.0">
                         <children>
-                            <Button fx:id="searchButton" layoutX="645.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleSearch" text="chercher" />
-                            <TextField fx:id="nameSearchID" layoutX="154.0" layoutY="14.0" promptText="Nom exposition" />
-                            <ComboBox fx:id="themeSearchID" layoutX="383.0" layoutY="14.0" promptText="Choisissez un thème">
+                            <!-- <Button fx:id="searchButton" layoutX="645.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleSearch" text="chercher" /> -->
+                            <TextField fx:id="nameSearchID" layoutX="154.0" layoutY="14.0" promptText="Nom exposition" styleClass="submit_button"/>
+                            <ComboBox fx:id="themeSearchID" styleClass="submit_button" layoutX="383.0" layoutY="14.0" promptText="Choisissez un thème">
                                 <items>
                                     <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="" /> <!-- Add an empty value for displaying all exhibitions -->
                                         <String fx:value="Peinture à l'huile" />
                                         <String fx:value="Photographie contemporaine" />
                                         <String fx:value="Sculptures abstraites" />
@@ -81,7 +82,7 @@
                         </children>
                     </AnchorPane>
                     <ScrollPane>
-                        <VBox fx:id="exhibitionVBox" alignment="CENTER" spacing="10" styleClass="exhibition-container">
+                        <VBox fx:id="exhibitionVBox" alignment="CENTER" spacing="10" styleClass="exhibition-container vbox-center">
                             <!-- This VBox will contain the exhibitions -->
                         </VBox>
                     </ScrollPane>

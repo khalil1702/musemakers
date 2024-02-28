@@ -1,6 +1,7 @@
 package edu.esprit.entities;
 
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.sql.Date;
@@ -11,33 +12,35 @@ public class Exposition {
     private String nom;
     private Date dateDebut;
     private Date dateFin;
+    private Time heure_debut;
+    private Time heure_fin;
     private String description;
     private String theme;
     private String image;
     public Exposition(){}
 
-    public Exposition(int id, String nom, Date dateDebut, Date dateFin, String description, String theme, String image) {
+    public Exposition(int id, String nom, Date dateDebut, Date dateFin, Time heure_debut, Time heure_fin, String description, String theme, String image) {
         this.id = id;
         this.nom = nom;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-        this.description =
-
-                description;
-        this.theme = theme;
-        this.image = image;
-    }
-    public Exposition( String nom, Date dateDebut, Date dateFin, String description, String theme, String image) {
-
-        this.nom = nom;
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
+        this.heure_debut = heure_debut;
+        this.heure_fin = heure_fin;
         this.description = description;
         this.theme = theme;
         this.image = image;
     }
 
-
+    public Exposition(String nom, Date dateDebut, Date dateFin, Time heure_debut, Time heure_fin, String description, String theme, String image) {
+        this.nom = nom;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.heure_debut = heure_debut;
+        this.heure_fin = heure_fin;
+        this.description = description;
+        this.theme = theme;
+        this.image = image;
+    }
 
     public int getId() {
         return id;
@@ -73,6 +76,23 @@ public class Exposition {
         this.dateFin = dateFin;
 
     }
+
+    public Time getHeure_debut() {
+        return heure_debut;
+    }
+
+    public void setHeure_debut(Time heure_debut) {
+        this.heure_debut = heure_debut;
+    }
+
+    public Time getHeure_fin() {
+        return heure_fin;
+    }
+
+    public void setHeure_fin(Time heure_fin) {
+        this.heure_fin = heure_fin;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -120,4 +140,6 @@ public class Exposition {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
+
 }

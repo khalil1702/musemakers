@@ -10,6 +10,8 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="626.0" prefWidth="971.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.FullListAdmin">
     <stylesheets>
@@ -57,9 +59,14 @@
                             <children>
                                 <AnchorPane prefHeight="374.0" prefWidth="448.0">
                                     <children>
+                              <ImageView fitHeight="523.0" fitWidth="887.0">
+                                 <image>
+                                    <Image url="@../assets/expos/back10.jpg" />
+                                 </image>
+                              </ImageView>
                                         <AnchorPane layoutX="23.0" layoutY="14.0" prefHeight="348.0" prefWidth="607.0">
                                             <children>
-                                                <TableView fx:id="reservationTableView" layoutX="-15.0" layoutY="26.0" prefHeight="434.0" prefWidth="878.0">
+                                                <TableView fx:id="reservationTableView" layoutX="-15.0" layoutY="26.0" prefHeight="434.0" prefWidth="878.0" styleClass="historique-reservation-table">
                                                     <columns>
                                                         <TableColumn fx:id="emailColumn" prefWidth="114.4000244140625" text="adresse mail client" />
                                                         <TableColumn fx:id="nomExpositionColumn" prefWidth="107.99996948242188" text="nom exposition" />
@@ -71,6 +78,11 @@
                                                         <TableColumn fx:id="etatrdv" minWidth="0.0" prefWidth="89.5999755859375" text="etat" />
                                                     </columns>
                                                 </TableView>
+                                    <Text fill="#714747" layoutX="295.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="custom-font" text="Liste des reservations" wrappingWidth="353.9900817871094">
+                                       <font>
+                                          <Font name="System Bold Italic" size="12.0" />
+                                       </font>
+                                    </Text>
                                             </children>
                                         </AnchorPane>
                                     </children>

@@ -64,8 +64,14 @@
                      <children>
                         <AnchorPane layoutX="25.0" layoutY="16.0" prefHeight="438.0" prefWidth="433.0" style="-fx-background-color: F8F9F9;">
                            <children>
-                              <DatePicker fx:id="startDateTimeTextField" layoutX="160.0" layoutY="61.0" prefHeight="26.0" prefWidth="170.0" />
-                              <DatePicker fx:id="endDateTimeTextField" layoutX="170.0" layoutY="113.0" prefHeight="26.0" prefWidth="146.0" />
+                              <AnchorPane layoutX="255.0" layoutY="35.0" prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <TextField fx:id="endTime" layoutX="-14.0" layoutY="112.0" prefHeight="26.0" prefWidth="12.0" />
+                                 </children>
+                              </AnchorPane>
+                              <TextField fx:id="startTime" layoutX="28.0" layoutY="146.0" prefHeight="26.0" prefWidth="12.0" />
+                              <DatePicker fx:id="endDateTimeTextField" layoutX="155.0" layoutY="109.0" prefHeight="26.0" prefWidth="146.0" />
+                              <DatePicker fx:id="startDateTimeTextField" layoutX="155.0" layoutY="69.0" prefHeight="26.0" prefWidth="170.0" />
                            </children></AnchorPane>
 
                         <ComboBox fx:id="themeID" layoutX="181.0" layoutY="312.0" promptText="Choisissez un thème" styleClass="submit_button">
@@ -84,7 +90,7 @@
                         </ComboBox>
                         <TextArea fx:id="descriptionId" layoutX="185.0" layoutY="200.0" prefHeight="98.0" prefWidth="250.0" promptText="description" />
                         <Label layoutX="61.0" layoutY="131.0" prefHeight="18.0" prefWidth="124.0" text="Date et heure de fin" />
-                        <TextField fx:id="nomExpoId" layoutX="191.0" layoutY="32.0" promptText="Entrez votre nom" />
+                        <TextField fx:id="nomExpoId" layoutX="191.0" layoutY="32.0" prefHeight="26.0" prefWidth="128.0" promptText="Entrez votre nom" />
                         <Label layoutX="46.0" layoutY="87.0" prefHeight="18.0" prefWidth="139.0" text="Date et heure de début" />
                         <Label layoutX="61.0" layoutY="36.0" text="Nom de l'exposition:" />
                         <Label layoutX="61.0" layoutY="317.0" prefHeight="18.0" prefWidth="124.0" text="Theme" />
