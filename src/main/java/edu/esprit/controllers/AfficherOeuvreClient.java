@@ -124,7 +124,7 @@ public class AfficherOeuvreClient {
             Button avisButton = new Button("Details");
             avisButton.setId("buttonavis");
             avisButton.setOnAction(event ->showAvisDialog(o));
-            avisButton.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-border-color: black;");
+            avisButton.getStyleClass().add("submit_button");
 
 
             // Ajouter les composants au VBox des détails

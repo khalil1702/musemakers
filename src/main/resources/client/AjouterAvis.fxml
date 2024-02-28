@@ -61,12 +61,12 @@
                                 </image>
                             </ImageView>
                             <children>
-                                <Button fx:id="button_ajouter" layoutX="533.0" layoutY="440.0" mnemonicParsing="false" onAction="#submitAvis" prefHeight="34.0" prefWidth="157.0" styleClass="submit_button" text="Ajouter Avis" />
-                                <Label layoutX="415.0" layoutY="35.0" prefHeight="18.0" prefWidth="124.0" text="Votre Note:" />
+                                <Button fx:id="button_ajouter" layoutX="533.0" layoutY="440.0" mnemonicParsing="false" onAction="#submitAvis" prefHeight="34.0" prefWidth="157.0" styleClass="round-button" text="Ajouter Avis" />
+                                <Label layoutX="415.0" layoutY="35.0" prefHeight="18.0" prefWidth="124.0" text="Votre Note:"  />
                         <TextArea fx:id="comment_id" layoutX="506.0" layoutY="211.0" prefHeight="95.0" prefWidth="163.0" />
                         <DatePicker fx:id="dateex_id" layoutX="506.0" layoutY="111.0" prefHeight="26.0" prefWidth="163.0" />
                         <Label layoutX="402.0" layoutY="115.0" prefHeight="18.0" prefWidth="124.0" text="Date Experience :" />
-                        <ChoiceBox fx:id="note_id" layoutX="506.0" layoutY="31.0" prefHeight="26.0" prefWidth="163.0" />
+                        <ChoiceBox fx:id="note_id" layoutX="506.0" layoutY="31.0" prefHeight="26.0" prefWidth="163.0" styleClass="submit_button" />
                         <Label layoutX="402.0" layoutY="211.0" prefHeight="18.0" prefWidth="124.0" text="Votre Avis :" />
                         <ImageView fx:id="image_id" fitHeight="161.0" fitWidth="176.0" layoutX="74.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
                                 <HBox spacing="10" />

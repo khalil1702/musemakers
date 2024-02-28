@@ -167,6 +167,7 @@ public class AjouterAvis {
     public void setImage(Image image) {
         image_id.setImage(image);
     }
+
     @FXML
     private void submitAvis(ActionEvent event) {
         try {

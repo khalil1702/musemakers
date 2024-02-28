@@ -52,12 +52,13 @@
                                 <Button layoutX="873.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Reclamations" />
                             </children>
                         </AnchorPane>
-                    </children></HBox>
+                    </children>
+                </HBox>
             </top>
             <center>
                 <AnchorPane prefHeight="534.0" prefWidth="665.0" BorderPane.alignment="CENTER">
                     <children>
-                        <AnchorPane layoutY="7.0" prefHeight="497.0" prefWidth="790.0" style="-fx-background-color: ffff;">
+                        <AnchorPane layoutY="7.0" prefHeight="497.0" prefWidth="790.0" style="-fx-background-color: ffff;" stylesheets="@../style.css">
                      <children>
                          <ImageView fitHeight="95.0" fitWidth="807.0" layoutY="429.0">
                              <image>

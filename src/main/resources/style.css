@@ -42,3 +42,18 @@
     -fx-background-color: #B3A4C9; /* Background color */
     -fx-padding: 10px;
 }
+.round-button{
+    -fx-background-radius: 30;
+    -fx-background-color: black;
+    -fx-text-fill: white ;
+}
+
+.round-button:hover {
+    -fx-background-color: #D0D7AC;
+    -fx-text-fill: white ;
+}
+
+.round-button:pressed {
+    -fx-background-color: #D0D7AC;
+    -fx-text-fill: white ;
+}
