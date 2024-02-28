@@ -22,12 +22,12 @@ public class MainFx extends Application {
           //  Parent root= FXMLLoader.load(getClass().getResource("/AfficherCourFront.fxml"));
            
            // Parent root=FXMLLoader.load(getClass().getResource("/AfficherCourFrontNV.fxml"));
+             Parent root=FXMLLoader.load(getClass().getResource("/FrontFront.fxml"));
 
 
+          // Parent root=FXMLLoader.load(getClass().getResource("/AjouterCourNV.fxml"));
 
-           Parent root=FXMLLoader.load(getClass().getResource("/AjouterCourNV.fxml"));
-
-          // Parent root=FXMLLoader.load(getClass().getResource("/AjouterAtelierNV.fxml"));
+           //Parent root=FXMLLoader.load(getClass().getResource("/AjouterAtelierNV.fxml"));
 
 
 

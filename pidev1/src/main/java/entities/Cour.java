@@ -1,5 +1,9 @@
 package entities;
 
+import com.mysql.cj.conf.StringProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -7,9 +11,9 @@ public class Cour {
     private int id_cours;
     private String titre_cours;
     private String description_cours;
-        private LocalDate dateDebut_cours;
+    private LocalDate dateDebut_cours;
     private LocalDate dateFin_cours;
-    private User user ;
+    private User user;
 
     public Cour() {
     }
@@ -93,4 +97,8 @@ public class Cour {
 
                 '}';
     }
+
 }
+
+
+

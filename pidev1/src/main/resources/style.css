@@ -47,3 +47,18 @@
     -fx-background-color: #D0D7AC; /* Bleu clair enfoncé */
     -fx-text-fill: #000000; /* Bleu roi pour le texte */
 }
+/* Styles pour les boutons représentant les cours sous forme d'icônes */
+.icon-button {
+    -fx-background-color: transparent; /* Fond transparent */
+    -fx-padding: 5px; /* Ajoute un espace autour de l'icône */
+}
+
+.icon-button:hover {
+    -fx-background-color: #e0e0e0; /* Couleur de fond au survol */
+}
+
+/* Styles pour les icônes à l'intérieur des boutons */
+.icon-button .icon {
+    -fx-fill: #333; /* Couleur de l'icône */
+    -fx-font-size: 24px; /* Taille de l'icône */
+}
