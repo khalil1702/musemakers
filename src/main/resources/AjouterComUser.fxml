@@ -70,9 +70,7 @@
                                 <Text fx:id="erreurImageLabel" layoutX="369.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                         <Label layoutX="42.0" layoutY="109.0" text="Commentaire contenu :" />
                         <TextField fx:id="contenuCommentaireTF" alignment="TOP_LEFT" layoutX="42.0" layoutY="138.0" prefHeight="62.0" prefWidth="207.0" promptText="Commentaire" />
-                        <Button fx:id="supp" layoutX="42.0" layoutY="211.0" mnemonicParsing="false" onAction="#supprimer" styleClass="round-button" stylesheets="@style.css" text="Supprimer" />
-                        <Button fx:id="mod" layoutX="121.0" layoutY="211.0" mnemonicParsing="false" onAction="#modifier" styleClass="round-button" stylesheets="@style.css" text="Modifier" />
-                        <Button fx:id="ajout" layoutX="196.0" layoutY="211.0" mnemonicParsing="false" onAction="#ajouter" styleClass="round-button" stylesheets="@style.css" text="Ajouter" />
+                        <Button fx:id="ajout" layoutX="168.0" layoutY="214.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="26.0" prefWidth="83.0" styleClass="round-button" stylesheets="@style.css" text="Ajouter" />
                         <TextField fx:id="searchTF" layoutX="393.0" layoutY="29.0" promptText="Search" />
                         <ImageView fitHeight="24.0" fitWidth="18.0" layoutX="372.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
                            <image>

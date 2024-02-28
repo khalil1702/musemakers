@@ -120,74 +120,7 @@ public class AjouterComUser {
             throw new RuntimeException(e);
         }
     }
-ServiceUser us = new ServiceUser();
-    @FXML
-    void modifier(ActionEvent event) throws IOException {
-        // Obtenez le commentaire sélectionné dans la table
-        Commentaire c = ListViewCommentaire.getSelectionModel().getSelectedItem();
-        User userAdd= us.getOneById(2);
-        if (c != null && reclamation.getUser().equals(userAdd)) {
-            // Obtenez une instance de la réclamation que vous souhaitez associer
-            Reclamation r = null;
-            try {
-                r = rs.getOneById(reclamation.getIdRec()); // Remplacez 35 par l'ID de la réclamation appropriée
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-            String contenuCom = contenuCommentaireTF.getText();
 
-            // Ajouter le contrôle de saisie ici
-            if (contenuCom.length() > 50) {
-                System.out.println("Vous avez dépassé 50 caractères.");
-                return;
-            } else if (contenuCom.isEmpty()) {
-                System.out.println("Le contenu du commentaire est vide.");
-                return;
-            }
-
-            // Associez la réclamation au commentaire
-            c.setReclamation(r);
-            // Mettez à jour le contenu du commentaire avec le texte du TextField
-            c.setContenuCom(contenuCom);
-            c.setDateCom(new Date(System.currentTimeMillis()));
-
-            // Check if the message has been modified
-            String censoredMessage = censorBadWords(contenuCom);
-            if (!contenuCom.equals(censoredMessage)) {
-                System.out.println("Votre commentaire contient des mots interdits.");
-                return;
-            } else {
-                // Convert symbols to emojis in the censored message
-                String emojiMessage = convertSymbolsToEmojis(censoredMessage);
-                contenuCom.equals(emojiMessage);
-                System.out.println("Votre commentaire a été modifié avec succès.");
-            }
-
-            try {
-                // Appelez la méthode modifier pour mettre à jour le commentaire dans la base de données
-                cs.modifier(c);
-                // Rafraîchir les données de la table
-                ShowCommentaire();
-            } catch (SQLException e) {
-                throw new RuntimeException("Erreur lors de la modification du commentaire", e);
-            }
-        }
-    }
-
-    @FXML
-    void supprimer(ActionEvent event) throws IOException {
-        // Obtenez le commentaire sélectionné dans la ListView
-        Commentaire c = ListViewCommentaire.getSelectionModel().getSelectedItem();
-
-        if (c != null) {
-            try {
-                cs.supprimer(c.getIdCom());
-                ShowCommentaire(); // Rafraîchir les données de la table
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
 
     private void displayCommentaireInfo(Commentaire c) {
         contenuCommentaireTF.setText(c.getContenuCom());

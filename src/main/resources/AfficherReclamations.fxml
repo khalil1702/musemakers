@@ -23,8 +23,7 @@
                     <children>
                         <AnchorPane prefHeight="534.0" prefWidth="230.0" style="-fx-background-color: d0d7ac;">
                             <children>
-                                <Button fx:id="exit" layoutX="13.0" layoutY="175.0" mnemonicParsing="false" onAction="#exit" prefHeight="52.0" prefWidth="166.0" style="-fx-background-color: transparante;" text="Voir Vos Reclamation" underline="true" />
-                        <Button fx:id="rec" layoutX="16.0" layoutY="149.0" mnemonicParsing="false" onAction="#exit" style="-fx-background-color: transparante;" text="Voir toutes les Reclamation" underline="true" />
+                                <Button fx:id="exit" layoutX="32.0" layoutY="111.0" mnemonicParsing="false" onAction="#exit" prefHeight="52.0" prefWidth="166.0" style="-fx-background-color: transparante;" text="Voir Vos Reclamation" underline="true" />
                             </children></AnchorPane>
                     </children>
                 </VBox>

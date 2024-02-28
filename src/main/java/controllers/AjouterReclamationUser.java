@@ -278,5 +278,22 @@ public class AjouterReclamationUser {
             }
         });
     }
+    @FXML
+    void back(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AccueilUser.fxml"));
+        Parent root = loader.load();
+
+        // Créer une nouvelle scène
+        Scene scene = new Scene(root);
+
+        // Configurer la nouvelle scène dans une nouvelle fenêtre
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.setTitle("Reclamations");
+
+        // Afficher la nouvelle fenêtre
+        stage.show();
     }
+
+}
 

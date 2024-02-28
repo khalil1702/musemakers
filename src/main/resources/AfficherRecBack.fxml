@@ -26,7 +26,15 @@
                     <children>
                         <AnchorPane prefHeight="523.0" prefWidth="248.0" style="-fx-background-color: d0d7ac;">
                      <children>
-                        <Button fx:id="rec" layoutX="49.0" layoutY="132.0" mnemonicParsing="false" onAction="#rec" style="-fx-background-color: transparante;" text="Gérer les Reclamation" underline="true" />
+                        <Button fx:id="retour" layoutX="-20.0" layoutY="-7.0" mnemonicParsing="false" onAction="#retour" prefHeight="58.0" prefWidth="82.0" style="-fx-background-color: transparant;">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/backkk.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                      </children></AnchorPane>
                     </children>
                 </VBox>
