@@ -59,32 +59,32 @@
             <center>
                 <AnchorPane prefHeight="534.0" prefWidth="665.0" BorderPane.alignment="CENTER">
                     <children>
-                        <AnchorPane layoutY="4.0" prefHeight="512.0" prefWidth="807.0" style="-fx-background-color: ffff;">
+                        <AnchorPane layoutY="3.0" prefHeight="512.0" prefWidth="807.0" style="-fx-background-color: ffff;">
                             <children>
-                        <ImageView fitHeight="95.0" fitWidth="807.0" layoutY="429.0">
+                        <ImageView fitHeight="522.0" fitWidth="216.0" layoutX="591.0" layoutY="4.0">
                            <image>
-                              <Image url="@../art/fond1.jpg" />
+                              <Image url="@../art/fond2.png" />
                            </image>
                         </ImageView>
-                                <Label layoutX="26.0" layoutY="239.0" prefHeight="18.0" prefWidth="124.0" text="Prix:" />
-                                <Label layoutX="26.0" layoutY="352.0" prefHeight="18.0" prefWidth="139.0" text="Date de creation:" />
-                                <Label layoutX="26.0" layoutY="22.0" text="Nom de l'oeuvre:" />
-                                <Label layoutX="19.0" layoutY="122.0" prefHeight="18.0" prefWidth="124.0" text="Categorie:" />
-                                <Button fx:id="button_ajouter" layoutX="335.0" layoutY="379.0" mnemonicParsing="false" onAction="#add" prefHeight="34.0" prefWidth="157.0" styleClass="round-button" text="Ajouter Oeuvre" />
-                                <Label layoutX="369.0" layoutY="13.0" prefHeight="18.0" prefWidth="124.0" text="Description:" />
-                                <Button fx:id="browseButton" layoutX="381.0" layoutY="281.0" mnemonicParsing="false" onAction="#browseImage" styleClass="browseButton" text="télecharger image" textFill="#4b4747" />
-                        <TextField fx:id="Nom_id" layoutX="23.0" layoutY="48.0" />
-                        <ChoiceBox fx:id="categorie_id" layoutX="22.0" layoutY="148.0" prefWidth="150.0" styleClass="submit_button" />
-                        <TextField fx:id="prix_id" layoutX="23.0" layoutY="268.0" />
-                        <DatePicker fx:id="date_id" layoutX="21.0" layoutY="383.0" prefHeight="26.0" prefWidth="150.0" />
-                        <TextField fx:id="image_id" layoutX="381.0" layoutY="244.0" promptText="image" />
-                        <Text fx:id="erreurDescriptionLabel" layoutX="375.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="266.936767578125" />
-                        <Text fx:id="erreurDateLabel" layoutX="22.0" layoutY="426.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                        <Text fx:id="erreurprix" layoutX="22.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                        <Text fx:id="erreurNomLabel" layoutX="23.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                        <Text fx:id="erreurCategorieLabel" layoutX="23.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                        <Text fx:id="erreurImageLabel" layoutX="377.0" layoutY="324.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                        <TextArea fx:id="description_id" layoutX="377.0" layoutY="33.0" prefHeight="112.0" prefWidth="262.0" />
+                                <Label layoutX="26.0" layoutY="284.0" prefHeight="18.0" prefWidth="124.0" text="Prix:" />
+                                <Label layoutX="18.0" layoutY="387.0" prefHeight="18.0" prefWidth="139.0" text="Date de creation:" />
+                                <Label layoutX="26.0" layoutY="49.0" text="Nom de l'oeuvre:" />
+                                <Label layoutX="26.0" layoutY="160.0" prefHeight="18.0" prefWidth="124.0" text="Categorie:" />
+                                <Button fx:id="button_ajouter" layoutX="325.0" layoutY="404.0" mnemonicParsing="false" onAction="#add" prefHeight="34.0" prefWidth="157.0" styleClass="round-button" text="Ajouter Oeuvre" />
+                                <Label layoutX="306.0" layoutY="14.0" prefHeight="18.0" prefWidth="124.0" text="Description:" />
+                                <Button fx:id="browseButton" layoutX="302.0" layoutY="281.0" mnemonicParsing="false" onAction="#browseImage" styleClass="browseButton" text="télecharger image" textFill="#4b4747" />
+                        <TextField fx:id="Nom_id" layoutX="22.0" layoutY="67.0" />
+                        <ChoiceBox fx:id="categorie_id" layoutX="22.0" layoutY="194.0" prefWidth="150.0" styleClass="submit_button" />
+                        <TextField fx:id="prix_id" layoutX="22.0" layoutY="306.0" />
+                        <DatePicker fx:id="date_id" layoutX="20.0" layoutY="408.0" prefHeight="26.0" prefWidth="150.0" />
+                        <TextField fx:id="image_id" layoutX="302.0" layoutY="243.0" promptText="image" />
+                        <Text fx:id="erreurDescriptionLabel" layoutX="304.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="266.936767578125" />
+                        <Text fx:id="erreurDateLabel" layoutX="23.0" layoutY="457.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
+                        <Text fx:id="erreurprix" layoutX="23.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
+                        <Text fx:id="erreurNomLabel" layoutX="23.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
+                        <Text fx:id="erreurCategorieLabel" layoutX="23.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
+                        <Text fx:id="erreurImageLabel" layoutX="302.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
+                        <TextArea fx:id="description_id" layoutX="306.0" layoutY="45.0" prefHeight="112.0" prefWidth="262.0" />
                             </children>
                         </AnchorPane>
                     </children>

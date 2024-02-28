@@ -50,16 +50,16 @@
             </top>
             <center>
                 
-                <AnchorPane prefHeight="534.0" prefWidth="665.0" BorderPane.alignment="CENTER">
+                <AnchorPane prefHeight="502.0" prefWidth="812.0" BorderPane.alignment="CENTER">
                     <children>
-                        <AnchorPane layoutX="4.0" layoutY="9.0" prefHeight="514.0" prefWidth="822.0" style="-fx-background-color: ffff;">
+                        <AnchorPane layoutX="4.0" layoutY="9.0" prefHeight="514.0" prefWidth="801.0" style="-fx-background-color: ffff;">
                             <children>
-                                <ImageView fitHeight="95.0" fitWidth="807.0" layoutY="429.0">
-                                    <image>
-                                        <Image url="@../art/fond1.jpg" />
-                                    </image>
-                                </ImageView>
-                        <TableView fx:id="TableView" layoutX="45.0" layoutY="97.0" prefHeight="228.0" prefWidth="428.0">
+                        <ImageView fitHeight="512.0" fitWidth="216.0">
+                           <image>
+                              <Image url="@../art/fond2.png" />
+                           </image>
+                        </ImageView>
+                        <TableView fx:id="TableView" layoutX="47.0" layoutY="110.0" prefHeight="228.0" prefWidth="428.0">
                            <columns>
                               <TableColumn fx:id="commentaire_id" prefWidth="92.0" text="Commentaire" />
                               <TableColumn fx:id="dateexp_id" prefWidth="216.7999725341797" text="Date experience" />
