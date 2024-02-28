@@ -118,13 +118,6 @@ public class Reclamation {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Reclamation that)) return false;
-        return getIdRec() == that.getIdRec() && Objects.equals(getStatutRec(), that.getStatutRec());
-    }
-
 
     public String getUserNom() {
         return userNom;
@@ -134,10 +127,6 @@ public class Reclamation {
     }
     public StringProperty userNomProperty() {
         return new SimpleStringProperty(getUserNom());
-    }
-    @Override
-    public int hashCode() {
-        return Objects.hash(getIdRec(), getStatutRec());
     }
 
     public void setUser(String nomUser) {
@@ -150,5 +139,17 @@ public class Reclamation {
     // Ajoutez un accesseur pour la propriété activiteNom
     public StringProperty userNom1Property() {
         return new SimpleStringProperty(getUserNom1());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Reclamation that)) return false;
+        return getIdRec() == that.getIdRec() && Objects.equals(getUserNom(), that.getUserNom()) && Objects.equals(getUser(), that.getUser()) && Objects.equals(getDescriRec(), that.getDescriRec()) && Objects.equals(getDateRec(), that.getDateRec()) && Objects.equals(getCategorieRec(), that.getCategorieRec()) && Objects.equals(getStatutRec(), that.getStatutRec());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUserNom(), getIdRec(), getUser(), getDescriRec(), getDateRec(), getCategorieRec(), getStatutRec());
     }
 }

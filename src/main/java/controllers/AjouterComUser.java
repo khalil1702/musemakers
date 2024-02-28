@@ -2,13 +2,19 @@ package controllers;
 
 import entities.Commentaire;
 import entities.Reclamation;
+import entities.User;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import service.CommentaireService;
 import service.ReclamationService;
+import service.ServiceUser;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -27,13 +33,7 @@ public class AjouterComUser {
     private TextField searchTF;
 
     @FXML
-    private TableColumn<?, ?> CvContenu;
-
-    @FXML
-    private TableColumn<?, ?> CvDate;
-
-    @FXML
-    private TableView<Commentaire> TableViewCommentaire;
+    private ListView<Commentaire> ListViewCommentaire;
 
     @FXML
     private Button ajout;
@@ -68,9 +68,9 @@ public class AjouterComUser {
     }
 
     public void initialize() throws IOException {
-        TableViewCommentaire.setOnMouseClicked(event -> {
+        ListViewCommentaire.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) { // Vérifie si c'est un simple clic
-                Commentaire selectedCommentaire = (Commentaire) TableViewCommentaire.getSelectionModel().getSelectedItem();
+                Commentaire selectedCommentaire = ListViewCommentaire.getSelectionModel().getSelectedItem();
                 if (selectedCommentaire != null) {
                     // Afficher les informations de la séance sélectionnée dans le formulaire
                     displayCommentaireInfo(selectedCommentaire);
@@ -94,7 +94,7 @@ public class AjouterComUser {
         Commentaire c = new Commentaire();
         Reclamation r = null ; // Remplacez 1 par l'ID de la réclamation appropriée
         try {
-            r = rs.getOneById(178);
+            r = rs.getOneById(reclamation.getIdRec());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -120,16 +120,17 @@ public class AjouterComUser {
             throw new RuntimeException(e);
         }
     }
-
+ServiceUser us = new ServiceUser();
     @FXML
     void modifier(ActionEvent event) throws IOException {
         // Obtenez le commentaire sélectionné dans la table
-        Commentaire c = TableViewCommentaire.getSelectionModel().getSelectedItem();
-        if (c != null) {
+        Commentaire c = ListViewCommentaire.getSelectionModel().getSelectedItem();
+        User userAdd= us.getOneById(2);
+        if (c != null && reclamation.getUser().equals(userAdd)) {
             // Obtenez une instance de la réclamation que vous souhaitez associer
             Reclamation r = null;
             try {
-                r = rs.getOneById(178); // Remplacez 35 par l'ID de la réclamation appropriée
+                r = rs.getOneById(reclamation.getIdRec()); // Remplacez 35 par l'ID de la réclamation appropriée
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -175,8 +176,8 @@ public class AjouterComUser {
 
     @FXML
     void supprimer(ActionEvent event) throws IOException {
-        // Obtenez le commentaire sélectionné dans la TableView
-        Commentaire c = TableViewCommentaire.getSelectionModel().getSelectedItem();
+        // Obtenez le commentaire sélectionné dans la ListView
+        Commentaire c = ListViewCommentaire.getSelectionModel().getSelectedItem();
 
         if (c != null) {
             try {
@@ -214,10 +215,8 @@ public class AjouterComUser {
             commentaire.setContenuCom(emojiMessage);
         });
 
-        CvContenu.setCellValueFactory(new PropertyValueFactory<>("ContenuCom"));
-        CvDate.setCellValueFactory(new PropertyValueFactory<>("DateCom"));
+        ListViewCommentaire.setItems(FXCollections.observableArrayList(CommentaireList));
 
-        TableViewCommentaire.setItems(FXCollections.observableArrayList(CommentaireList));
     }
 
     private String censorBadWords(String text) {
@@ -244,7 +243,23 @@ public class AjouterComUser {
                 searchResult.add(commentaire);
             }
         }
-        // Mettre à jour la TableView avec les résultats de la recherche
-        TableViewCommentaire.setItems(FXCollections.observableArrayList(searchResult));
+        // Mettre à jour la ListView avec les résultats de la recherche
+        ListViewCommentaire.setItems(FXCollections.observableArrayList(searchResult));
+    }
+    @FXML
+    void back(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReclamations.fxml"));
+        Parent root = loader.load();
+
+        // Créer une nouvelle scène
+        Scene scene = new Scene(root);
+
+        // Configurer la nouvelle scène dans une nouvelle fenêtre
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.setTitle("Reclamations");
+
+        // Afficher la nouvelle fenêtre
+        stage.show();
     }
 }

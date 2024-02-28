@@ -80,11 +80,11 @@ public class Commentaire {
 
     @Override
     public String toString() {
-        return "Commentaire{" +
-                "reclamation=" + (reclamation != null? reclamation.getIdRec() : "null")+
-                ", DateCom=" + DateCom +
-                ", ContenuCom='" + ContenuCom + '\'' +
-                '}';
+        return " Nom du client : " + reclamation.getUser().getNom_user() + '\n' +
+                " reclamation : " + reclamation.getDescriRec() + '\n' +
+                " Commentaire : " + ContenuCom + '\n' +
+                " Date : " + DateCom ;
+
     }
 
     public String getUserNom() {

@@ -2,6 +2,7 @@ package service;
 
 import entities.Commentaire;
 import entities.Reclamation;
+import entities.User;
 import utils.DataSource;
 
 import java.sql.*;
@@ -85,6 +86,10 @@ public class CommentaireService implements IService<Commentaire>{
             if (rst.next()) {
                 c = new Commentaire();
                 c.setIdCom(rst.getInt("idCom"));
+                Reclamation r = new Reclamation();
+                ReclamationService rs = new ReclamationService();
+                r=rs.getOneById(rst.getInt("IdRec"));
+                c.setReclamation(r);
                 // Vous devez récupérer l'objet Reclamation associé à partir de la base de données
                 c.setDateCom(rst.getDate("DateCom"));
                 c.setContenuCom(rst.getString("ContenuCom"));
@@ -96,12 +101,16 @@ public class CommentaireService implements IService<Commentaire>{
     public List<Commentaire> getAll() throws SQLException {
         List<Commentaire> commentaires = new ArrayList<>();
         String requete = "SELECT * FROM commentaire";
+        ReclamationService rs = new ReclamationService();
 
         ste = cnx.createStatement();
         ResultSet rst = ste.executeQuery(requete);
         while (rst.next()) {
             Commentaire c = new Commentaire();
             c.setIdCom(rst.getInt("idCom"));
+            Reclamation rec = new Reclamation();
+            rec = rs.getOneById(rst.getInt("idRec"));
+            c.setReclamation(rec);
             // Vous devez récupérer l'objet Reclamation associé à partir de la base de données
             c.setDateCom(rst.getDate("DateCom"));
             c.setContenuCom(rst.getString("ContenuCom"));
@@ -111,7 +120,27 @@ public class CommentaireService implements IService<Commentaire>{
         return commentaires;
     }
 
+    public List<Commentaire> getCommentairesForReclamation(Reclamation reclamation) throws SQLException {
+        // Utilisez une requête SQL pour récupérer les commentaires associés à la réclamation donnée
+        String query = "SELECT * FROM commentaire WHERE idRec = ?";
+        List<Commentaire> commentaires = new ArrayList<>();
 
+             PreparedStatement preparedStatement = cnx.prepareStatement(query);
+            preparedStatement.setInt(1, reclamation.getIdRec());
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Commentaire commentaire = new Commentaire();
+                    commentaire.setIdCom(resultSet.getInt("idCom"));
+                    commentaire.setReclamation(reclamation);
+                    commentaire.setContenuCom(resultSet.getString("ContenuCom"));
+                    commentaire.setDateCom(resultSet.getDate("DateCom"));
+                    // Ajoutez le commentaire à la liste
+                    commentaires.add(commentaire);
+                }
+            }
+
+        return commentaires;
+    }
 
 
 }

@@ -3,10 +3,16 @@ package controllers;
 import entities.Reclamation;
 import entities.User;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import service.ReclamationService;
 import service.ServiceUser;
 
@@ -45,7 +51,22 @@ public class AfficherRecBack {
     private TextField stat;
     @FXML
     private Button supprimer;
+    @FXML
+    private ComboBox<String> StatutCB;
     public void initialize() throws IOException {
+        ObservableList<String> options = FXCollections.observableArrayList(
+                "En cours", "Resolue", "Fermer"
+        );
+        StatutCB.setItems(options);
+        TableViewRecB.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) { // Vérifie si c'est un simple clic
+                Reclamation selectedReclamation = TableViewRecB.getSelectionModel().getSelectedItem();
+                if (selectedReclamation != null) {
+                    // Afficher les informations de la séance sélectionnée dans le formulaire
+                    displayActiviteInfo(selectedReclamation);
+                }
+            }
+        });
         ShowReclamation();
 
     }
@@ -61,16 +82,65 @@ public class AfficherRecBack {
         }
 
         User userAdd = su.getOneById(2); // Assurez-vous que cette méthode retourne l'utilisateur correct
-
         List<Reclamation> filteredRecList = new ArrayList<>();
 
         for (Reclamation r : RecList) {
-            if (r.getUser().equals(userAdd)) {
-                r.setUserNom(userAdd.getNom_user()); // Assurez-vous que getNom() retourne le nom de l'utilisateur
+            User user = su.getOneById(r.getUser().getId_user()); // Récupérer l'utilisateur associé à la réclamation
+            if (user != null) {
+                r.setUserNom(user.getNom_user()); // Assurez-vous que getNom_user() retourne le nom de l'utilisateur
                 filteredRecList.add(r);
             }
         }
+        TableColumn<Reclamation, Void> commentColumn = new TableColumn<>("Commenter");
+        commentColumn.setCellFactory(param -> new TableCell<Reclamation, Void>() {
+            private final Button commentButton = new Button("Commenter");
 
+            {
+                commentButton.setOnAction(event -> {
+                    Reclamation reclamation = getTableView().getItems().get(getIndex());
+                    //Reclamation reclamation = getItem();
+                    // Logique pour ouvrir une autre interface
+                    Reclamation selectedReclamation = TableViewRecB.getSelectionModel().getSelectedItem();
+                    if (selectedReclamation != null) {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterComAdmin.fxml"));
+                        Parent root = null;
+                        try {
+                            root = loader.load();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        AjouterComAdmin ajouterComAdmin = loader.getController();
+                        ajouterComAdmin.setReclamation(selectedReclamation);
+                        Scene scene = new Scene(root);
+                        Stage stage = new Stage();
+                        stage.setScene(scene);
+                        stage.setTitle("Ajouter un commentaire");
+                        stage.show();
+                    } else {
+                        // Afficher un message d'erreur si aucune réclamation n'est sélectionnée
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Erreur");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Veuillez sélectionner une réclamation pour ajouter un commentaire.");
+                        alert.showAndWait();
+                    }
+                    // Code pour afficher l'interface AjouterComAdmin avec cette réclamation
+                    // Assurez-vous d'implémenter cette logique
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(commentButton);
+                }
+            }
+        });
+
+        TableViewRecB.getColumns().add(commentColumn);
         CvNom.setCellValueFactory(new PropertyValueFactory<>("userNom"));
         CvDescri.setCellValueFactory(new PropertyValueFactory<>("descriRec"));
         CvDate.setCellValueFactory(new PropertyValueFactory<>("DateRec"));
@@ -83,21 +153,20 @@ public class AfficherRecBack {
     }
 
 
-
-
     @FXML
     private void modifier(ActionEvent event) throws SQLException {
         Reclamation selectedRec = (Reclamation) TableViewRecB.getSelectionModel().getSelectedItem();
         if (selectedRec != null) {
             // Change status here, for example:
-            selectedRec.setStatutRec(stat.getText()); // get new status from TextField
-
+            //selectedRec.setStatutRec(stat.getText()); // get new status from TextField
+            selectedRec.setStatutRec(StatutCB.getValue());
             // Update in database
             rs.modifier(selectedRec);
 
             // Refresh table view
             try {
                 ShowReclamation();
+                TableViewRecB.refresh();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -119,5 +188,27 @@ public class AfficherRecBack {
                 throw new RuntimeException(e);
             }
         }
+    }
+    private void displayActiviteInfo(Reclamation r) {
+        StatutCB.setValue(r.getStatutRec());
+
+
+    }
+
+    @FXML
+    void rec(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherRecBack.fxml"));
+        Parent root = loader.load();
+
+        // Créer une nouvelle scène
+        Scene scene = new Scene(root);
+
+        // Configurer la nouvelle scène dans une nouvelle fenêtre
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.setTitle(" Gérer les Reclamations ");
+
+        // Afficher la nouvelle fenêtre
+        stage.show();
     }
 }

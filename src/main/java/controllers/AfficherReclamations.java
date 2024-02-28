@@ -91,19 +91,7 @@ public class AfficherReclamations {
         // Ajouter les données triées (et filtrées) à la ListView
         ListViewRec.setItems(sortedData);
 
-        // Définir la cellFactory personnalisée pour afficher les réclamations
-       /* ListViewRec.setCellFactory(param -> new ListCell<>() {
-            @Override
-            protected void updateItem(Reclamation item, boolean empty) {
-                super.updateItem(item, empty);
 
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText("Nom du client: " + item.getUserNom1() + "\nCatégorie: " + item.getCategorieRec() + "\nDescription: " + item.getDescriRec() + "\nDate: " + item.getDateRec()+ "\nStatut: " + item.getStatutRec());
-                }
-            }
-        });*/
         // Ajoutez ceci à votre méthode initialize() après l'initialisation de la cellFactory
         ListViewRec.setCellFactory(param -> new ListCell<>() {
             @Override
@@ -122,14 +110,13 @@ public class AfficherReclamations {
                         Reclamation reclamation = getItem();
                         // Logique pour ouvrir une autre interface
                         try {
-                            /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterComUser.fxml"));
-                            Parent root = loader.load();
-                            // Vous pouvez accéder au contrôleur de la nouvelle interface si nécessaire
-                            AjouterComUser controller = loader.getController();*/
+
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterComUser.fxml"));
                             Parent root = loader.load();
-                            AjouterComUser controller = loader.getController();
-                            controller.setReclamation(reclamation); // Passer la réclamation au contrôleur de la nouvelle interface
+                            // Obtenir le contrôleur de la nouvelle interface
+                            AjouterComUser ajouterComUser = loader.getController();
+                            System.out.println("Passage de reclamation au contrôleur AjouterComUserController : " + reclamation.getDescriRec());
+                            ajouterComUser.setReclamation(reclamation); // Passer la réclamation au contrôleur de la nouvelle interface
 
                             // Créer une nouvelle scène
                             Scene scene = new Scene(root);
@@ -151,7 +138,7 @@ public class AfficherReclamations {
                     // Ajouter le texte à gauche et le bouton à droite dans un conteneur HBox
                     // Créer un conteneur HBox pour disposer le bouton à droite et le texte à gauche
                     HBox hbox = new HBox();
-                    hbox.getChildren().addAll(new Label("Nom du client: " + item.getUserNom1() + "\nCatégorie: " + item.getCategorieRec() + "\nDescription: " + item.getDescriRec() + "\nDate: " + item.getDateRec()+ "\nStatut: " + item.getStatutRec()), button);
+                    hbox.getChildren().addAll(new Label("Nom du client : " + item.getUserNom1() + "\nCatégorie : " + item.getCategorieRec() + "\nDescription : " + item.getDescriRec() + "\nDate : " + item.getDateRec()), button);
                     hbox.setAlignment(Pos.CENTER_LEFT); // Aligner le texte à gauche
                     hbox.setSpacing(170); // Espace entre le texte et le bouton
 
@@ -178,4 +165,6 @@ public class AfficherReclamations {
         // Afficher la nouvelle fenêtre
         stage.show();
     }
+
+
 }
