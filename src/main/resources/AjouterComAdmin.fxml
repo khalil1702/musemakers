@@ -32,18 +32,18 @@
             <top>
                 <HBox prefHeight="110.0" prefWidth="1034.0" styleClass="navbar_admin" BorderPane.alignment="CENTER">
                     <children>
-                        <AnchorPane prefHeight="119.0" prefWidth="1034.0" style="-fx-background-color: ffff;">
+                        <AnchorPane prefHeight="110.0" prefWidth="1071.0" style="-fx-background-color: ffff;">
                             <children>
-                                <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="473.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="50.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@img/logo.png" />
                                     </image>
                                 </ImageView>
-                                <Button layoutX="143.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: transparent;" styleClass="underline-button" text="Les artistes" underline="true" />
-                                <Button fx:id="button_afficher" layoutX="300.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" style="-fx-background-color: transparent;" styleClass="underline-button" text="Les chefs d'oeuvres" underline="true" />
-                                <Button layoutX="719.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: transparent;" styleClass="underline-button" text="Réservations" underline="true" />
-                                <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" style="-fx-background-color: transparent;" styleClass="underline-button" text="Expositions" underline="true" />
-                                <Button layoutX="873.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: transparent;" styleClass="underline-button" text="Reclamations" />
+                                <Button layoutX="177.0" layoutY="42.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: transparent;" styleClass="underline-button" text="Les artistes" underline="true" />
+                                <Button fx:id="button_afficher" layoutX="349.0" layoutY="42.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" style="-fx-background-color: transparent;" styleClass="underline-button" text="Les chefs d'oeuvres" underline="true" />
+                                <Button layoutX="722.0" layoutY="42.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: transparent;" styleClass="underline-button" text="Réservations" underline="true" />
+                                <Button layoutX="546.0" layoutY="42.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" style="-fx-background-color: transparent;" styleClass="underline-button" text="Expositions" underline="true" />
+                                <Button layoutX="885.0" layoutY="42.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: transparent;" styleClass="underline-button" text="Reclamations" />
                             </children>
                         </AnchorPane>
                     </children></HBox>

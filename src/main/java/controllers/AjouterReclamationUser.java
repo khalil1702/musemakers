@@ -102,7 +102,7 @@ public class AjouterReclamationUser {
     @FXML
     void ajouter(ActionEvent event) throws IOException {
         Reclamation r=new Reclamation();
-        User userAdd= su.getOneById(1);
+        User userAdd= su.getOneById(3);
         String descriRec = descriRecTF.getText();
 
         // Ajouter le contrôle de saisie ici
@@ -231,7 +231,7 @@ public class AjouterReclamationUser {
             throw new RuntimeException(e);
         }
 
-        User userAdd = su.getOneById(1);
+        User userAdd = su.getOneById(3);
         List<Reclamation> filteredRecList = new ArrayList<>();
 
         for (Reclamation r : RecList) {
