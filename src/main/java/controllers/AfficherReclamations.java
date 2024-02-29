@@ -80,6 +80,9 @@ public class AfficherReclamations {
                     return true; // Le filtre correspond à la catégorie
                 } else if (reclamation.getDescriRec().toLowerCase().contains(lowerCaseFilter)) {
                     return true; // Le filtre correspond à la description
+
+                }else if (reclamation.getNom_user().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
                 }
                 return false; // Aucune correspondance
             });

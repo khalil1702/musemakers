@@ -7,7 +7,9 @@ import utils.DataSource;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CommentaireService implements IService<Commentaire>{
     private Connection cnx;
@@ -18,17 +20,17 @@ public class CommentaireService implements IService<Commentaire>{
         cnx = DataSource.getInstance().getCnx();
     }
 
-   @Override
+    @Override
     public void ajouter(Commentaire c)throws SQLException {
         String requete = "INSERT INTO commentaire (idCom, idRec, DateCom, ContenuCom) VALUES (?, ?, ?, ?)";
 
-            pst = cnx.prepareStatement(requete);
-            pst.setInt(1, c.getIdCom());
-            pst.setInt(2, c.getReclamation().getIdRec());
-            pst.setDate(3, new java.sql.Date(c.getDateCom().getTime()));
-            pst.setString(4, c.getContenuCom());
-            pst.executeUpdate();
-            System.out.println("Commentaire ajouté !");
+        pst = cnx.prepareStatement(requete);
+        pst.setInt(1, c.getIdCom());
+        pst.setInt(2, c.getReclamation().getIdRec());
+        pst.setDate(3, new java.sql.Date(c.getDateCom().getTime()));
+        pst.setString(4, c.getContenuCom());
+        pst.executeUpdate();
+        System.out.println("Commentaire ajouté !");
 
     }
 
@@ -68,10 +70,10 @@ public class CommentaireService implements IService<Commentaire>{
     public void supprimer(int id) throws SQLException{
         String requete = "DELETE FROM commentaire WHERE idCom = ?";
 
-            pst = cnx.prepareStatement(requete);
-            pst.setInt(1, id);
-            pst.executeUpdate();
-            System.out.println("Commentaire supprimé !");
+        pst = cnx.prepareStatement(requete);
+        pst.setInt(1, id);
+        pst.executeUpdate();
+        System.out.println("Commentaire supprimé !");
 
     }
 
@@ -80,20 +82,20 @@ public class CommentaireService implements IService<Commentaire>{
         Commentaire c = null;
         String requete = "SELECT * FROM commentaire WHERE idCom = ?";
 
-            pst = cnx.prepareStatement(requete);
-            pst.setInt(1, id);
-            ResultSet rst = pst.executeQuery();
-            if (rst.next()) {
-                c = new Commentaire();
-                c.setIdCom(rst.getInt("idCom"));
-                Reclamation r = new Reclamation();
-                ReclamationService rs = new ReclamationService();
-                r=rs.getOneById(rst.getInt("IdRec"));
-                c.setReclamation(r);
-                // Vous devez récupérer l'objet Reclamation associé à partir de la base de données
-                c.setDateCom(rst.getDate("DateCom"));
-                c.setContenuCom(rst.getString("ContenuCom"));
-            }
+        pst = cnx.prepareStatement(requete);
+        pst.setInt(1, id);
+        ResultSet rst = pst.executeQuery();
+        if (rst.next()) {
+            c = new Commentaire();
+            c.setIdCom(rst.getInt("idCom"));
+            Reclamation r = new Reclamation();
+            ReclamationService rs = new ReclamationService();
+            r=rs.getOneById(rst.getInt("IdRec"));
+            c.setReclamation(r);
+            // Vous devez récupérer l'objet Reclamation associé à partir de la base de données
+            c.setDateCom(rst.getDate("DateCom"));
+            c.setContenuCom(rst.getString("ContenuCom"));
+        }
 
         return c;
     }
@@ -125,22 +127,39 @@ public class CommentaireService implements IService<Commentaire>{
         String query = "SELECT * FROM commentaire WHERE idRec = ?";
         List<Commentaire> commentaires = new ArrayList<>();
 
-             PreparedStatement preparedStatement = cnx.prepareStatement(query);
-            preparedStatement.setInt(1, reclamation.getIdRec());
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    Commentaire commentaire = new Commentaire();
-                    commentaire.setIdCom(resultSet.getInt("idCom"));
-                    commentaire.setReclamation(reclamation);
-                    commentaire.setContenuCom(resultSet.getString("ContenuCom"));
-                    commentaire.setDateCom(resultSet.getDate("DateCom"));
-                    // Ajoutez le commentaire à la liste
-                    commentaires.add(commentaire);
-                }
+        PreparedStatement preparedStatement = cnx.prepareStatement(query);
+        preparedStatement.setInt(1, reclamation.getIdRec());
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                Commentaire commentaire = new Commentaire();
+                commentaire.setIdCom(resultSet.getInt("idCom"));
+                commentaire.setReclamation(reclamation);
+                commentaire.setContenuCom(resultSet.getString("ContenuCom"));
+                commentaire.setDateCom(resultSet.getDate("DateCom"));
+                // Ajoutez le commentaire à la liste
+                commentaires.add(commentaire);
             }
+        }
 
         return commentaires;
     }
 
+    public Map<String, Integer> countCommentsByCategory() throws SQLException {
+        Map<String, Integer> commentCountByCategory = new HashMap<>();
+        String query = "SELECT r.CategorieRec, COUNT(c.idCom) as count " +
+                "FROM commentaire c " +
+                "JOIN reclamation r ON c.idRec = r.idRec " +
+                "GROUP BY r.CategorieRec";
+
+        try (PreparedStatement statement = cnx.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                String category = resultSet.getString("CategorieRec");
+                int count = resultSet.getInt("count");
+                commentCountByCategory.put(category, count);
+            }
+        }
+        return commentCountByCategory;
+    }
 
 }

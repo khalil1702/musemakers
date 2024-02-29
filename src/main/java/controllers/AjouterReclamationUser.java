@@ -83,7 +83,7 @@ public class AjouterReclamationUser {
         CatRecCB.setItems(options);
         ListViewRec.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) { // Vérifie si c'est un simple clic
-                    Reclamation selectedReclamation = ListViewRec.getSelectionModel().getSelectedItem();
+                Reclamation selectedReclamation = ListViewRec.getSelectionModel().getSelectedItem();
                 if (selectedReclamation != null) {
                     // Afficher les informations de la séance sélectionnée dans le formulaire
                     displayActiviteInfo(selectedReclamation);
@@ -191,7 +191,7 @@ public class AjouterReclamationUser {
 
             Optional<ButtonType> result = alert.showAndWait();
             // Si l'utilisateur confirme la suppression, procéder
-            if (result.isPresent() && result.get() == ButtonType.OK) {
+                if (result.isPresent() && result.get() == ButtonType.OK) {
                 rs.supprimer(selectedReclamation.getIdRec());
             }
 
@@ -300,4 +300,3 @@ public class AjouterReclamationUser {
     }
 
 }
-

@@ -6,7 +6,9 @@ import utils.DataSource;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ReclamationService implements IService<Reclamation>{
     private Connection cnx ;
@@ -134,5 +136,45 @@ return  r;
         return reclamations;
     }
 
+
+    public Map<String, Integer> countReclamationsByCategory() throws SQLException {
+        Map<String, Integer> categoryCounts = new HashMap<>();
+        String req = "SELECT CategorieRec, COUNT(*) AS count FROM Reclamation GROUP BY CategorieRec";
+        try (PreparedStatement ps = cnx.prepareStatement(req);
+             ResultSet rst = ps.executeQuery()) {
+            while (rst.next()) {
+                String category = rst.getString("CategorieRec");
+                int count = rst.getInt("count");
+                categoryCounts.put(category, count);
+            }
+        }
+        return categoryCounts;
+    }
+
+    public Map<String, Integer> countReclamationsByStatus() throws SQLException {
+        Map<String, Integer> statusCounts = new HashMap<>();
+        String req = "SELECT StatutRec, COUNT(*) AS count FROM Reclamation GROUP BY StatutRec";
+        try (PreparedStatement ps = cnx.prepareStatement(req);
+             ResultSet rst = ps.executeQuery()) {
+            while (rst.next()) {
+                String status = rst.getString("StatutRec");
+                int count = rst.getInt("count");
+                statusCounts.put(status, count);
+            }
+        }
+        return statusCounts;
+    }
+
+    public Map<String, Integer> getCommentCountByCategory() throws SQLException {
+        Map<String, Integer> commentCountByCategory = new HashMap<>();
+        String query = "SELECT CategorieRec, COUNT(*) as count FROM commentaire GROUP BY CategorieRec";
+
+        Statement statement = cnx.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+        while (resultSet.next()) {
+            commentCountByCategory.put(resultSet.getString("CategorieRec"), resultSet.getInt("count"));
+        }
+        return commentCountByCategory;
+    }
 
 }

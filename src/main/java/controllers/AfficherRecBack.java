@@ -21,6 +21,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class AfficherRecBack {
     private final ReclamationService rs= new ReclamationService( );
@@ -47,7 +48,8 @@ public class AfficherRecBack {
 
     @FXML
     private Label satut;
-
+    @FXML
+    private TextField searchTF;
     @FXML
     private TextField stat;
     @FXML
@@ -69,7 +71,10 @@ public class AfficherRecBack {
             }
         });
         ShowReclamation();
-
+// Ajoutez un écouteur sur le TextField de recherche pour gérer la recherche dynamique
+        searchTF.textProperty().addListener((observable, oldValue, newValue) -> {
+            SearchRec(newValue); // Appel de la méthode de recherche avec le nouveau texte
+        });
     }
 
 
@@ -233,4 +238,28 @@ public class AfficherRecBack {
         // Afficher la nouvelle fenêtre
         stage.show();
     }
+
+    @FXML
+    void SearchRec(String searchText) {
+        List<Reclamation> searchResult = RecList.stream()
+                .filter(reclamation ->
+                        reclamation.getDescriRec().toLowerCase().contains(searchText.toLowerCase()) ||
+                                (reclamation != null &&
+                                        reclamation.getUser().getNom_user() != null &&
+                                        reclamation.getUser().getNom_user().toLowerCase().contains(searchText.toLowerCase())) ||
+                                (reclamation != null &&
+                                        reclamation.getCategorieRec() != null &&
+                                        reclamation.getCategorieRec().toLowerCase().contains(searchText.toLowerCase())) ||
+
+                                (reclamation != null &&
+                                        reclamation.getStatutRec() != null &&
+                                        reclamation.getStatutRec().toLowerCase().contains(searchText.toLowerCase()))
+                )
+                .collect(Collectors.toList());
+
+        // Mettre à jour la TableView avec les résultats de la recherche
+        TableViewRecB.setItems(FXCollections.observableArrayList(searchResult));
+    }
+
+
 }

@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class AjouterComUser {
     private final CommentaireService cs = new CommentaireService();
@@ -115,6 +116,7 @@ public class AjouterComUser {
         c.setDateCom(new Date(System.currentTimeMillis()));
 
         try {
+
             cs.ajouter(c);
             Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
             successAlert.setTitle("Message d'information");
@@ -176,15 +178,17 @@ public class AjouterComUser {
 
     // Méthode pour rechercher les commentaires en fonction du contenu
     private void searchCommentaire(String searchText) throws IOException {
-        List<Commentaire> searchResult = new ArrayList<>();
-        for (Commentaire commentaire : CommentaireList) {
-            if (commentaire.getContenuCom().toLowerCase().contains(searchText.toLowerCase())) {
-                searchResult.add(commentaire);
-            }
-        }
+        List<Commentaire> searchResult = CommentaireList.stream()
+                .filter(commentaire ->
+                        commentaire.getContenuCom().toLowerCase().contains(searchText.toLowerCase()) ||
+                                commentaire.getReclamation().getUser().getNom_user().toLowerCase().contains(searchText.toLowerCase()) ||
+                                commentaire.getReclamation().getStatutRec().toLowerCase().contains(searchText.toLowerCase()))
+                .collect(Collectors.toList());
+
         // Mettre à jour la ListView avec les résultats de la recherche
         ListViewCommentaire.setItems(FXCollections.observableArrayList(searchResult));
     }
+
     @FXML
     void back(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReclamations.fxml"));

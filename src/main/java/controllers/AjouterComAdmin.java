@@ -20,6 +20,7 @@ import service.ServiceUser;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AjouterComAdmin {
     private final CommentaireService cs = new CommentaireService();
@@ -82,7 +83,7 @@ public class AjouterComAdmin {
             try {
                 searchCommentaire(newValue); // Appel de la méthode de recherche avec le nouveau texte
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         });
     }
@@ -100,13 +101,12 @@ public class AjouterComAdmin {
 
         // Ajouter le contrôle de saisie ici
         if (contenuCom.length() > 50) {
-            new Alert(Alert.AlertType.WARNING, "Vous avez dépassé 50 caractères.", ButtonType.OK).showAndWait();
+            System.out.println("Vous avez dépassé 50 caractères.");
             return;
         } else if (contenuCom.isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "Le contenu du commentaire est vide.", ButtonType.OK).showAndWait();
+            System.out.println("Le contenu du commentaire est vide.");
             return;
         }
-
 
         c.setReclamation(r);
         c.setContenuCom(contenuCom);
@@ -125,23 +125,65 @@ public class AjouterComAdmin {
         }
     }
     ServiceUser us = new ServiceUser();
+  /*  @FXML
+    void modifier(ActionEvent event) throws IOException {
+        // Obtenez le commentaire sélectionné dans la table
+        Commentaire c = ListViewCommentaire.getSelectionModel().getSelectedItem();
+        User userAdd= us.getOneById(2);
+        if (c != null && reclamation.getUser().equals(userAdd)) {
+            // Obtenez une instance de la réclamation que vous souhaitez associer
+            Reclamation r = null;
+            try {
+                r = rs.getOneById(reclamation.getIdRec()); // Remplacez 35 par l'ID de la réclamation appropriée
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            String contenuCom = contenuCommentaireTF.getText();
+
+            // Ajouter le contrôle de saisie ici
+            if (contenuCom.length() > 50) {
+                System.out.println("Vous avez dépassé 50 caractères.");
+                return;
+            } else if (contenuCom.isEmpty()) {
+                System.out.println("Le contenu du commentaire est vide.");
+                return;
+            }
+
+            // Associez la réclamation au commentaire
+            c.setReclamation(r);
+            // Mettez à jour le contenu du commentaire avec le texte du TextField
+            c.setContenuCom(contenuCom);
+            c.setDateCom(new Date(System.currentTimeMillis()));
 
 
+            try {
+                // Appelez la méthode modifier pour mettre à jour le commentaire dans la base de données
+                cs.modifier(c);
+                // Rafraîchir les données de la table
+                ShowCommentaire();
+            } catch (SQLException e) {
+                throw new RuntimeException("Erreur lors de la modification du commentaire", e);
+            }
+        }
+    }
+*/
     @FXML
     void supprimer(ActionEvent event) throws IOException {
         // Obtenez le commentaire sélectionné dans la ListView
         Commentaire c = ListViewCommentaire.getSelectionModel().getSelectedItem();
 
         if (c != null) {
-            // Demander une confirmation à l'utilisateur (vous pouvez personnaliser cela selon vos besoins)
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation de suppression");
-            alert.setHeaderText("supprimer le commentaire");
-            alert.setContentText("Êtes-vous sûr de vouloir supprimer le commentaire sélectionnée ?");
-
-            Optional<ButtonType> result = alert.showAndWait();
             try {
-                cs.supprimer(c.getIdCom());
+                // Demander une confirmation à l'utilisateur (vous pouvez personnaliser cela selon vos besoins)
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation de suppression");
+                alert.setHeaderText("supprimer la reclamation");
+                alert.setContentText("Êtes-vous sûr de vouloir supprimer le commentaire sélectionnée ?");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                // Si l'utilisateur confirme la suppression, procéder
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                cs.supprimer(c.getIdCom()); }
 
                 ShowCommentaire(); // Rafraîchir les données de la table
             } catch (SQLException e) {
@@ -190,16 +232,15 @@ public class AjouterComAdmin {
         // Afficher la nouvelle fenêtre
         stage.show();
     }
-
-
-    // Méthode pour rechercher les commentaires en fonction du contenu
     private void searchCommentaire(String searchText) throws IOException {
-        List<Commentaire> searchResult = new ArrayList<>();
-        for (Commentaire commentaire : CommentaireList) {
-            if (commentaire.getContenuCom().toLowerCase().contains(searchText.toLowerCase())) {
-                searchResult.add(commentaire);
-            }
-        }
+        List<Commentaire> searchResult = CommentaireList.stream()
+                .filter(commentaire ->
+                        commentaire.getContenuCom().toLowerCase().contains(searchText.toLowerCase()) ||
+                                commentaire.getReclamation().getUser().getNom_user().toLowerCase().contains(searchText.toLowerCase()) ||
+                                commentaire.getReclamation().getDescriRec().toLowerCase().contains(searchText.toLowerCase()) ||
+                                commentaire.getReclamation().getStatutRec().toLowerCase().contains(searchText.toLowerCase()))
+                .collect(Collectors.toList());
+
         // Mettre à jour la ListView avec les résultats de la recherche
         ListViewCommentaire.setItems(FXCollections.observableArrayList(searchResult));
     }
