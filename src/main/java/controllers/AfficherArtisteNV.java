@@ -3,12 +3,16 @@ package controllers;
 import entities.Artiste;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import service.ServiceUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +21,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Button;
+
+import java.io.IOException;
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -46,6 +52,15 @@ public class AfficherArtisteNV {
     private Button supprimerid;
     @FXML
     private TextField searchField;
+    @FXML
+    private Button logoutid;
+    @FXML
+    private Button compteid;
+    @FXML
+    private Button retourid ;
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/musemakers";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = ""; // Mettez votre mot de passe de base de données ici
     private ObservableList<Artiste> observableList;
 
     public void initialize() {
@@ -77,7 +92,28 @@ public class AfficherArtisteNV {
                 }
             });
         });
-
+        retourid.setOnAction(event -> {
+            try {
+                // Charger l'interface AfficherClientNV.fxml
+                Parent root = FXMLLoader.load(getClass().getResource("/AccueilAdmin.fxml"));
+                Stage stage = (Stage) retourid.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        compteid.setOnAction(event -> {
+            try {
+                // Charger l'interface modifierpassword.fxml
+                Parent root = FXMLLoader.load(getClass().getResource("/ModifierPassword.fxml"));
+                Stage stage = (Stage) compteid.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         // Ajoutez les artistes à la ListView
         listView.setItems(filteredList);
 
@@ -96,6 +132,20 @@ public class AfficherArtisteNV {
                 carteproField.setText(selectedArtiste.getCartepro());
             }
         });
+        logoutid.setOnAction(event -> {
+            try {
+                // Mettre à jour le statut de tous les utilisateurs
+                updateAllUserStatusToNull();
+
+                // Charger l'interface loginAdmin.fxml
+                Parent root = FXMLLoader.load(getClass().getResource("/LoginAdmin.fxml"));
+                Stage stage = (Stage) logoutid.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         //delete
         supprimerid.setOnAction(e -> handleDelete());
@@ -103,7 +153,36 @@ public class AfficherArtisteNV {
     }
 
 
+    public void updateAllUserStatusToNull() {
+        String req = "UPDATE user SET status = NULL";
+        Connection conn = null;
+        try {
+            // Chargez le pilote JDBC
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
+            // Créez la connexion
+            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+
+            PreparedStatement pst = conn.prepareStatement(req);
+            int rowsAffected = pst.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Status updated successfully for all users");
+            } else {
+                System.out.println("No users found in the database");
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Error updating status for all users");
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     private void handleUpdate() {
         // Obtenez l'artiste sélectionné dans le TableView

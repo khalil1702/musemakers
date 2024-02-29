@@ -36,5 +36,11 @@
       <CheckBox fx:id="showPassword" layoutX="982.0" layoutY="267.0" mnemonicParsing="false" text="show " />
       <PasswordField fx:id="confirmerPasseid" layoutX="822.0" layoutY="307.0" />
       <Label layoutX="686.0" layoutY="311.0" text="confirmer mot de passe " />
+      <ImageView fitHeight="57.0" fitWidth="64.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/retourni.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="retourid" layoutX="17.0" layoutY="18.0" mnemonicParsing="false" opacity="0.0" prefHeight="57.0" prefWidth="52.0" text="Button" />
    </children>
 </AnchorPane>

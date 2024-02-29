@@ -37,12 +37,7 @@ public class LoginAdmin {
 
     @FXML
     private Label errorLabel;
-    @FXML
-    private TextField emailField;
-    @FXML
-    private Label usernameWarningLabel;
-    @FXML
-    private  Label  passwordWarningLabel;
+
     @FXML
     private TextField newPasswordField;
     @FXML
@@ -97,19 +92,20 @@ public class LoginAdmin {
             if (role != null) {
                 // Affichez le rôle de l'utilisateur après la connexion
                 System.out.println("Login effectué en tant que " + role);
+                updateUserStatus(email, "connected");
 
                 try {
                     // Définir le chemin du fichier FXML en fonction du rôle
                     String fxmlFile = "";
                     switch (role) {
                         case "Admin":
-                            fxmlFile = "/Accueil.fxml";
+                            fxmlFile = "/AccueilAdmin.fxml";
                             break;
                         case "Artiste":
-                            fxmlFile = "/InscriptionArtiste.fxml";
+                            fxmlFile = "/AccueilArtiste.fxml";
                             break;
                         case "Client":
-                            fxmlFile = "/InscriptionArtiste.fxml";
+                            fxmlFile = "/AccueilUser.fxml";
                             break;
                     }
 
@@ -176,7 +172,38 @@ public class LoginAdmin {
             ex.printStackTrace();
         }
     }
+    public void updateUserStatus(String email, String status) {
+        String req = "UPDATE user SET status = ? WHERE email = ?";
+        Connection conn = null;
+        try {
+            // Chargez le pilote JDBC
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
+            // Créez la connexion
+            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+
+            PreparedStatement pst = conn.prepareStatement(req);
+            pst.setString(1, status);
+            pst.setString(2, email);
+            int rowsAffected = pst.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Status updated successfully for user with email: " + email);
+            } else {
+                System.out.println("No user found with the email: " + email);
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Error updating status for user with email: " + email);
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
 
     public  String generateCode() {
@@ -201,35 +228,42 @@ public class LoginAdmin {
         // Convert StringBuilder to String and return
         return code.toString();
     }
-    public void modifierPassword(String email, String newPassword) {
-        String req = "UPDATE user SET mdp = ? WHERE email = ?";
-        Connection conn = null;
-        try {
-            // Assurez-vous de remplacer DB_URL, USER et PASS par vos propres valeurs
-            conn = DriverManager.getConnection("DB_URL", "USER", "PASS");
 
-            PreparedStatement pst = conn.prepareStatement(req);
-            pst.setString(1, newPassword);
-            pst.setString(2, email);
-            int rowsAffected = pst.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Password updated successfully for user with email: " + email);
-            } else {
-                System.out.println("No user found with the email: " + email);
-            }
-        } catch (SQLException e) {
-            System.out.println("Error updating password for user with email: " + email);
-            e.printStackTrace();
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
+
+        public void modifierPassword(String email, String newPassword) {
+            String req = "UPDATE user SET mdp = ? WHERE email = ?";
+            Connection conn = null;
+            try {
+                // Chargez le pilote JDBC
+                Class.forName("com.mysql.cj.jdbc.Driver");
+
+                // Créez la connexion
+                conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+
+                PreparedStatement pst = conn.prepareStatement(req);
+                pst.setString(1, newPassword);
+                pst.setString(2, email);
+                int rowsAffected = pst.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Password updated successfully for user with email: " + email);
+                } else {
+                    System.out.println("No user found with the email: " + email);
+                }
+            } catch (ClassNotFoundException | SQLException e) {
+                System.out.println("Error updating password for user with email: " + email);
+                e.printStackTrace();
+            } finally {
+                if (conn != null) {
+                    try {
+                        conn.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
-    }
+
+
 
     @FXML
     void forgotPasswordButtonAction(ActionEvent event) {

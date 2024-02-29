@@ -18,11 +18,14 @@ public class Accueil {
 
     @FXML
     private Button clientid;
+    @FXML
+    private Button retourid;
 
     @FXML
     public void initialize() {
         artisteid.setOnAction(this::loadInscriptionArtiste);
         clientid.setOnAction(this::loadInscriptionClient);
+        retourid.setOnAction(this::loadLoginAdmin);
     }
 
     private void loadInscriptionArtiste(ActionEvent event) {
@@ -32,7 +35,9 @@ public class Accueil {
     private void loadInscriptionClient(ActionEvent event) {
         loadFXML("/InscriptionClient.fxml", event);
     }
-
+    private void loadLoginAdmin(ActionEvent event) { // Ajouter cette méthode
+        loadFXML("/LoginAdmin.fxml", event);
+    }
     private void loadFXML(String fxmlPath, ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));

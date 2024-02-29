@@ -32,7 +32,7 @@ public class SendEmail {
         try {
             MimeMessage message = new MimeMessage(session);
             try {
-                message.setFrom(new InternetAddress(from, "EduHUB", "UTF-8"));
+                message.setFrom(new InternetAddress(from, "musemakers", "UTF-8"));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }

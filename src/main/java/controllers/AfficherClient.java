@@ -60,28 +60,20 @@ public class AfficherClient {
     private DatePicker dateField;
 
     @FXML
+    private ListView<Client> listViewid;
+
     public void initialize() {
-        // Obtenez la liste des clients à partir de votre service
+        // Obtenez tous les clients
+
         Set<Client> clients = getAll();
 
-        // Convertir le Set en ObservableList
-        ObservableList<Client> observableList = FXCollections.observableArrayList(clients);
+        // Ajoutez les clients à la ListView
+        listViewid.getItems().addAll(clients);
 
-        // Configurez les colonnes de la table pour afficher les propriétés correctes de l'objet Client
-        nomid.setCellValueFactory(new PropertyValueFactory<>("nom_user"));
-        prenomid.setCellValueFactory(new PropertyValueFactory<>("prenom_user"));
-        mailid.setCellValueFactory(new PropertyValueFactory<>("email"));
-        passeid.setCellValueFactory(new PropertyValueFactory<>("mdp"));
-        telid.setCellValueFactory(new PropertyValueFactory<>("num_tel"));
-        dateid.setCellValueFactory(new PropertyValueFactory<>("date_de_naissance"));
-
-        // Ajoutez les clients à la table
-        tableid.setItems(observableList);
-
-        // Ajoutez un ChangeListener à la sélection du TableView
-        tableid.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        // Ajoutez un ChangeListener à la sélection du ListView
+        listViewid.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-                Client selectedClient = tableid.getSelectionModel().getSelectedItem();
+                Client selectedClient = listViewid.getSelectionModel().getSelectedItem();
                 nomField.setText(selectedClient.getNom_user());
                 prenomField.setText(selectedClient.getPrenom_user());
                 mailField.setText(selectedClient.getEmail());
@@ -127,23 +119,23 @@ public class AfficherClient {
         return clients;
     }
     private void handleDelete() {
-        // Obtenez le client sélectionné dans le TableView
-        Client selectedClient = tableid.getSelectionModel().getSelectedItem();
+        // Obtenez le client sélectionné dans la ListView
+        Client selectedClient = listViewid.getSelectionModel().getSelectedItem();
 
         if (selectedClient != null) {
             // Supprimez le client sélectionné à l'aide de votre service
             ServiceUser serviceUser = new ServiceUser();
             serviceUser.supprimer(selectedClient.getId_user());
 
-            // Supprimez le client de la TableView
-            tableid.getItems().remove(selectedClient);
+            // Supprimez le client de la ListView
+            listViewid.getItems().remove(selectedClient);
         } else {
             System.out.println("Aucun client n'est sélectionné.");
         }
     }
     private void handleUpdate() {
-        // Obtenez le client sélectionné dans le TableView
-        Client selectedClient = tableid.getSelectionModel().getSelectedItem();
+        // Obtenez le client sélectionné dans la ListView
+        Client selectedClient = listViewid.getSelectionModel().getSelectedItem();
 
         if (selectedClient != null) {
             // Mettez à jour le client avec les informations des champs de texte
@@ -155,7 +147,6 @@ public class AfficherClient {
             selectedClient.setDate_de_naissance(java.sql.Date.valueOf(dateField.getValue()));
             System.out.println("ID du client sélectionné : " + selectedClient.getId_user());
 
-
             // Mettez à jour le client dans la base de données à l'aide de votre service
             ServiceUser serviceUser = new ServiceUser();
             if (selectedClient.getId_user() != -1) {
@@ -164,9 +155,8 @@ public class AfficherClient {
                 System.out.println("L'utilisateur sélectionné n'a pas d'ID.");
             }
 
-
-            // Mettez à jour le TableView
-            tableid.refresh();
+            // Mettez à jour la ListView
+            listViewid.refresh();
         } else {
             System.out.println("Aucun client n'est sélectionné.");
         }

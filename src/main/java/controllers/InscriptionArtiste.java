@@ -1,12 +1,19 @@
 package controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import entities.Artiste;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import service.ServiceUser;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 
@@ -34,16 +41,36 @@ public class InscriptionArtiste {
     private CheckBox showPassword;
     @FXML
     private PasswordField confirmerPasseid;
+    @FXML
+    private Button retourid;
     private FileChooser fileChooser;
     private File file;
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/musemakers";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = "";
 
     public void initialize() {
+        retourid.setOnAction(this::loadAccueil);
+
         fileChooser = new FileChooser();
         browseid.setOnAction(e -> handleBrowse());
         inscrireid.setOnAction(e -> handleInscription());
         showPassword.setOnAction(e -> handleShowPassword());
     }
-
+    private void loadAccueil(ActionEvent event) { // Ajouter cette méthode
+        loadFXML("/Accueil.fxml", event);
+    }
+    private void loadFXML(String fxmlPath, ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     private void handleBrowse() {
         file = fileChooser.showOpenDialog(null);
@@ -84,6 +111,8 @@ public class InscriptionArtiste {
         Artiste artiste = new Artiste(nom, prenom, email, password, tel, Date.valueOf(date), cartepro);
         ServiceUser serviceUser = new ServiceUser();
         serviceUser.ajouter(artiste);
+
+
     }
     private boolean passwordExists(String password) {
         // Remplacez cette requête SQL par la requête appropriée pour votre base de données
@@ -118,6 +147,7 @@ public class InscriptionArtiste {
             passeid.setDisable(false);
         }
     }
+
 }
 
 

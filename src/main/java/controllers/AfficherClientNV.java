@@ -4,10 +4,15 @@ import entities.Client;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import service.ServiceUser;
 
+import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -60,28 +65,31 @@ public class AfficherClientNV {
     private DatePicker dateField;
 
     @FXML
+    private ListView<Client> listViewid;
+    @FXML
+    private Button ajouterid;
+    @FXML
+    private Button logoutid;
+    @FXML
+    private Button compteid;
+    @FXML
+    private Button retourid ;
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/musemakers";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = ""; // Mettez votre mot de passe de base de données ici
+
     public void initialize() {
-        // Obtenez la liste des clients à partir de votre service
+        // Obtenez tous les clients
+
         Set<Client> clients = getAll();
 
-        // Convertir le Set en ObservableList
-        ObservableList<Client> observableList = FXCollections.observableArrayList(clients);
+        // Ajoutez les clients à la ListView
+        listViewid.getItems().addAll(clients);
 
-        // Configurez les colonnes de la table pour afficher les propriétés correctes de l'objet Client
-        nomid.setCellValueFactory(new PropertyValueFactory<>("nom_user"));
-        prenomid.setCellValueFactory(new PropertyValueFactory<>("prenom_user"));
-        mailid.setCellValueFactory(new PropertyValueFactory<>("email"));
-        passeid.setCellValueFactory(new PropertyValueFactory<>("mdp"));
-        telid.setCellValueFactory(new PropertyValueFactory<>("num_tel"));
-        dateid.setCellValueFactory(new PropertyValueFactory<>("date_de_naissance"));
-
-        // Ajoutez les clients à la table
-        tableid.setItems(observableList);
-
-        // Ajoutez un ChangeListener à la sélection du TableView
-        tableid.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        // Ajoutez un ChangeListener à la sélection du ListView
+        listViewid.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-                Client selectedClient = tableid.getSelectionModel().getSelectedItem();
+                Client selectedClient = listViewid.getSelectionModel().getSelectedItem();
                 nomField.setText(selectedClient.getNom_user());
                 prenomField.setText(selectedClient.getPrenom_user());
                 mailField.setText(selectedClient.getEmail());
@@ -92,10 +100,48 @@ public class AfficherClientNV {
                 dateField.setValue(localDate);
             }
         });
+        logoutid.setOnAction(event -> {
+            try {
+                // Mettre à jour le statut de tous les utilisateurs
+                updateAllUserStatusToNull();
 
+                // Charger l'interface loginAdmin.fxml
+                Parent root = FXMLLoader.load(getClass().getResource("/LoginAdmin.fxml"));
+                Stage stage = (Stage) logoutid.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        retourid.setOnAction(event -> {
+            try {
+                // Charger l'interface AfficherClientNV.fxml
+                Parent root = FXMLLoader.load(getClass().getResource("/AccueilAdmin.fxml"));
+                Stage stage = (Stage) retourid.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        compteid.setOnAction(event -> {
+            try {
+                // Charger l'interface modifierpassword.fxml
+                Parent root = FXMLLoader.load(getClass().getResource("/ModifierPassword.fxml"));
+                Stage stage = (Stage) compteid.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         //delete
         supprimerid.setOnAction(e -> handleDelete());
         modifierid.setOnAction(e -> handleUpdate());
+        ajouterid.setOnAction(e -> handleAdd());
+
+
     }
 
     public Set<Client> getAll() {
@@ -126,24 +172,62 @@ public class AfficherClientNV {
 
         return clients;
     }
+    private void handleAdd() {
+        // Obtenez les informations du formulaire
+        String nom = nomField.getText();
+        String prenom = prenomField.getText();
+        String mail = mailField.getText();
+        String passe = passeField.getText();
+        String tel = telField.getText();
+        LocalDate date = dateField.getValue();
+
+        // Vérifiez le mot de passe
+
+
+        // Vérifiez si le mot de passe existe déjà
+        ServiceUser serviceUser = new ServiceUser();
+        if (passwordExists(passe)) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Erreur d'inscription");
+            alert.setHeaderText(null);
+            alert.setContentText("Le mot de passe existe déjà.");
+            alert.showAndWait();
+            return;
+        }
+
+        // Créez un nouvel utilisateur en fonction des informations du formulaire
+        Client newUser = new Client();
+        newUser.setNom_user(nom);
+        newUser.setPrenom_user(prenom);
+        newUser.setEmail(mail);
+        newUser.setMdp(passe);
+        newUser.setNum_tel(Integer.parseInt(tel)); // Assurez-vous que le numéro de téléphone est un nombre entier
+        newUser.setDate_de_naissance(java.sql.Date.valueOf(date));
+
+        // Ajoutez le nouvel utilisateur à l'aide de votre service
+        serviceUser.ajouter(newUser);
+
+        // Ajoutez le nouvel utilisateur à la ListView
+        listViewid.getItems().add(newUser);
+    }
     private void handleDelete() {
-        // Obtenez le client sélectionné dans le TableView
-        Client selectedClient = tableid.getSelectionModel().getSelectedItem();
+        // Obtenez le client sélectionné dans la ListView
+        Client selectedClient = listViewid.getSelectionModel().getSelectedItem();
 
         if (selectedClient != null) {
             // Supprimez le client sélectionné à l'aide de votre service
             ServiceUser serviceUser = new ServiceUser();
             serviceUser.supprimer(selectedClient.getId_user());
 
-            // Supprimez le client de la TableView
-            tableid.getItems().remove(selectedClient);
+            // Supprimez le client de la ListView
+            listViewid.getItems().remove(selectedClient);
         } else {
             System.out.println("Aucun client n'est sélectionné.");
         }
     }
     private void handleUpdate() {
-        // Obtenez le client sélectionné dans le TableView
-        Client selectedClient = tableid.getSelectionModel().getSelectedItem();
+        // Obtenez le client sélectionné dans la ListView
+        Client selectedClient = listViewid.getSelectionModel().getSelectedItem();
 
         if (selectedClient != null) {
             // Mettez à jour le client avec les informations des champs de texte
@@ -155,7 +239,6 @@ public class AfficherClientNV {
             selectedClient.setDate_de_naissance(java.sql.Date.valueOf(dateField.getValue()));
             System.out.println("ID du client sélectionné : " + selectedClient.getId_user());
 
-
             // Mettez à jour le client dans la base de données à l'aide de votre service
             ServiceUser serviceUser = new ServiceUser();
             if (selectedClient.getId_user() != -1) {
@@ -164,11 +247,58 @@ public class AfficherClientNV {
                 System.out.println("L'utilisateur sélectionné n'a pas d'ID.");
             }
 
-
-            // Mettez à jour le TableView
-            tableid.refresh();
+            // Mettez à jour la ListView
+            listViewid.refresh();
         } else {
             System.out.println("Aucun client n'est sélectionné.");
+        }
+    }
+    public boolean passwordExists(String passe) {
+        String sql = "SELECT * FROM user WHERE mdp = ?";
+
+        try (Connection cnx = DriverManager.getConnection("jdbc:mysql://localhost:3306/musemakers", "root", "");
+             PreparedStatement pstmt = cnx.prepareStatement(sql)) {
+
+            pstmt.setString(1, passe);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return false;
+    }
+    public void updateAllUserStatusToNull() {
+        String req = "UPDATE user SET status = NULL";
+        Connection conn = null;
+        try {
+            // Chargez le pilote JDBC
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Créez la connexion
+            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+
+            PreparedStatement pst = conn.prepareStatement(req);
+            int rowsAffected = pst.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Status updated successfully for all users");
+            } else {
+                System.out.println("No users found in the database");
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Error updating status for all users");
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

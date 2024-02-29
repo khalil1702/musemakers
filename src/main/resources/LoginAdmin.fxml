@@ -10,8 +10,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-
 <?import javafx.scene.layout.VBox?>
+
 <AnchorPane prefHeight="626.0" prefWidth="971.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginAdmin">
    <children>
       <ImageView fitHeight="641.0" fitWidth="1129.0" layoutX="-39.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
@@ -34,13 +34,17 @@
          </styleClass></Button>
       <Label fx:id="errorLabel" layoutX="799.0" layoutY="308.0" textFill="RED" />
       <CheckBox fx:id="showid" layoutX="954.0" layoutY="278.0" mnemonicParsing="false" text="view" />
-      <Button fx:id="inscrireid" layoutX="1016.0" layoutY="574.0" mnemonicParsing="false" text="s'inscrire" />
-      <Button layoutX="707.0" layoutY="347.0" mnemonicParsing="false" text="forgot password" onAction="#forgotPasswordButtonAction" />
-      <VBox fx:id="changePasswordVBox" spacing="10" visible="false" style="-fx-background-color: white; -fx-padding: 20;">
+      <Button fx:id="inscrireid" layoutX="1016.0" layoutY="574.0" mnemonicParsing="false" stylesheets="@stylee.css" text="s'inscrire">
+         <styleClass>
+            <String fx:value="round-button" />
+            <String fx:value="submit_button" />
+         </styleClass></Button>
+      <Button layoutX="637.0" layoutY="574.0" mnemonicParsing="false" onAction="#forgotPasswordButtonAction" styleClass="round-button" stylesheets="@stylee.css" text="forgot password" />
+      <VBox fx:id="changePasswordVBox" spacing="10" style="-fx-background-color: white; -fx-padding: 20;" visible="false">
          <Label text="Change Password" />
          <TextField fx:id="newPasswordField" promptText="New Password" />
          <TextField fx:id="confirmPasswordField" promptText="Confirm Password" />
-         <Button text="Change Password" onAction="#changePasswordAction" />
+         <Button onAction="#changePasswordAction" text="Change Password" />
          <Label fx:id="passwordChangeStatusLabel" />                </VBox>
    </children>
    <effect>

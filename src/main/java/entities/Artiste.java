@@ -22,16 +22,16 @@ public class Artiste extends User {
         this.date_de_naissance = date_de_naissance;
         this.cartepro = cartepro;
     }
+    @Override
     public String toString() {
-        return "Artiste{" +
-                " nom_user='" + getNom_user()  +
-                ", prenom_user='" + getPrenom_user() + '\'' +
-                ", email='" + getEmail() + '\'' +
-                ", mdp='" + getMdp() + '\'' +
-                ", num_tel=" + num_tel +
-                ", date_de_naissance=" + date_de_naissance +
-                ", cartepro='" + cartepro + '\'' +
-                '}';
+        return
+                "Nom : '" + getNom_user() + "',\n" +
+                "Prénom : '" + getPrenom_user() + "',\n" +
+                "Email : '" + getEmail() + "',\n" +
+                "Mot de passe : '" + getMdp() + "',\n" +
+                "Numéro de téléphone : " + num_tel + ",\n" +
+                "Date de naissance : " + date_de_naissance + ",\n" +
+                "Cartepro : '" + cartepro + "'\n";
     }
     public String getCartepro() {
         return cartepro;

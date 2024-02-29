@@ -23,7 +23,15 @@
             <left>
                 <VBox prefHeight="200.0" prefWidth="230.0" styleClass="sidebar_admin" BorderPane.alignment="CENTER">
                     <children>
-                        <AnchorPane prefHeight="523.0" prefWidth="248.0" style="-fx-background-color: d0d7ac;" />
+                        <AnchorPane prefHeight="523.0" prefWidth="248.0" style="-fx-background-color: d0d7ac;">
+                     <children>
+                        <ImageView fitHeight="39.0" fitWidth="42.0" layoutX="14.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/settings.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="compteid" layoutX="8.0" layoutY="468.0" mnemonicParsing="false" opacity="0.0" prefHeight="44.0" prefWidth="52.0" text="Button" />
+                     </children></AnchorPane>
                     </children>
                 </VBox>
             </left>
@@ -43,6 +51,12 @@
                                 <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" styleClass="underline-button" text="Expositions" />
                                 <Button layoutX="873.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Reclamations" />
                         <Button layoutX="14.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Les Clients " />
+                        <ImageView fitHeight="54.0" fitWidth="71.0" layoutX="22.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/retourni.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="retourid" layoutX="22.0" layoutY="14.0" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="55.0" text="Button" />
                             </children>
                         </AnchorPane>
                     </children></HBox>
@@ -70,6 +84,12 @@
                         <Button fx:id="supprimerid" layoutX="15.0" layoutY="344.0" mnemonicParsing="false" text="supprimer" />
                         <ListView fx:id="listView" layoutX="15.0" layoutY="45.0" prefHeight="272.0" prefWidth="465.0" />
                         <TextField fx:id="searchField" layoutX="11.0" layoutY="14.0" />
+                        <ImageView fitHeight="65.0" fitWidth="67.0" layoutX="721.0" layoutY="444.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/logoutt-removebg-preview.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="logoutid" layoutX="700.0" layoutY="419.0" mnemonicParsing="false" opacity="0.0" prefHeight="94.0" prefWidth="91.0" />
                             </children>
                         </AnchorPane>
                     </children>
