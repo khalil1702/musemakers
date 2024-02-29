@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class AfficherRecBack {
     private final ReclamationService rs= new ReclamationService( );
@@ -55,7 +56,7 @@ public class AfficherRecBack {
     private ComboBox<String> StatutCB;
     public void initialize() throws IOException {
         ObservableList<String> options = FXCollections.observableArrayList(
-                "En cours", "Resolue", "Fermer"
+                "En cours", "Resolue", "Fermée"
         );
         StatutCB.setItems(options);
         TableViewRecB.setOnMouseClicked(event -> {
@@ -112,7 +113,7 @@ public class AfficherRecBack {
                         AjouterComAdmin ajouterComAdmin = loader.getController();
                         ajouterComAdmin.setReclamation(selectedReclamation);
                         Scene scene = new Scene(root);
-                        Stage stage = new Stage();
+                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         stage.setScene(scene);
                         stage.setTitle("Ajouter un commentaire");
                         stage.show();
@@ -157,11 +158,19 @@ public class AfficherRecBack {
     private void modifier(ActionEvent event) throws SQLException {
         Reclamation selectedRec = (Reclamation) TableViewRecB.getSelectionModel().getSelectedItem();
         if (selectedRec != null) {
-            // Change status here, for example:
-            //selectedRec.setStatutRec(stat.getText()); // get new status from TextField
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation de modification");
+            alert.setHeaderText("Modifier la reclamation");
+            alert.setContentText("Êtes-vous sûr de vouloir modifier la reclamation sélectionnée ?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            // Si l'utilisateur confirme la suppression, procéder
+            if (result.isPresent() && result.get() == ButtonType.OK) {
             selectedRec.setStatutRec(StatutCB.getValue());
+
             // Update in database
-            rs.modifier(selectedRec);
+            rs.modifier(selectedRec); }
 
             // Refresh table view
             try {
@@ -177,9 +186,21 @@ public class AfficherRecBack {
     @FXML
     private void supprimer(ActionEvent event) throws SQLException {
         Reclamation selectedRec = (Reclamation) TableViewRecB.getSelectionModel().getSelectedItem();
+
         if (selectedRec != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation de suppression");
+            alert.setHeaderText("Supprimer la reclamation");
+            alert.setContentText("Êtes-vous sûr de vouloir supprimer la reclamation sélectionnée ?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            // Si l'utilisateur confirme la suppression, procéder
+            if (result.isPresent() && result.get() == ButtonType.OK) {
             // Delete from database
-            rs.supprimer(selectedRec.getIdRec());
+
+            rs.supprimer(selectedRec.getIdRec()); }
+
 
             // Refresh table view
             try {
@@ -195,22 +216,7 @@ public class AfficherRecBack {
 
     }
 
-    @FXML
-    void rec(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherRecBack.fxml"));
-        Parent root = loader.load();
 
-        // Créer une nouvelle scène
-        Scene scene = new Scene(root);
-
-        // Configurer la nouvelle scène dans une nouvelle fenêtre
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.setTitle(" Gérer les Reclamations ");
-
-        // Afficher la nouvelle fenêtre
-        stage.show();
-    }
     @FXML
     void retour(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/AccueilAdmin.fxml"));

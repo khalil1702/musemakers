@@ -39,7 +39,7 @@
                     <children>
                         <AnchorPane layoutY="7.0" prefHeight="514.0" prefWidth="1034.0" style="-fx-background-color: ffff;">
                             <children>
-                        <ImageView fitHeight="583.0" fitWidth="1190.0" layoutX="-3.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="583.0" fitWidth="1052.0" layoutX="-3.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@img/InterfaceUser.png" />
                            </image>

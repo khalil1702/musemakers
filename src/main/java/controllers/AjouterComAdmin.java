@@ -113,53 +113,18 @@ public class AjouterComAdmin {
 
         try {
             cs.ajouter(c);
+            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+            successAlert.setTitle("Message d'information");
+            successAlert.setHeaderText(null);
+            successAlert.setContentText("Ajouté avec succès !");
+            successAlert.showAndWait();
             ShowCommentaire(); // Rafraîchir les données de la table
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
     ServiceUser us = new ServiceUser();
-    @FXML
-    void modifier(ActionEvent event) throws IOException {
-        // Obtenez le commentaire sélectionné dans la table
-        Commentaire c = ListViewCommentaire.getSelectionModel().getSelectedItem();
-        User userAdd= us.getOneById(2);
-        if (c != null && reclamation.getUser().equals(userAdd)) {
-            // Obtenez une instance de la réclamation que vous souhaitez associer
-            Reclamation r = null;
-            try {
-                r = rs.getOneById(reclamation.getIdRec()); // Remplacez 35 par l'ID de la réclamation appropriée
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-            String contenuCom = contenuCommentaireTF.getText();
 
-            // Ajouter le contrôle de saisie ici
-            if (contenuCom.length() > 50) {
-                System.out.println("Vous avez dépassé 50 caractères.");
-                return;
-            } else if (contenuCom.isEmpty()) {
-                System.out.println("Le contenu du commentaire est vide.");
-                return;
-            }
-
-            // Associez la réclamation au commentaire
-            c.setReclamation(r);
-            // Mettez à jour le contenu du commentaire avec le texte du TextField
-            c.setContenuCom(contenuCom);
-            c.setDateCom(new Date(System.currentTimeMillis()));
-
-
-            try {
-                // Appelez la méthode modifier pour mettre à jour le commentaire dans la base de données
-                cs.modifier(c);
-                // Rafraîchir les données de la table
-                ShowCommentaire();
-            } catch (SQLException e) {
-                throw new RuntimeException("Erreur lors de la modification du commentaire", e);
-            }
-        }
-    }
 
     @FXML
     void supprimer(ActionEvent event) throws IOException {
@@ -167,8 +132,16 @@ public class AjouterComAdmin {
         Commentaire c = ListViewCommentaire.getSelectionModel().getSelectedItem();
 
         if (c != null) {
+            // Demander une confirmation à l'utilisateur (vous pouvez personnaliser cela selon vos besoins)
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation de suppression");
+            alert.setHeaderText("supprimer le commentaire");
+            alert.setContentText("Êtes-vous sûr de vouloir supprimer le commentaire sélectionnée ?");
+
+            Optional<ButtonType> result = alert.showAndWait();
             try {
                 cs.supprimer(c.getIdCom());
+
                 ShowCommentaire(); // Rafraîchir les données de la table
             } catch (SQLException e) {
                 throw new RuntimeException(e);

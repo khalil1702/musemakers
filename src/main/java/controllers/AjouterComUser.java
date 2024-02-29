@@ -44,7 +44,7 @@ public class AjouterComUser {
     @FXML
     private Button supprimer;
 
-    private static final List<String> BAD_WORDS = Arrays.asList("Sick", "Bad", "Dump","hamouda");
+    private static final List<String> BAD_WORDS = Arrays.asList("Sick", "Bad", "Dump","khalil");
     private static final Map<String, String> EMOJI_MAP = new HashMap<>();
 
     static {
@@ -115,6 +115,11 @@ public class AjouterComUser {
 
         try {
             cs.ajouter(c);
+            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+            successAlert.setTitle("Message d'information");
+            successAlert.setHeaderText(null);
+            successAlert.setContentText("Ajouté avec succès !");
+            successAlert.showAndWait();
             ShowCommentaire(); // Rafraîchir les données de la table
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="626.0" prefWidth="981.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherRecBack">
     <stylesheets>
@@ -44,16 +43,16 @@
                     <children>
                         <AnchorPane prefHeight="119.0" prefWidth="1034.0" style="-fx-background-color: ffff;">
                             <children>
-                                <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="473.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="33.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@img/logo.png" />
                                     </image>
                                 </ImageView>
-                                <Button layoutX="143.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: transparent;" styleClass="underline-button" text="Les artistes" underline="true" />
-                                <Button fx:id="button_afficher" layoutX="300.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" style="-fx-background-color: transparent;" styleClass="underline-button" text="Les chefs d'oeuvres" underline="true" />
-                                <Button layoutX="719.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: transparent;" styleClass="underline-button" text="Réservations" underline="true" />
-                                <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" style="-fx-background-color: transparent;" styleClass="underline-button" text="Expositions" underline="true" />
-                                <Button layoutX="873.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: transparent;" styleClass="underline-button" text="Reclamations" underline="true" />
+                                <Button layoutX="175.0" layoutY="55.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: transparent;" styleClass="underline-button" text="Les artistes" underline="true" />
+                                <Button fx:id="button_afficher" layoutX="349.0" layoutY="55.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" style="-fx-background-color: transparent;" styleClass="underline-button" text="Les chefs d'oeuvres" underline="true" />
+                                <Button layoutX="711.0" layoutY="55.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: transparent;" styleClass="underline-button" text="Réservations" underline="true" />
+                                <Button layoutX="526.0" layoutY="55.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" style="-fx-background-color: transparent;" styleClass="underline-button" text="Expositions" underline="true" />
+                                <Button layoutX="871.0" layoutY="55.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: transparent;" styleClass="underline-button" text="Reclamations" underline="true" />
                             </children>
                         </AnchorPane>
                     </children></HBox>
@@ -61,15 +60,14 @@
             <center>
                 <AnchorPane prefHeight="534.0" prefWidth="665.0" BorderPane.alignment="CENTER">
                     <children>
-                        <AnchorPane layoutY="7.0" prefHeight="514.0" prefWidth="802.0" style="-fx-background-color: ffff;">
+                        <AnchorPane layoutY="-8.0" prefHeight="532.0" prefWidth="914.0" style="-fx-background-color: ffff;">
                             <children>
-                                <Text fx:id="erreurDescriptionLabel" layoutX="369.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                <Text fx:id="erreurDateLabel" layoutX="23.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                <Text fx:id="erreurprix" layoutX="22.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                <Text fx:id="erreurNomLabel" layoutX="27.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                <Text fx:id="erreurCategorieLabel" layoutX="23.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                <Text fx:id="erreurImageLabel" layoutX="369.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                        <TableView fx:id="TableViewRecB" layoutX="123.0" layoutY="68.0" prefHeight="270.0" prefWidth="626.0">
+                        <ImageView fitHeight="516.0" fitWidth="1061.0" layoutX="1.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/2.png" />
+                           </image>
+                        </ImageView>
+                        <TableView fx:id="TableViewRecB" layoutX="148.0" layoutY="67.0" prefHeight="264.0" prefWidth="623.0">
                            <columns>
                               <TableColumn fx:id="CvNom" prefWidth="78.4000244140625" text="Nom" />
                               <TableColumn fx:id="CvDescri" prefWidth="163.20001220703125" text="Description" />

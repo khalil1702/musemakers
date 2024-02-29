@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="626.0" prefWidth="981.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterComAdmin">
     <stylesheets>
@@ -54,16 +53,14 @@
                     <children>
                         <AnchorPane layoutY="7.0" prefHeight="514.0" prefWidth="802.0" style="-fx-background-color: ffff;">
                             <children>
-                                <Text fx:id="erreurDescriptionLabel" layoutX="369.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                <Text fx:id="erreurDateLabel" layoutX="23.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                <Text fx:id="erreurprix" layoutX="22.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                <Text fx:id="erreurNomLabel" layoutX="27.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                <Text fx:id="erreurCategorieLabel" layoutX="23.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                                <Text fx:id="erreurImageLabel" layoutX="369.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
+                        <ImageView fitHeight="473.0" fitWidth="848.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/2.png" />
+                           </image>
+                        </ImageView>
                         <Label layoutX="31.0" layoutY="124.0" text="Commentaire:" />
-                        <Button fx:id="ajouter" layoutX="27.0" layoutY="231.0" onAction="#ajouter" styleClass="round-button" stylesheets="@style.css" text="Ajouter" />
-                        <Button fx:id="modifier" layoutX="98.0" layoutY="231.0" onAction="#modifier" styleClass="round-button" stylesheets="@style.css" text="Modifier" />
-                        <Button fx:id="supprimer" layoutX="174.0" layoutY="231.0" onAction="#supprimer" styleClass="round-button" stylesheets="@style.css" text="Supprimer" />
+                        <Button fx:id="ajouter" layoutX="60.0" layoutY="229.0" onAction="#ajouter" prefHeight="26.0" prefWidth="70.0" styleClass="round-button" stylesheets="@style.css" text="Ajouter" />
+                        <Button fx:id="supprimer" layoutX="146.0" layoutY="229.0" onAction="#supprimer" styleClass="round-button" stylesheets="@style.css" text="Supprimer" />
                         <TextField fx:id="searchTF" layoutX="358.0" layoutY="83.0" promptText="Search" />
                         <TextField fx:id="contenuCommentaireTF" alignment="TOP_LEFT" layoutX="31.0" layoutY="154.0" prefHeight="62.0" prefWidth="213.0" promptText="Commentaire" />
                         <ListView fx:id="ListViewCommentaire" layoutX="328.0" layoutY="116.0" prefHeight="230.0" prefWidth="429.0" />

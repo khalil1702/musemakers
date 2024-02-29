@@ -58,15 +58,28 @@ public class ReclamationService implements IService<Reclamation>{
 
 
     @Override
-    public void supprimer(int idRec ) throws SQLException {
+    public void supprimer(int idRec) throws SQLException {
+        try {
+            // Supprimer d'abord les enregistrements liés de la table commentaire
+            String requeteSuppressionCommentaires = "DELETE FROM commentaire WHERE idRec=?";
+            PreparedStatement pstSuppressionCommentaires = cnx.prepareStatement(requeteSuppressionCommentaires);
+            pstSuppressionCommentaires.setInt(1, idRec);
+            pstSuppressionCommentaires.executeUpdate();
 
-            String requete = "DELETE  FROM Reclamation WHERE idRec=?";
-            PreparedStatement pst = cnx.prepareStatement(requete);
-            pst.setInt(1, idRec);
-            pst.executeUpdate();
+            // Une fois les commentaires liés supprimés, supprimer l'enregistrement de la table Reclamation
+            String requeteSuppressionReclamation = "DELETE FROM Reclamation WHERE idRec=?";
+            PreparedStatement pstSuppressionReclamation = cnx.prepareStatement(requeteSuppressionReclamation);
+            pstSuppressionReclamation.setInt(1, idRec);
+            pstSuppressionReclamation.executeUpdate();
+
             System.out.println("Reclamation supprimée!");
-
+        } catch (SQLException ex) {
+            // Gérer les exceptions
+            ex.printStackTrace(); // ou enregistrez l'erreur
+            throw ex; // relancez l'exception pour la gérer à un niveau supérieur si nécessaire
+        }
     }
+
 
     @Override
     public Reclamation getOneById(int id)throws SQLException {
