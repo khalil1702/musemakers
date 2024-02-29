@@ -75,10 +75,10 @@
                                         <Image url="@img/table.png" />
                                     </image>
                                 </ImageView>
-                                <Button fx:id="ajouter" layoutX="202.0" layoutY="334.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="26.0" prefWidth="90.0" styleClass="round-button" stylesheets="@style.css" text="Ajouter" />
-                                <TextField fx:id="descriRecTF" alignment="TOP_LEFT" layoutX="27.0" layoutY="188.0" prefHeight="109.0" prefWidth="231.0" promptText="Description" />
-                                <Button fx:id="supprimer" layoutX="14.0" layoutY="334.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="26.0" prefWidth="85.0" styleClass="round-button" stylesheets="@style.css" text="Supprimer" />
-                                <Button fx:id="modifier" layoutX="109.0" layoutY="334.0" mnemonicParsing="false" onAction="#modifier" prefHeight="26.0" prefWidth="84.0" styleClass="round-button" stylesheets="@style.css" text="Modifier" />
+                                <Button fx:id="ajouter" layoutX="15.0" layoutY="320.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="26.0" prefWidth="90.0" styleClass="round-button" stylesheets="@style.css" text="Ajouter" />
+                                <TextField fx:id="descriRecTF" alignment="TOP_LEFT" layoutX="27.0" layoutY="188.0" prefHeight="110.0" prefWidth="254.0" promptText="Description" />
+                                <Button fx:id="supprimer" layoutX="208.0" layoutY="320.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="26.0" prefWidth="85.0" styleClass="round-button" stylesheets="@style.css" text="Supprimer" />
+                                <Button fx:id="modifier" layoutX="117.0" layoutY="320.0" mnemonicParsing="false" onAction="#modifier" prefHeight="26.0" prefWidth="84.0" styleClass="round-button" stylesheets="@style.css" text="Modifier" />
                                 <ImageView fitHeight="220.0" fitWidth="389.0" layoutX="403.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@img/anbeyeb.png" />

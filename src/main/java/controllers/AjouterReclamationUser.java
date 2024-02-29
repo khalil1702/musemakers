@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import service.ReclamationService;
 import service.ServiceUser;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
@@ -106,12 +107,13 @@ public class AjouterReclamationUser {
 
         // Ajouter le contrôle de saisie ici
         if (descriRec.length() > 50) {
-            System.out.println("Vous avez dépassé 50 caractères.");
+            new Alert(Alert.AlertType.WARNING, "Vous avez dépassé 50 caractères.", ButtonType.OK).showAndWait();
             return;
         } else if (descriRec.isEmpty()) {
-            System.out.println("La description est vide.");
+            new Alert(Alert.AlertType.WARNING, "La description est vide.", ButtonType.OK).showAndWait();
             return;
         }
+
         r.setCategorieRec(CatRecCB.getValue());
         //r.setCategorieRec(CategorieRecTF.getText());
         r.setStatutRec("En cours");
@@ -142,12 +144,14 @@ public class AjouterReclamationUser {
 
             // Ajouter le contrôle de saisie ici
             if (descriRec.length() > 50) {
-                System.out.println("Vous avez dépassé 50 caractères.");
+                new Alert(Alert.AlertType.WARNING, "Vous avez dépassé 50 caractères.", ButtonType.OK).showAndWait();
                 return;
             } else if (descriRec.isEmpty()) {
-                System.out.println("La description est vide.");
+                new Alert(Alert.AlertType.WARNING, "La description est vide.", ButtonType.OK).showAndWait();
                 return;
             }
+
+
 
             // Mettez à jour les champs de la réclamation
             r.setCategorieRec(CatRecCB.getValue());

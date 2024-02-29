@@ -102,12 +102,13 @@ public class AjouterComUser {
 
         // Ajouter le contrôle de saisie ici
         if (contenuCom.length() > 50) {
-            System.out.println("Vous avez dépassé 50 caractères.");
+            new Alert(Alert.AlertType.WARNING, "Vous avez dépassé 50 caractères.", ButtonType.OK).showAndWait();
             return;
         } else if (contenuCom.isEmpty()) {
-            System.out.println("Le contenu du commentaire est vide.");
+            new Alert(Alert.AlertType.WARNING, "Le contenu du commentaire est vide.", ButtonType.OK).showAndWait();
             return;
         }
+
 
         c.setReclamation(r);
         c.setContenuCom(contenuCom);

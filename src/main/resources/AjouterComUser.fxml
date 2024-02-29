@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="626.0" prefWidth="981.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterComUser">
     <stylesheets>
@@ -80,6 +81,11 @@
                            </image>
                         </ImageView>
                         <ListView fx:id="ListViewCommentaire" layoutX="334.0" layoutY="78.0" prefHeight="298.0" prefWidth="422.0" />
+                        <Label layoutX="42.0" layoutY="18.0" prefHeight="48.0" prefWidth="233.0" text="Ajouter Commentaire :">
+                           <font>
+                              <Font name="Arial Black" size="14.0" />
+                           </font>
+                        </Label>
                             </children>
                         </AnchorPane>
                     </children>
