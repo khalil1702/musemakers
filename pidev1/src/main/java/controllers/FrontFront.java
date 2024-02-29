@@ -51,4 +51,5 @@ public class FrontFront {
             exhibitionVBox.getChildren().add(exhibitionBox);
         }
     }
+
 }
