@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.AcceuilUser"
+            prefHeight="400.0" prefWidth="600.0">
+    <?xml version="1.0" encoding="UTF-8"?>
+
+    <?import javafx.scene.control.Button?>
+    <?import javafx.scene.image.Image?>
+    <?import javafx.scene.image.ImageView?>
+    <?import javafx.scene.layout.AnchorPane?>
+
+        <children>
+            <ImageView fitHeight="659.0" fitWidth="1190.0" layoutY="-10.0" opacity="0.83" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@img/image1.png" />
+                </image>
+            </ImageView>
+            <Button layoutX="132.0" layoutY="240.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="238.0" styleClass="round-button" stylesheets="@style.css" text="Gestion Des Artistes" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@img/logo.png" />
+                </image>
+            </ImageView>
+            <Button layoutX="132.0" layoutY="381.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="238.0" styleClass="round-button" stylesheets="@style.css" text="Gestion Des Expositions" />
+            <Button layoutX="467.0" layoutY="240.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="238.0" styleClass="round-button" stylesheets="@style.css" text="Gestion Des Clients" />
+            <Button layoutX="804.0" layoutY="381.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="238.0" styleClass="round-button" stylesheets="@style.css" text="Gestion Des Oeuvres" />
+            <Button layoutX="804.0" layoutY="240.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="238.0" styleClass="round-button" stylesheets="@style.css" text="Gestion Des Reservations" />
+        </children>
+    </AnchorPane>
+
+

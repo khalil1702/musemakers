@@ -18,8 +18,7 @@ public class FrontFront {
     @FXML
     private VBox exhibitionVBox;
 
-    public void AfficherFrontFro() throws SQLException {
-    }
+
 
     @FXML
     public void initialize() {

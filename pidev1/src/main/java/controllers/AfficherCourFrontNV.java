@@ -55,13 +55,14 @@ public class AfficherCourFrontNV {
 
         @FXML
         private TableColumn<Cour, Void> colDelete;
-
+    @FXML
+    private ListView<?> listviewcour ;
         @FXML
         private TableColumn<Cour, Void> colEdit;
     private Cour cour;
 
-    private final IService<Cour> serviceCour = new ServiceCour();
-
+    private final IService<Cour> serviceCour = new ServiceCour();}
+/*
         @FXML
         void initialize() throws SQLException {
             Set<Cour> cours = serviceCour.getAll();
@@ -83,25 +84,13 @@ public class AfficherCourFrontNV {
                 }
 
             });
-
+            ShowCours();
         }
-@FXML
-void saveChanges() {
-    // Mettre à jour l'objet cour avec les nouvelles valeurs
-    cour.setTitre_cours(txtTitre.getText());
-    cour.setDescription_cours(txtDescription.getText());
-    cour.setDateDebut_cours(datePickerDebut.getValue());
-    cour.setDateFin_cours(datePickerFin.getValue());
+   /*
 
-    // Mettre à jour l'objet cour dans la base de données
-    serviceCour.modifier(cour);
-
-    // Rafraîchir le tableau
-    tableCour.refresh();
-}
 }
 
+}/*
 
 
-
-
+*/

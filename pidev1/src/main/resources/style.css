@@ -62,3 +62,22 @@
     -fx-fill: #333; /* Couleur de l'icône */
     -fx-font-size: 24px; /* Taille de l'icône */
 }
+underline-button {
+    -fx-background-color: transparent;
+    -fx-underline: true;
+}
+
+.underline-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.1); /* Optional: Add a hover effect */
+}
+/* style.css */
+.exhibition-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.exhibition-text {
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-fill: #333333;
+}

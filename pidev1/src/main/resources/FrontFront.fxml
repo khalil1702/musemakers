@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -11,60 +13,56 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
-<?import java.net.URL?>
-<AnchorPane prefHeight="626.0" prefWidth="991.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FrontFront">
+<BorderPane prefHeight="504.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FrontFront">
     <stylesheets>
         <URL value="@style.css" />
     </stylesheets>
-    <children>
-        <BorderPane prefHeight="626.0" prefWidth="971.0">
-            <left>
-                <VBox prefHeight="569.0" prefWidth="176.0" style="-fx-background-color: #e9d9d0;" BorderPane.alignment="CENTER">
+    <left>
+        <VBox prefHeight="626.0" prefWidth="176.0" style="-fx-background-color: #e9d9d0;">
+            <children>
+                <AnchorPane prefHeight="523.0" prefWidth="248.0" style="-fx-background-color: d0d7ac;">
+                    <!-- Content for the left side -->
+                </AnchorPane>
+            </children>
+        </VBox>
+    </left>
+    <center>
+        <ScrollPane prefHeight="516.0" prefWidth="602.0">
+            <VBox alignment="CENTER" maxHeight="300" maxWidth="400" spacing="10">
+                <AnchorPane prefHeight="53.0" prefWidth="610.0">
                     <children>
-                        <AnchorPane prefHeight="523.0" prefWidth="248.0" style="-fx-background-color: d0d7ac;">
-                            <children>
-                            </children></AnchorPane>
-                    </children></VBox>
-            </left>
-            <top>
-                <HBox layoutX="1034.0" layoutY="119.0" prefHeight="110.0" prefWidth="971.0" style="-fx-background-color: #dac0b1;" BorderPane.alignment="CENTER">
-                    <children>
-                        <AnchorPane prefHeight="119.0" prefWidth="1034.0" style="-fx-background-color: ffff;">
-                            <children>
-                                <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="437.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@img/logo.png" />
-                                    </image>
-                                </ImageView>
-                                <Button layoutX="92.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Les artistes" />
-                                <Button fx:id="button_afficher" layoutX="260.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="Les chefs d'oeuvres" />
-                                <Button layoutX="719.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" styleClass="underline-button" text="Réservations" />
-                                <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" styleClass="underline-button" text="Expositions" />
-                                <Button layoutX="844.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Reclamations" />
-                            </children>
-                        </AnchorPane>
-                    </children></HBox>
-            </top>
-            <center>
-                <VBox alignment="CENTER" prefHeight="545.0" prefWidth="820.0" spacing="10">
-                    <AnchorPane prefHeight="53.0" prefWidth="610.0">
-                        <children>
-
-                            <TextField fx:id="nameSearchID" layoutX="154.0" layoutY="14.0" promptText="Nom du cour" />
-                            <TextField fx:id="categorieSearchID" layoutX="358.0" layoutY="14.0" promptText="Description" />
-                            <Text fill="#b1aeae" layoutX="157.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="saisir le nom du cour " />
-                            <Text fill="#b1aeae" layoutX="364.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="saisir la description" />
-
-                        </children>
-                    </AnchorPane>
-                    <ScrollPane prefHeight="535.0" prefWidth="857.0">
-                        <VBox fx:id="exhibitionVBox" alignment="CENTER" spacing="10">
-                            <!-- Articles -->
-                        </VBox>
-                    </ScrollPane>
-                </VBox>
-            </center>
-        </BorderPane>
-    </children>
-</AnchorPane>
+                        <TextField fx:id="nameSearchID" layoutX="154.0" layoutY="14.0" promptText="Nom du cour" />
+                        <TextField fx:id="categorieSearchID" layoutX="358.0" layoutY="14.0" promptText="Description" />
+                        <Text fill="#b1aeae" layoutX="157.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="saisir le nom du cour " />
+                        <Text fill="#b1aeae" layoutX="364.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="saisir la description" />
+                    </children>
+                </AnchorPane>
+                <ScrollPane prefHeight="230.0" prefWidth="467.0" stylesheets="@style.css">
+                    <VBox fx:id="exhibitionVBox" alignment="CENTER" spacing="10">
+                        <!-- Articles -->
+                    </VBox>
+               <styleClass>
+                  <String fx:value="exhibition-label" />
+                  <String fx:value="exhibition-text" />
+               </styleClass>
+                </ScrollPane>
+            </VBox>
+        </ScrollPane>
+    </center>
+    <top>
+        <HBox prefHeight="90.0" prefWidth="910.0" style="-fx-background-color: #dac0b1;">
+            <children>
+                <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="437.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@img/logo.png" />
+                    </image>
+                </ImageView>
+                <Button layoutX="92.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="cours artistiques" />
+                <Button fx:id="button_afficher" layoutX="260.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="Les chefs d'oeuvres" />
+                <Button layoutX="719.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" styleClass="underline-button" text="Réservations" />
+                <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" styleClass="underline-button" text="Expositions" />
+                <Button layoutX="844.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Reclamations" />
+            </children>
+        </HBox>
+    </top>
+</BorderPane>
