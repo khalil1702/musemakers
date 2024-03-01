@@ -24,7 +24,7 @@
                 <URL value="@style.css" />
             </stylesheets></Button>
 
-
+        
         <Button fx:id="logoutid" layoutX="1092.0" layoutY="591.0" mnemonicParsing="false" opacity="0.0" prefHeight="47.0" prefWidth="52.0" text="Button" />
     </children>
 </AnchorPane>

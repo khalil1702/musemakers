@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="837.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FrontFront">
+   <children>
+      <VBox layoutY="73.0" prefHeight="522.0" prefWidth="162.0" styleClass="rounded-box-x" stylesheets="@css/ajout.css" translateX="-2.0">
+         <children>
+            <HBox prefHeight="35.0" prefWidth="221.0" translateY="400.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="99.0" styleClass="buttonx" text="Quitter" translateX="20.0" />
+                  <ImageView fitHeight="27.0" fitWidth="27.0" translateX="22.0" translateY="3.0">
+                     <image>
+                        <Image url="@img/426748723_947994023356526_1036875586550144222_n.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <Button fx:id="artistiqueid1" mnemonicParsing="false" onAction="#oncliquecour" prefHeight="32.0" prefWidth="158.0" styleClass="buttonx" text="Afficher les ateliers" />
+         </children>
+      </VBox>
+      <HBox layoutX="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="98.0" prefWidth="843.0" styleClass="rounded-box" stylesheets="@css/ajout.css">
+         <children>
+            <ImageView fitHeight="71.0" fitWidth="67.0" translateX="30.0" translateY="10.0">
+               <image>
+                  <Image url="@img/logo.png" />
+               </image>
+            </ImageView>
+            <VBox prefHeight="97.0" prefWidth="158.0" translateX="80.0">
+               <children>
+                  <Button fx:id="artistiqueid" mnemonicParsing="false" onAction="#oncliquecour" prefHeight="32.0" prefWidth="133.0" styleClass="buttonx" text="Cours Artistique" translateY="15.0" />
+                  <ImageView fitHeight="24.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="38.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/cours-de-peinture.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" translateX="50.0" translateY="24.0">
+                    
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox prefHeight="97.0" prefWidth="161.0" translateX="430.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="158.0" styleClass="buttonx" text="Les chefs d'oeuvres" translateY="15.0" />
+               </children>
+            </VBox>
+            <VBox prefHeight="97.0" prefWidth="106.0" translateX="30.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="104.0" styleClass="buttonx" text="Expositions" translateY="15.0" />
+                  <ImageView fitHeight="27.0" fitWidth="27.0" translateX="40.0" translateY="24.0">
+                     <image>
+                        <Image url="@img/exposition.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox prefHeight="97.0" prefWidth="114.0" translateX="-200.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="122.0" styleClass="buttonx" text="Réservations" translateY="15.0" />
+                  <ImageView fitHeight="29.0" fitWidth="29.0" translateX="43.0" translateY="24.0">
+                     <image>
+                        <Image url="@img/reservation.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox prefHeight="79.0" prefWidth="129.0" translateX="-80.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="120.0" styleClass="buttonx" text="Reclamations" translateY="15.0" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <VBox layoutX="158.0" layoutY="108.0" prefHeight="481.0" prefWidth="661.0" styleClass="cool-vbox" stylesheets="@css/ajout.css" translateX="11.0" translateY="-2.0">
+         <children>
+            <HBox prefHeight="58.0" prefWidth="486.0" styleClass="dark-hbox">
+               <children>
+                  <ImageView fitHeight="27.0" fitWidth="28.0" translateX="20.0" translateY="2.0">
+                     <image>
+                        <Image url="@img/429861444_750648533696376_8904930798211278600_n.png" />
+                     </image>
+                  </ImageView>
+                  <TextField prefHeight="26.0" prefWidth="224.0" promptText="Chercher..." translateX="20.0" translateY="2.0" />
+                  <CheckBox mnemonicParsing="false" styleClass="checkbox" text="Trier" translateX="60.0" translateY="1.0" />
+                  <ChoiceBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="154.0" translateX="80.0" translateY="1.0" />
+               </children>
+            </HBox>
+            <Pagination fx:id="PaginiationCours" prefHeight="481.0" prefWidth="486.0" stylesheets="@css/ajout.css" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

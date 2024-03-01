@@ -1,0 +1,182 @@
+.rounded-box-x {
+    -fx-background-color: linear-gradient(to bottom right, #a89f6e, #cec9a1); /* Off-white background */
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+    -fx-border-color: #a89f6e;
+    -fx-border-width: 0px;
+}
+.rounded-box {
+    -fx-background-color: white; /* Off-white background */
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+    -fx-border-color: #a89f6e;
+    -fx-border-width: 1px;
+}
+
+.buttonx {
+    -fx-background-color: #a89f6e;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-width: 1px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 2,0,0,1 );
+}
+
+.buttonx:hover {
+    -fx-background-color: #cec9a1; /* Background color on hover */
+}
+
+.buttonx:pressed {
+    -fx-background-color: #a89f6e;
+
+}
+
+.image-view {
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 2,0,0,1 );
+}
+
+/* Hover effect */
+.image-view:hover {
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.4) , 4,0,0,1 );
+}
+
+.cool-vbox {
+    -fx-background-color: #cec9a1; /* Light background color */
+    -fx-padding: 20px; /* Padding around the VBox */
+    -fx-spacing: 10px; /* Spacing between child nodes */
+    -fx-background-radius: 10px; /* Rounded corners */
+}
+
+/* Add a drop shadow effect */
+.cool-vbox {
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 5,0,0,2 );
+}
+
+.dark-hbox {
+    -fx-background-color: #a89f6e; /* Darker background color */
+    -fx-padding: 10px; /* Padding around the HBox */
+    -fx-spacing: 10px; /* Spacing between child nodes */
+    -fx-background-radius: 5px; /* Rounded corners */
+}
+
+/* Add a drop shadow effect */
+.dark-hbox {
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.4) , 5,0,0,2 );
+}
+
+.custom-text-field {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-padding: 8px;
+    -fx-background-color: white;
+    -fx-border-color: #CCCCCC; /* Darker border color */
+    -fx-border-width: 4px; /* Border width */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+}
+
+.custom-text-field:focused {
+    -fx-border-color: #CCCCCC;
+}
+
+.custom-text-field:hover {
+    -fx-border-color: #CCCCCC;
+}
+
+
+.choice-box {
+    -fx-font-size: 14px;
+    -fx-background-color: #cec9a1; /* Background color */
+    -fx-border-color: #cec9a1; /* Border color */
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px 30px 5px 10px; /* Padding */
+    -fx-text-fill: white; /* Text color */
+}
+
+.choice-box:hover {
+    -fx-background-color: #CCCCCC; /* Hover background color */
+}
+
+.choice-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.choice-box .arrow {
+    -fx-background-color: white; /* Arrow color */
+    -fx-background-insets: 0; /* Remove insets */
+    -fx-shape: "M 0 0 L 5 5 L 10 0 Z"; /* Custom arrow shape */
+}
+
+.choice-box .arrow:hover {
+    -fx-background-color: #ecf0f1; /* Hover arrow color */
+}
+.checkbox {
+    -fx-padding: 5px; /* Padding around the checkbox */
+    -fx-text-fill: white; /* Text color */
+}
+
+.checkbox .box {
+    -fx-background-color: #FFFFFF; /* Background color of the checkbox */
+    -fx-border-color: #CCCCCC; /* Border color of the checkbox */
+    -fx-border-width: 1px; /* Border width of the checkbox */
+    -fx-border-radius: 2px; /* Border radius of the checkbox */
+}
+
+.checkbox:selected .box {
+    -fx-background-color: #CCCCCC; /* Background color when checkbox is selected */
+    -fx-border-color: #CCCCCC; /* Border color when checkbox is selected */
+}
+
+.checkbox:hover .box {
+    -fx-border-color: #666666; /* Border color on hover */
+}
+
+.checkbox:selected .check-mark {
+    -fx-background-color: white; /* Check mark color when checkbox is selected */
+}
+
+.checkbox .indeterminate-mark {
+    -fx-background-color: white; /* Indeterminate mark color */
+}
+
+.pagination {
+    -fx-background-color: #a89f6e; /* Background color */
+}
+
+.pagination .control-box {
+    -fx-background-color: #a89f6e; /* Background color for control buttons */
+}
+
+.pagination .control-box .page-count {
+    -fx-text-fill: #FFFFFF; /* Text color for page count */
+}
+
+.pagination .control-box .pagination-control {
+    -fx-background-color: #3498db; /* Background color for pagination control buttons */
+    -fx-border-color: #2980b9; /* Border color for pagination control buttons */
+    -fx-background-radius: 20px; /* Rounded corners */
+    -fx-border-radius: 20px; /* Rounded corners */
+}
+
+.pagination .control-box .pagination-control:hover {
+    -fx-background-color: #2980b9; /* Hover background color for pagination control buttons */
+}
+
+.pagination .control-box .pagination-control:disabled {
+    -fx-background-color: #CCCCCC; /* Disabled state background color for pagination control buttons */
+    -fx-border-color: #CCCCCC; /* Disabled state border color for pagination control buttons */
+}
+
+.pagination .control-box .pagination-control > .arrow {
+    -fx-background-color: #FFFFFF; /* Color for pagination arrows */
+    -fx-background-insets: 0; /* Remove insets */
+}
+
+.pagination .control-box .pagination-control > .arrow:hover {
+    -fx-background-color: #CCCCCC; /* Hover color for pagination arrows */
+}
+
+
+
