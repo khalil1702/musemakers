@@ -61,7 +61,7 @@
                       <TextField fx:id="categorieSearchID" layoutX="358.0" layoutY="14.0" promptText="Categorie" />
                       <Text fill="#b1aeae" layoutX="157.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="saisir le nom de l'oeuvre" />
                       <Text fill="#b1aeae" layoutX="364.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="saisir la categorie" />
-                     <ComboBox fx:id="comboBox" layoutX="565.0" layoutY="14.0" prefWidth="150.0" promptText="Trier"  />
+                     <ComboBox fx:id="comboBox" layoutX="565.0" layoutY="14.0" prefWidth="150.0" promptText="Trier" />
 
                   </children>
               </AnchorPane>

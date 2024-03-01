@@ -127,34 +127,7 @@ public class ServiceOeuvre implements IService<Oeuvre>  {
         return oeuvres;
     }
 
-    /*public Set<Oeuvre> chercherParCategorieOuNom(String categorieoeuvre, String nomoeuvre) throws SQLException {
-        Set<Oeuvre> result = new HashSet<>();
-        String req = "SELECT * FROM oeuvre WHERE categorie_oeuvre LIKE ? AND nom_oeuvre LIKE ?";
-        try {
-            PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setString(1, "%" + categorieoeuvre + "%");
-            ps.setString(2, "%" + nomoeuvre + "%");
-            ResultSet res = ps.executeQuery();
 
-            while (res.next()) {
-                int id = res.getInt("id_oeuvre");
-                String nom = res.getString("nom_oeuvre");
-                String categorie = res.getString("categorie_oeuvre");
-                float prix = res.getFloat("prix_oeuvre");
-                Date dateCreation = res.getDate("datecreation");
-                String description = res.getString("description");
-                String image = res.getString("image");
-
-                 Oeuvre o = new Oeuvre(id ,nom,categorie,prix,dateCreation,description,image);
-                result.add(o);
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-
-        return result;
-    }
-*/
     public void afficherStatistiques() {
         // Créer les données pour les diagrammes
         ObservableList<PieChart.Data> categorieData = FXCollections.observableArrayList();

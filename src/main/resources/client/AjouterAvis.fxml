@@ -2,7 +2,6 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -14,6 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.Rating?>
 
 <AnchorPane prefHeight="626.0" prefWidth="981.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjouterAvis">
     <stylesheets>
@@ -61,7 +61,6 @@
                                 <TextArea fx:id="comment_id" layoutX="506.0" layoutY="211.0" prefHeight="95.0" prefWidth="163.0" />
                                 <DatePicker fx:id="dateex_id" layoutX="506.0" layoutY="111.0" prefHeight="26.0" prefWidth="163.0" />
                                 <Label layoutX="402.0" layoutY="115.0" prefHeight="18.0" prefWidth="124.0" text="Date Experience :" />
-                                <ChoiceBox fx:id="note_id" layoutX="506.0" layoutY="31.0" prefHeight="26.0" prefWidth="163.0" styleClass="submit_button" />
                                 <Label layoutX="402.0" layoutY="211.0" prefHeight="18.0" prefWidth="124.0" text="Votre Avis :" />
                                 <ImageView fx:id="image_id" fitHeight="161.0" fitWidth="176.0" layoutX="74.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
                                 <HBox spacing="10" />
@@ -85,6 +84,7 @@
                                    </ImageView>
                         <Button fx:id="deslike_id" layoutX="318.0" layoutY="25.0" mnemonicParsing="false" onAction="#dislikeAction" opacity="0.51" prefHeight="66.0" prefWidth="66.0" style="-fx-background-color: transparante;" styleClass="round-button" />
                         <Button fx:id="like_id" layoutX="314.0" layoutY="124.0" mnemonicParsing="false" onAction="#likeAction" opacity="0.51" prefHeight="66.0" prefWidth="66.0" style="-fx-background-color: transparante;" styleClass="round-button" />
+                        <Rating fx:id="note_id" layoutX="506.0" layoutY="28.0" />
                          
                             </children>
                         </AnchorPane>

@@ -1,6 +1,7 @@
 package edu.esprit.controllers;
 import edu.esprit.entities.Avis;
 import edu.esprit.services.ServiceAvis;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,6 +32,7 @@ import java.util.Set;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.controlsfx.control.Rating;
 
 
 public class HistoriqueAvis {
@@ -74,7 +76,26 @@ public class HistoriqueAvis {
         ObservableList<Avis> avisList = FXCollections.observableArrayList(serviceAvis.getAvisByUserId(4)); // Replace 4 with the actual user ID
 
         // Set up the columns in the table
-        Note_id.setCellValueFactory(new PropertyValueFactory<Avis, Integer>("note"));
+        //Note_id.setCellValueFactory(new PropertyValueFactory<Avis, Integer>("note"));
+        // Définissez la cellule de la colonne Note pour afficher le Rating
+        Note_id.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getNote()).asObject());
+        Note_id.setCellFactory(column -> {
+            return new TableCell<Avis, Integer>() {
+                private Rating rating = new Rating();
+
+                @Override
+                protected void updateItem(Integer note, boolean empty) {
+                    super.updateItem(note, empty);
+                    if (empty || note == null) {
+                        setGraphic(null);
+                    } else {
+                        rating.setRating(note);
+                        rating.setDisable(true); // Empêchez l'utilisateur de modifier la note
+                        setGraphic(rating);
+                    }
+                }
+            };
+        });
         commentaire_id.setCellValueFactory(new PropertyValueFactory<Avis, String>("commentaire"));
         dateexp_id.setCellValueFactory(new PropertyValueFactory<Avis, Date>("dateExperience"));
         //nomoeuvre_id.setCellValueFactory(new PropertyValueFactory<Avis, String>("oeuvre"));
@@ -146,10 +167,14 @@ public class HistoriqueAvis {
         DatePicker dateexperienceField = new DatePicker();
         dateexperienceField.setValue(avis.getDateExperience().toLocalDate());
         // champ note
-        ChoiceBox<Integer> noteField = new ChoiceBox<>();
-        noteField.getItems().addAll(1,2,3,4,5);
+       // ChoiceBox<Integer> noteField = new ChoiceBox<>();
+        //noteField.getItems().addAll(1,2,3,4,5);
         // Sélectionner la valeur actuelle
-        noteField.setValue(avis.getNote());
+        //noteField.setValue(avis.getNote());
+// Créez un objet Rating pour afficher la note
+        Rating rating = new Rating();
+        rating.setRating(avis.getNote()); // Définissez le nombre d'étoiles en fonction de la note de l'avis
+        rating.setDisable(false); // Permettez à l'utilisateur de modifier la note
 
 
         // Create the fields and populate with existing data
@@ -171,10 +196,10 @@ public class HistoriqueAvis {
             commentaireErrorLabel.setText(erreurCommentaire);
         });
 
-        noteField.valueProperty().addListener((observable, oldValue, newValue) -> {
+        /*noteField.valueProperty().addListener((observable, oldValue, newValue) -> {
             String erreurnote = (newValue == null) ? "Veuillez sélectionner une note." : "";
             noteErrorLabel.setText(erreurnote);
-        });
+        });*/
 
         dateexperienceField.valueProperty().addListener((observable, oldValue, newValue) -> {
             String erreurDate = (newValue == null) ? "Veuillez sélectionner une date." : "";
@@ -188,13 +213,15 @@ public class HistoriqueAvis {
         grid.add(commentaireField, 1, 0);
         grid.add(commentaireErrorLabel, 1, 1);
 
+        //grid.add(new Label("Note:"), 0, 2);
+        //grid.add(noteField, 1, 2);
+        //grid.add(noteErrorLabel, 1, 3);
+        // Ajoutez le Rating au grid
         grid.add(new Label("Note:"), 0, 2);
-        grid.add(noteField, 1, 2);
+        grid.add(rating, 1, 2);
         grid.add(noteErrorLabel, 1, 3);
-       // grid.add(new Label("Note:"), 0, 1);
-        //grid.add(noteField, 1, 1);
-        //grid.add(new Label("Date de votre experience:"), 0, 3);
-        //grid.add(dateexperienceField, 1, 3);
+
+
         grid.add(new Label("Date de votre experience:"), 0, 4);
         grid.add(dateexperienceField, 1, 4);
         grid.add(dateErrorLabel, 1, 5);
@@ -207,7 +234,7 @@ public class HistoriqueAvis {
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == saveButtonType) {
                 String commentaire = commentaireField.getText();
-                Integer note = noteField.getValue();
+                Integer note = (int) rating.getRating(); // Obtenez la valeur de la note
                 LocalDate localDate = dateexperienceField.getValue();
                 Date date = Date.valueOf(localDate); // Conversion LocalDate en Date
 

@@ -378,6 +378,7 @@ public class AfficherOeuvre {
         }
     }
 
+
     @FXML
     void AfficherAjoutOeuvre(ActionEvent event) throws IOException {
         FXMLLoader loader= new FXMLLoader(getClass().getResource("/admin/AjouterOeuvre.fxml"));
@@ -505,6 +506,7 @@ public class AfficherOeuvre {
     }
     public void afficherStatistiquesParAvis()
     {
+
         serviceAvis.afficherStatistiquesAvis();
     }
 }

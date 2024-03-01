@@ -18,6 +18,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.geometry.Insets;
+import org.controlsfx.control.Rating;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
@@ -32,8 +34,8 @@ public class AjouterAvis {
     @FXML
     private DatePicker dateex_id;
 
-    @FXML
-    private ChoiceBox<Integer> note_id;
+    //@FXML
+    //private ChoiceBox<Integer> note_id;
 
     @FXML
     private Label details_id;
@@ -47,6 +49,9 @@ public class AjouterAvis {
     private Button like_id;
     @FXML
     private Button deslike_id;
+
+    @FXML
+    private Rating note_id;
 
     @FXML
     private Button historique_id;
@@ -86,7 +91,7 @@ public class AjouterAvis {
     public void initialize() {
         System.out.println("cc");
         // Ajoutez des éléments à la ChoiceBox dans la méthode initialize
-        note_id.getItems().addAll(1,2,3,4,5);
+       // note_id.getItems().addAll(1,2,3,4,5);
 
 
     }
@@ -106,9 +111,13 @@ public class AjouterAvis {
         for (Avis avis : avisList) {
             Label userLabel = new Label("Utilisateur: " + avis.getClient().getNom_user() + " " + avis.getClient().getPrenom_user());
             Label commentLabel = new Label("Commentaire: " + avis.getCommentaire());
-            Label noteLabel = new Label("Note: " + avis.getNote());
+            Label noteLabel = new Label("Note: " );
+            // Créez un objet Rating pour afficher la note
+            Rating rating = new Rating();
+            rating.setRating(avis.getNote()); // Définissez le nombre d'étoiles en fonction de la note de l'avis
+            rating.setDisable(true); // Empêchez l'utilisateur de modifier la note
 
-            VBox avisBox = new VBox(userLabel, commentLabel, noteLabel);
+            VBox avisBox = new VBox(userLabel, commentLabel, noteLabel,rating);
             avisBox.setPadding(new Insets(10, 0, 10, 0));  // Ajoutez du padding autour de chaque avis
             vbox1.getChildren().add(avisBox);
         }
@@ -172,9 +181,9 @@ public class AjouterAvis {
     private void submitAvis(ActionEvent event) {
         try {
             // Get the note entered by the user
-            Integer note = note_id.getValue();
-
-            String erreurnote = (note == null) ? "Veuillez sélectionner une note." : "";
+           // Integer note = note_id.getValue();
+            int note = (int) note_id.getRating();
+            //String erreurnote = (note == null) ? "Veuillez sélectionner une note." : "";
 
             // Get the comment entered by the user
             String commentaire = comment_id.getText();
@@ -198,10 +207,10 @@ public class AjouterAvis {
             dateerreur.setText(erreurDate);
             dateerreur.setFill(Color.RED);
 
-            noteerreur.setText(erreurnote);
+           // noteerreur.setText(erreurnote);
             noteerreur.setFill(Color.RED);
 
-            if (erreurCommentaire.isEmpty() && erreurDate.isEmpty() && erreurnote.isEmpty()) {
+            if (erreurCommentaire.isEmpty() && erreurDate.isEmpty()  /*erreurnote.isEmpty()*/) {
                 int likes = 0;
                 int dislikes = 0;
 
@@ -225,7 +234,7 @@ public class AjouterAvis {
 
                 comment_id.clear();
                 dateex_id.setValue(null);
-                note_id.setValue(null);
+                //note_id.setValue(null);
 
                 // Show a confirmation message
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -247,10 +256,6 @@ public class AjouterAvis {
             alert.setContentText("Veuillez entrer un avis valide.");
             alert.showAndWait();
         }
-    }
-    private String formatDateTime(java.util.Date date) {
-        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
-        return dateTimeFormat.format(date);
     }
 
     @FXML
