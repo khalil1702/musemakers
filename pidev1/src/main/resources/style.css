@@ -81,3 +81,52 @@ underline-button {
     -fx-font-weight: normal;
     -fx-fill: #333333;
 }
+/* style.css */
+
+#exhibitionVBox {
+    -fx-spacing: 20; /* Espacement entre les enfants du VBox */
+}
+
+.exhibition-box {
+    -fx-padding: 10; /* Espacement interne de la boîte */
+    -fx-border-color: #ccc; /* Couleur de la bordure */
+    -fx-border-width: 1; /* Largeur de la bordure */
+    -fx-border-radius: 5; /* Rayon de la bordure */
+}
+
+.exhibition-box:hover {
+    -fx-background-color: #f0f0f0; /* Couleur de fond lorsque survolé */
+}
+/* style.css */
+
+.exhibition-box {
+    -fx-padding: 10; /* Espacement interne de la boîte */
+    -fx-border-color: #ccc; /* Couleur de la bordure */
+    -fx-border-width: 1; /* Largeur de la bordure */
+    -fx-border-radius: 5; /* Rayon de la bordure */
+}
+
+.exhibition-box:hover {
+    -fx-background-color: #f0f0f0; /* Couleur de fond lorsque survolé */
+}
+
+.course-icon {
+    -fx-background-color: #fff; /* Couleur de fond de l'icône */
+    -fx-padding: 5; /* Espacement interne de l'icône */
+    -fx-border-color: #ccc; /* Couleur de la bordure */
+    -fx-border-width: 1; /* Largeur de la bordure */
+    -fx-border-radius: 5; /* Rayon de la bordure */
+}
+
+.course-details {
+    -fx-padding: 5; /* Espacement interne des détails */
+}
+
+.course-name {
+    -fx-font-weight: bold; /* Style du texte du nom du cours */
+}
+
+.course-description {
+    -fx-font-style: italic; /* Style du texte de la description du cours */
+    -fx-font-size: 0.9em; /* Taille de la police de la description */
+}
