@@ -47,10 +47,15 @@
                 <AnchorPane prefHeight="534.0" prefWidth="665.0" BorderPane.alignment="CENTER">
                     <children>
                         <AnchorPane layoutY="7.0" prefHeight="514.0" prefWidth="802.0" style="-fx-background-color: ffff;">
-                     <children>
-                        <PieChart fx:id="StatCat" layoutX="26.0" layoutY="62.0" prefHeight="347.0" prefWidth="368.0" />
-                        <PieChart fx:id="StatS" layoutX="382.0" layoutY="56.0" prefHeight="347.0" prefWidth="368.0" />
-                     </children></AnchorPane>
+                            <children>
+                        <ImageView fitHeight="467.0" fitWidth="830.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/backstat.png" />
+                           </image>
+                        </ImageView>
+                                <PieChart fx:id="StatCat" layoutX="47.0" layoutY="71.0" prefHeight="347.0" prefWidth="368.0" />
+                                <PieChart fx:id="StatS" layoutX="422.0" layoutY="71.0" prefHeight="347.0" prefWidth="368.0" />
+                            </children></AnchorPane>
                     </children>
                 </AnchorPane>
             </center>

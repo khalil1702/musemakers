@@ -99,6 +99,8 @@
                                     </font>
                                 </Label>
                                 <ComboBox fx:id="CatRecCB" layoutX="27.0" layoutY="107.0" prefWidth="150.0" promptText="Catégorie" stylesheets="@style.css" />
+                        <Button fx:id="tri" layoutX="201.0" layoutY="52.0" mnemonicParsing="false" text="Trier" />
+                        <ComboBox fx:id="AscDsc" layoutX="258.0" layoutY="52.0" prefWidth="150.0" promptText="ASC/DSC" />
                             </children>
                         </AnchorPane>
                     </children>

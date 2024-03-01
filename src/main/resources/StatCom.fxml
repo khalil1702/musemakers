@@ -48,7 +48,12 @@
                     <children>
                         <AnchorPane layoutY="7.0" prefHeight="514.0" prefWidth="802.0" style="-fx-background-color: ffff;">
                      <children>
-                        <PieChart fx:id="StatCte" layoutX="192.0" layoutY="61.0" prefHeight="298.0" prefWidth="441.0" />
+                        <ImageView fitHeight="479.0" fitWidth="845.0" layoutX="-1.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/backstat.png" />
+                           </image>
+                        </ImageView>
+                        <PieChart fx:id="StatCte" layoutX="187.0" layoutY="95.0" prefHeight="298.0" prefWidth="441.0" />
                      </children></AnchorPane>
                     </children>
                 </AnchorPane>

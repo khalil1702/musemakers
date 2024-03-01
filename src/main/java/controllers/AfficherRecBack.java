@@ -2,6 +2,7 @@ package controllers;
 
 import entities.Reclamation;
 import entities.User;
+import entities.sendSMS;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -175,7 +176,9 @@ public class AfficherRecBack {
             selectedRec.setStatutRec(StatutCB.getValue());
 
             // Update in database
-            rs.modifier(selectedRec); }
+            rs.modifier(selectedRec);
+            sendSMS.sendSMS(selectedRec);
+            }
 
             // Refresh table view
             try {

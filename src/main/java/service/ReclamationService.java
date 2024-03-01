@@ -5,10 +5,9 @@ import entities.User;
 import utils.DataSource;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ReclamationService implements IService<Reclamation>{
     private Connection cnx ;
@@ -175,6 +174,61 @@ return  r;
             commentCountByCategory.put(resultSet.getString("CategorieRec"), resultSet.getInt("count"));
         }
         return commentCountByCategory;
+    }
+    public List<Reclamation> trierParNomUserAscendant() throws SQLException {
+        List<Reclamation> reclamations = getAll();
+        return reclamations.stream()
+                .sorted(Comparator.comparing(r -> r.getUser().getNom_user()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Reclamation> trierParNomUserDescendant() throws SQLException {
+        List<Reclamation> reclamations = getAll();
+        return reclamations.stream()
+                .sorted(Comparator.comparing(r -> r.getUser().getNom_user(), Comparator.reverseOrder()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Reclamation> trierParDescriptionAscendant() throws SQLException {
+        List<Reclamation> reclamations = getAll();
+        return reclamations.stream()
+                .sorted(Comparator.comparing(Reclamation::getDescriRec))
+                .collect(Collectors.toList());
+    }
+
+    public List<Reclamation> trierParDescriptionDescendant() throws SQLException {
+        List<Reclamation> reclamations = getAll();
+        return reclamations.stream()
+                .sorted(Comparator.comparing(Reclamation::getDescriRec, Comparator.reverseOrder()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Reclamation> trierParStatutAscendant() throws SQLException {
+        List<Reclamation> reclamations = getAll();
+        return reclamations.stream()
+                .sorted(Comparator.comparing(Reclamation::getStatutRec))
+                .collect(Collectors.toList());
+    }
+
+    public List<Reclamation> trierParStatutDescendant() throws SQLException {
+        List<Reclamation> reclamations = getAll();
+        return reclamations.stream()
+                .sorted(Comparator.comparing(Reclamation::getStatutRec, Comparator.reverseOrder()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Reclamation> trierParDateReclamationAscendant() throws SQLException {
+        List<Reclamation> reclamations = getAll();
+        return reclamations.stream()
+                .sorted(Comparator.comparing(Reclamation::getDateRec))
+                .collect(Collectors.toList());
+    }
+
+    public List<Reclamation> trierParDateReclamationDescendant() throws SQLException {
+        List<Reclamation> reclamations = getAll();
+        return reclamations.stream()
+                .sorted(Comparator.comparing(Reclamation::getDateRec, Comparator.reverseOrder()))
+                .collect(Collectors.toList());
     }
 
 }

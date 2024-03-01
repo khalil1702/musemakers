@@ -15,7 +15,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 import service.ReclamationService;
 import service.ServiceUser;
 
@@ -91,6 +95,7 @@ public class AjouterReclamationUser {
             }
         });
         ShowReclamation();
+
     }
 
     private void displayActiviteInfo(Reclamation r) {
@@ -123,6 +128,7 @@ public class AjouterReclamationUser {
 
         try {
             rs.ajouter(r);
+            showNotification();
             // Afficher un message de succès
             Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
             successAlert.setTitle("Message d'information");
@@ -191,7 +197,7 @@ public class AjouterReclamationUser {
 
             Optional<ButtonType> result = alert.showAndWait();
             // Si l'utilisateur confirme la suppression, procéder
-                if (result.isPresent() && result.get() == ButtonType.OK) {
+            if (result.isPresent() && result.get() == ButtonType.OK) {
                 rs.supprimer(selectedReclamation.getIdRec());
             }
 
@@ -297,6 +303,26 @@ public class AjouterReclamationUser {
 
         // Afficher la nouvelle fenêtre
         stage.show();
+    }
+
+    private void showNotification() {
+        try {
+            Image image = new Image("/img/tick.png");
+
+            // Redimensionner l'image
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(70); // ajustez la largeur comme vous le souhaitez
+            imageView.setFitHeight(70); // ajustez la hauteur comme vous le souhaitez
+
+            Notifications notifications = Notifications.create();
+            notifications.graphic(imageView); // Utilisez l'ImageView avec l'image redimensionnée
+            notifications.text("Reclamation added successfully");
+            notifications.title("Success Message");
+            notifications.hideAfter(Duration.seconds(4));
+            notifications.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
