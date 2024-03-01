@@ -106,6 +106,19 @@ public class AjouterCourNV1 {
             // Afficher la nouvelle fenêtre
             stage.show();
         }
+    public void ajoutid(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AjouterAtelierNv.fxml")));
+        // Créer une nouvelle scène
+        Scene scene = new Scene(root);
+
+        // Configurer la nouvelle scène dans une nouvelle fenêtre
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.setTitle("Afficher les cours");
+
+        // Afficher la nouvelle fenêtre
+        stage.show();
+    }
 
     }
 

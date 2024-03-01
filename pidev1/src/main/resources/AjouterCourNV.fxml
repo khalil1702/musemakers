@@ -27,7 +27,11 @@
                 <left>
                     <VBox prefHeight="200.0" prefWidth="230.0" styleClass="sidebar_admin" BorderPane.alignment="CENTER">
                         <children>
-                            <AnchorPane prefHeight="523.0" prefWidth="248.0" style="-fx-background-color: d0d7ac;" />
+                            <AnchorPane prefHeight="523.0" prefWidth="248.0" style="-fx-background-color: d0d7ac;">
+                     <children>
+                        <Button fx:id="afficherid" layoutX="36.0" layoutY="266.0" mnemonicParsing="false" onAction="#afficheriid" styleClass="round-button" stylesheets="@style.css" text="Afficher liste des cours" />
+                        <Button fx:id="afficherid1" layoutX="36.0" layoutY="228.0" mnemonicParsing="false" onAction="#ajoutid" styleClass="round-button" stylesheets="@style.css" text="Ajouter un nouveau atelier" />
+                     </children></AnchorPane>
                         </children>
                     </VBox>
                 </left>
@@ -110,8 +114,7 @@
                               </VBox>
                            </children>
                         </VBox>
-                        <Button fx:id="afficherid" layoutX="157.0" layoutY="462.0" mnemonicParsing="false" onAction="#afficheriid" styleClass="round-button" stylesheets="@style.css" text="Afficher liste des cours" />
-                        <Label layoutX="12.0" layoutY="34.0" text="Ajouter un nouveau cours" underline="true">
+                        <Label layoutX="12.0" layoutY="34.0" text="Ajouter un nouveau cour" underline="true">
                            <font>
                               <Font name="Franklin Gothic Medium" size="21.0" />
                            </font>

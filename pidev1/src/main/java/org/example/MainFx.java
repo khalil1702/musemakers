@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class MainFx extends Application {
         public static void main(String[] args) {
@@ -23,14 +22,14 @@ public class MainFx extends Application {
            
            // Parent root=FXMLLoader.load(getClass().getResource("/AfficherCourFrontNV.fxml"));
 
-            Parent root=FXMLLoader.load(getClass().getResource("/frontafficher.fxml"));
-// Parent root=FXMLLoader.load(getClass().getResource("/FrontFront2.fxml"));
+          //Parent root=FXMLLoader.load(getClass().getResource("/frontafficher.fxml"));
+           // Parent root=FXMLLoader.load(getClass().getResource("/FrontAfficherAtelier.fxml"));
 
           // Parent root=FXMLLoader.load(getClass().getResource("/AjouterCourNV.fxml"));
 
          //  Parent root=FXMLLoader.load(getClass().getResource("/AjouterAtelierNV.fxml"));
-         //  Parent root=FXMLLoader.load(getClass().getResource("/AcceuilUser.fxml"));
-          // Parent root=FXMLLoader.load(getClass().getResource("/AccueilArtiste.fxml"));
+          Parent root=FXMLLoader.load(getClass().getResource("/AcceuilUser.fxml"));
+         // Parent root=FXMLLoader.load(getClass().getResource("/AccueilArtiste.fxml"));
 
 
            //FXMLLoader loader= new FXMLLoader(getClass().getResource("/AfficherAtelierNV.fxml"));

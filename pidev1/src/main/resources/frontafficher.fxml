@@ -17,15 +17,15 @@
          <children>
             <HBox prefHeight="35.0" prefWidth="221.0" translateY="400.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="99.0" styleClass="buttonx" text="Quitter" translateX="20.0" />
-                  <ImageView fitHeight="27.0" fitWidth="27.0" translateX="22.0" translateY="3.0">
-                     <image>
-                        <Image url="@img/426748723_947994023356526_1036875586550144222_n.png" />
-                     </image>
-                  </ImageView>
+                  <Button fx:id="afficheratelier" mnemonicParsing="false" onAction="#handle1" prefHeight="32.0" prefWidth="158.0" styleClass="buttonx" text="Afficher les ateliers" />
                </children>
             </HBox>
-            <Button fx:id="artistiqueid1" mnemonicParsing="false" onAction="#oncliquecour" prefHeight="32.0" prefWidth="158.0" styleClass="buttonx" text="Afficher les ateliers" />
+            <ImageView fitHeight="27.0" fitWidth="27.0">
+               <image>
+                  <Image url="@img/426748723_947994023356526_1036875586550144222_n.png" />
+               </image>
+            </ImageView>
+            <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="99.0" styleClass="buttonx" text="Quitter" />
          </children>
       </VBox>
       <HBox layoutX="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="98.0" prefWidth="843.0" styleClass="rounded-box" stylesheets="@css/ajout.css">
@@ -37,7 +37,7 @@
             </ImageView>
             <VBox prefHeight="97.0" prefWidth="158.0" translateX="80.0">
                <children>
-                  <Button fx:id="artistiqueid" mnemonicParsing="false" onAction="#oncliquecour" prefHeight="32.0" prefWidth="133.0" styleClass="buttonx" text="Cours Artistique" translateY="15.0" />
+                  <Button fx:id="artistiqueid" mnemonicParsing="false" onAction="#handle1" prefHeight="32.0" prefWidth="133.0" styleClass="buttonx" text="Cours Artistique" translateY="15.0" />
                   <ImageView fitHeight="24.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fitHeight="38.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
                      <image>

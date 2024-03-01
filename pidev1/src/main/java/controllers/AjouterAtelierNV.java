@@ -95,6 +95,8 @@ public class AjouterAtelierNV {
             // Afficher la nouvelle fenêtre
             stage.show();
     }
+
+
 }
 
 

@@ -4,6 +4,9 @@ import entities.Cour;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -13,6 +16,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
 import service.ServiceCour;
 
 
@@ -31,12 +35,9 @@ import service.ServiceCour;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import java.sql.SQLException;
-import java.util.Set;
 
 public class FrontFront {
 
@@ -47,7 +48,7 @@ public class FrontFront {
     private Pagination PaginiationCours;
 
     @FXML
-    private VBox exhibitionVBox;
+    private Button afficheratelier;
 
 
    
@@ -83,10 +84,20 @@ public class FrontFront {
         }
 
     @FXML
-    void oncliquecour(ActionEvent event)
-    {
-        System.out.println("hello");
+    void handle1(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/FrontAfficherAtelier.fxml")));
+        // Créer une nouvelle scène
+        Scene scene = new Scene(root);
+
+        // Configurer la nouvelle scène dans une nouvelle fenêtre
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.setTitle("Afficher les ateliers");
+
+        // Afficher la nouvelle fenêtre
+        stage.show();
     }
+
         private void displayCoursInGrid() {
             int column = 0;
             int row = 1;
@@ -270,5 +281,7 @@ public class FrontFront {
         }
 
         return anchorPane;
+
     }
+
     }

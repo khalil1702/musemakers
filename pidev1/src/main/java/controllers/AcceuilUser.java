@@ -24,7 +24,7 @@ public class AcceuilUser {
 
 
                         // Charger l'interface loginAdmin.fxml
-                        Parent root = FXMLLoader.load(getClass().getResource("/FrontFront.fxml"));
+                        Parent root = FXMLLoader.load(getClass().getResource("/frontafficher.fxml"));
                         Stage stage = (Stage) courid.getScene().getWindow();
                         stage.setScene(new Scene(root));
                         stage.show();
