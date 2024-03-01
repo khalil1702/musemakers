@@ -81,7 +81,7 @@ public class AjouterOeuvre {
     public void add(ActionEvent event) {
         // Validation du champ nom
         String nom = Nom_id.getText();
-        String erreurNom = nom.isEmpty() || !nom.matches("[a-zA-Z]+") ? "Le nom doit contenir uniquement des lettres et ne peut pas être vide." : "";
+        String erreurNom = nom.isEmpty() || !nom.matches("[a-zA-Z,\\- ]+") ? "Le nom doit contenir uniquement des lettres et ne peut pas être vide." : "";
 
         // Validation du champ catégorie
         String categorie = categorie_id.getValue();

@@ -7,10 +7,12 @@ import edu.esprit.services.ServiceOeuvre;
 import edu.esprit.services.ServicePersonne;
 import edu.esprit.services.ServiceAvis;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,15 +29,15 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+
 public class AfficherOeuvreClient {
     private final ServiceAvis serviceAvis = new ServiceAvis();
     private final ServicePersonne servicePersonne = new ServicePersonne();
     private final ServiceOeuvre oe = new ServiceOeuvre();
     private Set<Oeuvre> listeo = oe.getAll();
+
 
     @FXML
     private TextField categorieSearchID;
@@ -71,16 +73,7 @@ public class AfficherOeuvreClient {
         nameSearchID.textProperty().addListener((observable, oldValue, newValue) -> {
             handleSearch();
         });
-        /*comboBox.getItems().add("");
 
-        // Ajoutez les options de tri au ComboBox
-        comboBox.getItems().addAll("Nom ascendant", "Nom descendant", "Date de création ascendante", "Date de création descendante", "Prix ascendant", "Prix descendant");
-
-        // Ajoutez un écouteur pour détecter quand l'utilisateur change l'option de tri
-        comboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
-            handleTri();
-
-        });*/
 
 
     }
@@ -94,7 +87,7 @@ public class AfficherOeuvreClient {
         for (Oeuvre o: listeo) {
             // Créer un HBox pour chaque exposition (to arrange components horizontally)
             HBox exhibitionBox = new HBox(10);
-            exhibitionBox.setAlignment(javafx.geometry.Pos.CENTER);
+            exhibitionBox.setAlignment(Pos.CENTER);
 
             // ImageView pour l'image de l'exposition
             ImageView imageView = new ImageView();
@@ -110,7 +103,7 @@ public class AfficherOeuvreClient {
 
             // VBox pour les détails de l'oeuvre
             VBox detailsVBox = new VBox(5);
-            detailsVBox.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+            detailsVBox.setAlignment(Pos.CENTER_LEFT);
 
 
             // Labels pour les détails de l'oeuvre
@@ -174,48 +167,7 @@ public class AfficherOeuvreClient {
             e.printStackTrace();
         }
     }
-   /* private void showAvisDialog1(Oeuvre o) {
 
-        // Créez une nouvelle fenêtre (Stage) pour afficher les avis
-        Stage stage = new Stage();
-        stage.setTitle("Avis sur " + o.getNom());
-
-        stage.setMinWidth(800);
-
-        // Créez une VBox pour afficher les avis
-        VBox vbox = new VBox();
-        vbox.setSpacing(10); // Espacer les cartes de 10 pixels
-
-        // Récupérez les avis de la base de données
-        List<Avis> avisList = serviceAvis.getAvisByOeuvre(o);
-
-        for (Avis avis : avisList) {
-            // Créez une VBox pour chaque avis
-
-
-            // Créez des Labels pour l'utilisateur, le commentaire et la note
-            Label userLabel = new Label("Utilisateur: " + avis.getClient().getNom_user()+ " "+ avis.getClient().getPrenom_user());
-
-            Label commentLabel = new Label("Commentaire: " + avis.getCommentaire());
-
-
-            Label noteLabel = new Label("Note: " + avis.getNote());
-
-
-            VBox avisBox = new VBox(userLabel, commentLabel, noteLabel);
-            avisBox.setPadding(new Insets(10, 0, 10, 0));  // Ajoutez du padding autour de chaque avis
-            vbox.getChildren().add(avisBox);
-
-
-        }
-
-        // Créez une Scene avec la VBox et ajoutez-la à la Stage
-        Scene scene = new Scene(vbox);
-        stage.setScene(scene);
-
-        // Affichez la Stage
-        stage.show();
-    }*/
     @FXML
     private void handleSearch()  {
         String categorie = categorieSearchID.getText();
@@ -241,43 +193,7 @@ public class AfficherOeuvreClient {
     }
 
 
-    /*private void handleTri()  {
-        System.out.println("La méthode handleTri() a été appelée.");
-        String optionTri = comboBox.getValue(); // Obtenez l'option de tri sélectionnée dans le ComboBox
 
-        Set<Oeuvre> oeuvres = oe.getAll(); // Utilisez cette méthode pour obtenir toutes les œuvres
-
-        switch (optionTri) {
-            case "Nom ascendant":
-                listeo = new HashSet<>(oe.triParNomS(oeuvres, true));
-                break;
-            case "Nom descendant":
-                listeo = new HashSet<>(oe.triParNomS(oeuvres, false));
-                break;
-            case "Date de création ascendante":
-                listeo = new HashSet<>(oe.triParDateCreationS(oeuvres, true));
-                break;
-            case "Date de création descendante":
-                listeo = new HashSet<>(oe.triParDateCreationS(oeuvres, false));
-                break;
-            case "Prix ascendant":
-                listeo = new HashSet<>(oe.triParPrixS(oeuvres, true));
-                break;
-            case "Prix descendant":
-                listeo = new HashSet<>(oe.triParPrixS(oeuvres, false));
-                break;
-            default:
-                // Option non reconnue, vous pouvez gérer cette situation comme vous le souhaitez
-                break;
-        }
-
-        // Clear the previous results from exhibitionVBox
-        exhibitionVBox.getChildren().clear();
-
-        // Display the sorted results in exhibitionVBox
-        displayExhibitions();
-    }
-*/
     @FXML
     void Afficherhistoriqueavis(ActionEvent event) throws IOException {
         FXMLLoader loader= new FXMLLoader(getClass().getResource("/client/HistoriqueAvis.fxml"));

@@ -18,6 +18,7 @@ import java.sql.*;
 
 import java.sql.Date;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ServiceOeuvre implements IService<Oeuvre>  {
     Connection cnx = DataSource.getInstance().getCnx();
@@ -126,7 +127,7 @@ public class ServiceOeuvre implements IService<Oeuvre>  {
         return oeuvres;
     }
 
-    public Set<Oeuvre> chercherParCategorieOuNom(String categorieoeuvre, String nomoeuvre) throws SQLException {
+    /*public Set<Oeuvre> chercherParCategorieOuNom(String categorieoeuvre, String nomoeuvre) throws SQLException {
         Set<Oeuvre> result = new HashSet<>();
         String req = "SELECT * FROM oeuvre WHERE categorie_oeuvre LIKE ? AND nom_oeuvre LIKE ?";
         try {
@@ -153,62 +154,7 @@ public class ServiceOeuvre implements IService<Oeuvre>  {
 
         return result;
     }
-
-    // Méthode pour trier par nom
-    public  void triParNom(List<Oeuvre> oeuvres, boolean ascendant) {
-        oeuvres.sort(Comparator.comparing(Oeuvre::getNom));
-        if (!ascendant) {
-            Collections.reverse(oeuvres);
-        }
-    }
-
-    // Méthode pour trier par date de création
-    public  void triParDateCreation(List<Oeuvre> oeuvres, boolean ascendant) {
-        oeuvres.sort(Comparator.comparing(Oeuvre::getDateCreation));
-        if (!ascendant) {
-            Collections.reverse(oeuvres);
-        }
-    }
-
-    // Méthode pour trier par prix
-    public  void triParPrix(List<Oeuvre> oeuvres, boolean ascendant) {
-        oeuvres.sort(Comparator.comparing(Oeuvre::getPrix));
-        if (!ascendant) {
-            Collections.reverse(oeuvres);
-        }
-    }
-
-    // SET
-
-    public List<Oeuvre> triParNomS(Set<Oeuvre> oeuvres, boolean ascendant) {
-        List<Oeuvre> oeuvresList = new ArrayList<>(oeuvres);
-        oeuvresList.sort(Comparator.comparing(Oeuvre::getNom));
-        if (!ascendant) {
-            Collections.reverse(oeuvresList);
-        }
-        return oeuvresList;
-    }
-
-    public  List<Oeuvre> triParDateCreationS(Set<Oeuvre> oeuvres, boolean ascendant) {
-        List<Oeuvre> oeuvresList = new ArrayList<>(oeuvres);
-        oeuvresList.sort(Comparator.comparing(Oeuvre::getDateCreation));
-        if (!ascendant) {
-            Collections.reverse(oeuvresList);
-        }
-        return oeuvresList;
-
-    }
-
-    public  List<Oeuvre> triParPrixS(Set<Oeuvre> oeuvres, boolean ascendant) {
-        List<Oeuvre> oeuvresList = new ArrayList<>(oeuvres);
-        oeuvresList.sort(Comparator.comparing(Oeuvre::getPrix));
-        if (!ascendant) {
-            Collections.reverse(oeuvresList);
-        }
-        return oeuvresList;
-
-    }
-
+*/
     public void afficherStatistiques() {
         // Créer les données pour les diagrammes
         ObservableList<PieChart.Data> categorieData = FXCollections.observableArrayList();
@@ -265,6 +211,66 @@ public class ServiceOeuvre implements IService<Oeuvre>  {
         dialog.getDialogPane().getButtonTypes().add(closeButton);
         dialog.showAndWait();
     }
+    public void triParNom(List<Oeuvre> oeuvres, boolean ascendant) {
+        oeuvres.sort(Comparator.comparing(Oeuvre::getNom));
+        if (!ascendant) {
+            oeuvres.sort(Comparator.comparing(Oeuvre::getNom).reversed());
+        }
+    }
+
+    public void triParDateCreation(List<Oeuvre> oeuvres, boolean ascendant) {
+        oeuvres.sort(Comparator.comparing(Oeuvre::getDateCreation));
+        if (!ascendant) {
+            oeuvres.sort(Comparator.comparing(Oeuvre::getDateCreation).reversed());
+        }
+    }
+
+    public void triParPrix(List<Oeuvre> oeuvres, boolean ascendant) {
+        oeuvres.sort(Comparator.comparing(Oeuvre::getPrix));
+        if (!ascendant) {
+            oeuvres.sort(Comparator.comparing(Oeuvre::getPrix).reversed());
+        }
+    }
+
+
+    public Set<Oeuvre> chercherParCategorieOuNom(String categorieoeuvre, String nomoeuvre) throws SQLException {
+        Set<Oeuvre> result = new HashSet<>();
+        String req = "SELECT * FROM oeuvre WHERE LOWER(categorie_oeuvre) LIKE ? AND LOWER(nom_oeuvre) LIKE ?";
+
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setString(1, "%" + categorieoeuvre.toLowerCase() + "%");
+            ps.setString(2, "%" + nomoeuvre.toLowerCase() + "%");
+            ResultSet res = ps.executeQuery();
+
+            // Convertir le ResultSet en une collection de données
+            List<Oeuvre> oeuvres = new ArrayList<>();
+            while (res.next()) {
+                int id = res.getInt("id_oeuvre");
+                String nom = res.getString("nom_oeuvre");
+                String categorie = res.getString("categorie_oeuvre");
+                float prix = res.getFloat("prix_oeuvre");
+                Date dateCreation = res.getDate("datecreation");
+                String description = res.getString("description");
+                String image = res.getString("image");
+
+                Oeuvre o = new Oeuvre(id ,nom,categorie,prix,dateCreation,description,image);
+                oeuvres.add(o);
+            }
+
+            // Utiliser des streams pour filtrer et collecter les résultats
+            result = oeuvres.stream()
+                    .filter(oeuvre -> oeuvre.getCategorie().toLowerCase().contains(categorieoeuvre.toLowerCase()) && oeuvre.getNom().toLowerCase().contains(nomoeuvre.toLowerCase()))
+                    .collect(Collectors.toSet());
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return result;
+    }
+
 }
+
 
 

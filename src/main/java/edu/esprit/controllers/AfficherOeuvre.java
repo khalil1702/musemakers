@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class AfficherOeuvre {
 
@@ -94,7 +95,7 @@ public class AfficherOeuvre {
     private final ServiceAvis serviceAvis=new ServiceAvis();
     private File selectedFile;
 
-    private ObservableList<Oeuvre> oeuvresInitiales;
+    private List<Oeuvre> oeuvresInitiales;
 
 
     @FXML
@@ -244,7 +245,7 @@ public class AfficherOeuvre {
 
         // Add listeners to fields
         nomField.textProperty().addListener((observable, oldValue, newValue) -> {
-            String erreurNom = newValue.isEmpty() || !newValue.matches("[a-zA-Z]+") ? "Le nom doit contenir uniquement des lettres et ne peut pas être vide." : "";
+            String erreurNom = newValue.isEmpty() || !newValue.matches("[a-zA-Z,\\- ]+") ? "Le nom doit contenir uniquement des lettres et ne peut pas être vide." : "";
             nomErrorLabel.setText(erreurNom);
         });
 
@@ -463,14 +464,14 @@ public class AfficherOeuvre {
     }
 
     private void trierOeuvres(String option) {
-        ObservableList<Oeuvre> oeuvres;
+        List<Oeuvre> oeuvres;
 
         if (option.equals("")) {
             // Si l'option est vide, réinitialisez la TableView à son état initial
-            oeuvres = FXCollections.observableArrayList(oeuvresInitiales);
+            oeuvres = oeuvresInitiales;
         } else {
             // Sinon, faites une copie de la liste initiale et triez-la
-            oeuvres = FXCollections.observableArrayList(oeuvresInitiales);
+            oeuvres = oeuvresInitiales.stream().collect(Collectors.toList());
             switch (option) {
                 case "Nom ascendant":
                     PS.triParNom(oeuvres, true);
@@ -496,7 +497,7 @@ public class AfficherOeuvre {
             }
         }
 
-        TableView.setItems(oeuvres);
+        TableView.setItems(FXCollections.observableArrayList(oeuvres));
     }
     public void afficherStatistiquesOeuvre() {
 
