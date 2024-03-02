@@ -24,6 +24,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.controlsfx.control.Rating;
 
 import java.io.File;
 import java.io.IOException;
@@ -123,9 +124,23 @@ public class AfficherOeuvreClient {
             // Ajouter les composants au VBox des détails
             detailsVBox.getChildren().addAll(nomLabel, categorieLabel, prixLabel,dateCreationLabel, descriptionLabel, avisButton);
 
+            double averageRating = serviceAvis.getAverageRatingForOeuvre(o);
+
+            int roundedRating = (int) Math.round(averageRating);
+
+
+            // Créer un objet Rating pour afficher la moyenne des évaluations
+            Rating averageRatingStars = new Rating();
+            averageRatingStars.setRating(roundedRating);
+            averageRatingStars.setDisable(true); // Empêcher l'utilisateur de modifier la note
+            averageRatingStars.setStyle("-fx-fill-color: gold;"); // Couleur des étoiles : dorée
+            averageRatingStars.setOpacity(10.0); // Couleur des étoiles : dorée
+
             // Ajouter les composants à l'HBox principale
             exhibitionBox.getChildren().addAll(imageView, detailsVBox);
             exhibitionBox.getStyleClass().add("exhibition-box");
+
+            detailsVBox.getChildren().add(averageRatingStars);
 
 
             // Ajouter HBox à la VBox principale
@@ -148,14 +163,6 @@ public class AfficherOeuvreClient {
             // Load the image and set it to the controller
             Image image = new Image(new File(o.getImage()).toURI().toString());
             controller.setImage(image);
-
-            // Create a new stage (window) ;
-           // Stage stage = new Stage();
-           //stage.initModality(Modality.APPLICATION_MODAL);
-            //stage.setTitle("donner votre avis");
-            //stage.setScene(new Scene(root));
-            // Close the current stage (AfficherClientOeuvre)
-            //currentStage.close();
 
 
             exhibitionVBox.getScene().setRoot(root);

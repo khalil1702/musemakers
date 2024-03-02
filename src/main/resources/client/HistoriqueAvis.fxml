@@ -24,6 +24,11 @@
                         <AnchorPane prefHeight="523.0" prefWidth="248.0" style="-fx-background-color: d0d7ac;">
                             <children>
                                 <Button fx:id="buttonsupprimer_id" layoutX="39.0" layoutY="137.0" mnemonicParsing="false" onAction="#delete" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="Supprimer" />
+                        <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="39.0" layoutY="137.0">
+                           <image>
+                              <Image url="@../art/handcraft.png" />
+                           </image>
+                        </ImageView>
                             </children></AnchorPane>
                     </children>
                 </VBox>
@@ -33,13 +38,13 @@
                     <children>
                         <AnchorPane prefHeight="119.0" prefWidth="1034.0" style="-fx-background-color: ffff;">
                             <children>
-                                <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="473.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="14.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../art/logo.png" />
                                     </image>
                                 </ImageView>
-                                <Button layoutX="143.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Cours Artistiques" />
-                                <Button fx:id="button_afficher" layoutX="300.0" layoutY="76.0" mnemonicParsing="false" onAction="#Affichergallerie" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="Les chefs d'oeuvres" />
+                                <Button layoutX="254.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Cours Artistiques" />
+                                <Button fx:id="button_afficher" layoutX="415.0" layoutY="76.0" mnemonicParsing="false" onAction="#Affichergallerie" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="Les chefs d'oeuvres" />
                                 <Button layoutX="719.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" styleClass="underline-button" text="Réservations" />
                                 <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" styleClass="underline-button" text="Expositions" />
                                 <Button layoutX="873.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Reclamations" />
@@ -59,14 +64,13 @@
                               <Image url="@../art/fond2.png" />
                            </image>
                         </ImageView>
-                        <TableView fx:id="TableView" layoutX="47.0" layoutY="110.0" prefHeight="228.0" prefWidth="428.0">
+                        <TableView fx:id="TableView" layoutX="24.0" layoutY="111.0" prefHeight="228.0" prefWidth="558.0">
                            <columns>
-                              <TableColumn fx:id="commentaire_id" prefWidth="92.0" text="Commentaire" />
-                              <TableColumn fx:id="dateexp_id" prefWidth="216.7999725341797" text="Date experience" />
-                              <TableColumn fx:id="Note_id" prefWidth="118.39996337890625" text="Note " />
+                              <TableColumn fx:id="commentaire_id" prefWidth="279.20001792907715" text="Commentaire" />
+                              <TableColumn fx:id="Note_id" prefWidth="277.5999816894531" text="Note " />
                            </columns>
                         </TableView>
-                        <ImageView fx:id="image_id" fitHeight="207.0" fitWidth="207.0" layoutX="539.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="image_id" fitHeight="185.0" fitWidth="184.0" layoutX="597.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true" />
                             </children>
                         </AnchorPane>
                     </children>

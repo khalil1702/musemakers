@@ -5,37 +5,43 @@ public class Avis {
 
     private int idAvis;
     private String commentaire;
-    private Date dateExperience;
+
     private int note;
 
     private Integer likes;
     private Integer dislikes;
+
+    private boolean favoris;
     // Foreign key
     private Oeuvre oeuvre;
     private User client;
 
+
+
     public Avis(){
     }
 
-    public Avis(int idAvis,String commentaire, Date dateExperience, int note, Oeuvre oeuvre, User client, Integer likes, Integer dislikes) {
+    public Avis(int idAvis,String commentaire, int note, Oeuvre oeuvre, User client, Integer likes, Integer dislikes ,boolean favoris) {
         this.idAvis = idAvis;
         this.commentaire = commentaire;
-        this.dateExperience = dateExperience;
+
         this.note = note;
         this.oeuvre = oeuvre;
         this.client = client;
         this.likes = likes;
         this.dislikes = dislikes;
+        this.favoris = favoris;
     }
 
-    public Avis(String commentaire, Date dateExperience, int note, Oeuvre oeuvre, User client, Integer likes, Integer dislikes) {
+    public Avis(String commentaire,int note, Oeuvre oeuvre, User client, Integer likes, Integer dislikes,boolean favoris) {
         this.commentaire = commentaire;
-        this.dateExperience = dateExperience;
+
         this.note = note;
         this.oeuvre = oeuvre;
         this.client = client;
         this.likes = likes;
         this.dislikes = dislikes;
+        this.favoris = favoris;
     }
 
     public int getIdAvis() {
@@ -54,13 +60,6 @@ public class Avis {
         this.commentaire = commentaire;
     }
 
-    public Date getDateExperience() {
-        return dateExperience;
-    }
-
-    public void setDateExperience(Date dateExperience) {
-        this.dateExperience = dateExperience;
-    }
 
     public int getNote() {
         return note;
@@ -103,6 +102,14 @@ public class Avis {
         this.dislikes = dislikes;
     }
 
+    public boolean getFavoris() {
+        return favoris;
+    }
+
+    public void setFavoris(boolean favoris) {
+        this.favoris = favoris;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -114,12 +121,12 @@ public class Avis {
     public String toString() {
         return "Avis{" +
                 "commentaire='" + commentaire + '\'' +
-                ", dateExperience=" + dateExperience +
                 ", note=" + note +
                 ", oeuvre=" + oeuvre +
                 ", User=" + client.getNom_user() +
                 '}';
     }
+
 
 
 }

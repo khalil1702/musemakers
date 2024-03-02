@@ -11,6 +11,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.prefs.Preferences;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,8 +33,7 @@ public class AjouterAvis {
     @FXML
     private TextArea comment_id;
 
-    @FXML
-    private DatePicker dateex_id;
+
 
     //@FXML
     //private ChoiceBox<Integer> note_id;
@@ -89,10 +90,6 @@ public class AjouterAvis {
 
     @FXML
     public void initialize() {
-        System.out.println("cc");
-        // Ajoutez des éléments à la ChoiceBox dans la méthode initialize
-       // note_id.getItems().addAll(1,2,3,4,5);
-
 
     }
     public void setOeuvre(Oeuvre oeuvre) {
@@ -116,8 +113,11 @@ public class AjouterAvis {
             Rating rating = new Rating();
             rating.setRating(avis.getNote()); // Définissez le nombre d'étoiles en fonction de la note de l'avis
             rating.setDisable(true); // Empêchez l'utilisateur de modifier la note
+            rating.setStyle(" -fx-fill-color: #FFD700;"); // Couleur des étoiles : jaune
+            rating.setOpacity(2.0);
 
             VBox avisBox = new VBox(userLabel, commentLabel, noteLabel,rating);
+            avisBox.setStyle("-fx-background-color: white;"); // Définissez la couleur de fond de la VBox
             avisBox.setPadding(new Insets(10, 0, 10, 0));  // Ajoutez du padding autour de chaque avis
             vbox1.getChildren().add(avisBox);
         }
@@ -183,7 +183,6 @@ public class AjouterAvis {
             // Get the note entered by the user
            // Integer note = note_id.getValue();
             int note = (int) note_id.getRating();
-            //String erreurnote = (note == null) ? "Veuillez sélectionner une note." : "";
 
             // Get the comment entered by the user
             String commentaire = comment_id.getText();
@@ -193,61 +192,43 @@ public class AjouterAvis {
             // Get the user with ID 4  (You can modify this part based on your requirements)
             User client = servicePersonne.getOneById(4);
 
-            // Récupérer la date sélectionnée dans le DatePicker
-            LocalDate localdate = dateex_id.getValue();
-            String erreurDate = (localdate == null) ? "Veuillez sélectionner une date." : "";
-            java.sql.Date date = null;
-            if (localdate != null) {
-              date = java.sql.Date.valueOf(localdate); // Conversion de LocalDate en java.sql.Date
-            }
-
             commentaireerreur.setText(erreurCommentaire);
             commentaireerreur.setFill(Color.RED);
 
-            dateerreur.setText(erreurDate);
-            dateerreur.setFill(Color.RED);
-
-           // noteerreur.setText(erreurnote);
-            noteerreur.setFill(Color.RED);
-
-            if (erreurCommentaire.isEmpty() && erreurDate.isEmpty()  /*erreurnote.isEmpty()*/) {
+            if (erreurCommentaire.isEmpty()) {
                 int likes = 0;
                 int dislikes = 0;
+
+                if (like_id.getStyle().contains("-fx-background-color: green;")) {
+                    likes=1;
+                } else if  (deslike_id.getStyle().contains("-fx-background-color: red;")) {
+                    dislikes=1;
+                }
 
                 // Si l'utilisateur clique sur Like, likes sera 1 et dislikes sera 0
                 // Si l'utilisateur clique sur Dislike, likes sera 0 et dislikes sera 1
 
-                // Vous n'avez pas besoin de likeClique et dislikeClique ici car vous gérez cela directement dans les méthodes associées aux boutons.
+                    // Create an avis
+                    Avis avis = new Avis(commentaire, note, oeuvre, client, likes, dislikes, false);
 
-                if (like_id.getStyle().contains("-fx-background-color: green;")) {
-                    likes = 1;
-                } else if (deslike_id.getStyle().contains("-fx-background-color: red;")) {
-                    dislikes = 1;
+                    // Add the avis to the database
+                    serviceAvis.ajouter(avis);
+
+
+                    comment_id.clear();
+
+                    //note_id.setValue(null);
+
+                    // Show a confirmation message
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Avis soumis");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Votre avis a été enregistré. Merci pour votre feedback!");
+                    alert.showAndWait();
+                    setOeuvre(oeuvre);
+                    // Close the dialog
+
                 }
-
-                // Create an avis
-                Avis avis = new Avis(commentaire, date, note, oeuvre, client, likes, dislikes);
-
-                // Add the avis to the database
-                serviceAvis.ajouter(avis);
-
-
-                comment_id.clear();
-                dateex_id.setValue(null);
-                //note_id.setValue(null);
-
-                // Show a confirmation message
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Avis soumis");
-                alert.setHeaderText(null);
-                alert.setContentText("Votre avis a été enregistré. Merci pour votre feedback!");
-                alert.showAndWait();
-                setOeuvre(oeuvre);
-            }
-            // Close the dialog
-
-            //Stage stage = (Stage) comment_id.getScene().getWindow();
-          //  stage.close();
         } catch (NumberFormatException e) {
             // Handle the case where the user enters a non-numeric value for note
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -262,15 +243,7 @@ public class AjouterAvis {
     void Afficherhistoriqueavis(ActionEvent event) throws IOException {
         FXMLLoader loader= new FXMLLoader(getClass().getResource("/client/HistoriqueAvis.fxml"));
         Parent root=loader.load();
-//        Scene scene = new Scene(root);
-//
-//        // Create a new stage (window)
-//        Stage stage = new Stage();
-//        stage.setTitle("Exhibition List"); // Set a title for the new window
-//        stage.setScene(scene);
 
-        // Show the new stage
-//        stage.show();
         comment_id.getScene().setRoot(root);
     }
     @FXML
@@ -279,23 +252,6 @@ public class AjouterAvis {
        Parent root=loader.load();
 
         comment_id.getScene().setRoot(root);
-        /*try {
-            // Load the new FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherOeuvreClient.fxml"));
-            Parent root = loader.load();
 
-            // Create a new scene
-            Scene scene = new Scene(root);
-
-            // Get the stage from the event source (button) and set the new scene
-            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-
-            // Show the stage
-            stage.show();
-        //} catch (IOException e) {
-            //e.printStackTrace();
-            // Handle the exception (e.g., show an error message)
-        }*/
     }
 }

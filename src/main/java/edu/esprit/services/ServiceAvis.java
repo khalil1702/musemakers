@@ -22,16 +22,16 @@ public class ServiceAvis implements IService<Avis>{
 
     @Override
     public void ajouter(Avis p) {
-        String req = "INSERT INTO avis (commentaire, date_experience, note, id_oeuvre, id_user,likes, dislikes) VALUES (?, ?, ?, ?, ?,?,?)";
+        String req = "INSERT INTO avis (commentaire, note, id_oeuvre, id_user,likes, dislikes, favoris) VALUES (?, ?, ?, ?, ?,?,?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, p.getCommentaire());
-            ps.setDate(2, p.getDateExperience());
-            ps.setInt(3, p.getNote());
-            ps.setInt(4, p.getOeuvre().getId()); // Assuming Oeuvre has a getIdOeuvre method
-            ps.setInt(5, p.getClient().getId_user());
-            ps.setInt(6, p.getLikes()); // Assuming Avis has a getLikes method
-            ps.setInt(7, p.getDislikes()); // Assuming Avis has a getDislikes method
+            ps.setInt(2, p.getNote());
+            ps.setInt(3, p.getOeuvre().getId());
+            ps.setInt(4, p.getClient().getId_user());
+            ps.setInt(5, p.getLikes());
+            ps.setInt(6, p.getDislikes());
+            ps.setObject(7, p.getFavoris());
             ps.executeUpdate();
             System.out.println("Avis ajouté avec succès !");
         } catch (SQLException e) {
@@ -41,17 +41,19 @@ public class ServiceAvis implements IService<Avis>{
 
     @Override
     public void modifier(Avis p) {
-        String req = "UPDATE avis SET commentaire=?, date_experience=?, note=?, id_oeuvre=?, id_user=?, likes=?, dislikes=? WHERE id_avis=?";
+        String req = "UPDATE avis SET commentaire=?, note=?, id_oeuvre=?, id_user=?, likes=?, dislikes=?, favoris=? WHERE id_avis=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, p.getCommentaire());
-            ps.setDate(2, p.getDateExperience());
-            ps.setInt(3, p.getNote());
-            ps.setInt(4, p.getOeuvre().getId());
-            ps.setInt(5, p.getClient().getId_user());
-            ps.setInt(6, p.getLikes()); // Assuming Avis has a getLikes method
-            ps.setInt(7, p.getDislikes()); // Assuming Avis has a getDislikes method
+           // ps.setDate(2, p.getDateExperience());
+            ps.setInt(2, p.getNote());
+            ps.setInt(3, p.getOeuvre().getId());
+            ps.setInt(4, p.getClient().getId_user());
+            ps.setInt(5, p.getLikes()); // Assuming Avis has a getLikes method
+            ps.setInt(6, p.getDislikes()); // Assuming Avis has a getDislikes method
+            ps.setInt(7, p.getIdAvis());
             ps.setInt(8, p.getIdAvis());
+
             ps.executeUpdate();
             System.out.println("Avis modifié avec succès !");
         } catch (SQLException e) {
@@ -84,19 +86,20 @@ public class ServiceAvis implements IService<Avis>{
             ResultSet res = ps.executeQuery();
             if (res.next()) {
                 String commentaire = res.getString("commentaire");
-                Date dateExperience = res.getDate("date_experience");
                 int note = res.getInt("note");
                 int idOeuvre = res.getInt("id_oeuvre");
                 int idUser = res.getInt("id_user");
                 int likes = res.getInt("likes");
                 int dislikes = res.getInt("dislikes");
+                boolean favoris = res.getBoolean("favoris");
+
 
                 ServiceOeuvre serviceOeuvre = new ServiceOeuvre();
                 Oeuvre oeuvre = serviceOeuvre.getOneById(idOeuvre);
                 ServicePersonne servicePersonne = new ServicePersonne();
                 User user = servicePersonne.getOneById(idUser);
 
-                Avis avis = new Avis(id, commentaire, dateExperience, note,oeuvre,user,likes,dislikes );
+                Avis avis = new Avis(id, commentaire, note,oeuvre,user,likes,dislikes,favoris );
                 System.out.println("avis retrouvée !");
                 System.out.println(avis.toString()); // Utilisation de la méthode toString
                 return avis;
@@ -117,19 +120,20 @@ public class ServiceAvis implements IService<Avis>{
             ResultSet res = st.executeQuery(req);
             while (res.next()) {
                 String commentaire = res.getString("commentaire");
-                Date dateExperience = res.getDate("date_experience");
                 int note = res.getInt("note");
                 int idOeuvre = res.getInt("id_oeuvre");
                 int idUser = res.getInt("id_user");
                 int likes = res.getInt("likes");
                 int dislikes = res.getInt("dislikes");
+                boolean favoris = res.getBoolean("favoris");
+
 
                 ServiceOeuvre serviceOeuvre = new ServiceOeuvre();
                 Oeuvre oeuvre = serviceOeuvre.getOneById(idOeuvre);
                 ServicePersonne servicePersonne = new ServicePersonne();
                 User user = servicePersonne.getOneById(idUser);
 
-                Avis avis = new Avis(commentaire,dateExperience, note,oeuvre,user,likes,dislikes);
+                Avis avis = new Avis(commentaire, note,oeuvre,user,likes,dislikes,favoris);
                 avisSet.add(avis);
             }
         } catch (SQLException e) {
@@ -148,11 +152,12 @@ public class ServiceAvis implements IService<Avis>{
             while (res.next()) {
                 int id = res.getInt("id_avis");
                 String commentaire = res.getString("commentaire");
-                Date dateExperience = res.getDate("date_experience");
                 int note = res.getInt("note");
                 int idOeuvre = res.getInt("id_oeuvre");
                 int likes = res.getInt("likes");
                 int dislikes = res.getInt("dislikes");
+                boolean favoris = res.getBoolean("favoris");
+
 
                 ServiceOeuvre serviceOeuvre = new ServiceOeuvre();
                 Oeuvre oeuvre = serviceOeuvre.getOneById(idOeuvre);
@@ -160,7 +165,7 @@ public class ServiceAvis implements IService<Avis>{
                 ServicePersonne servicePersonne = new ServicePersonne();
                 User user = servicePersonne.getOneById(userId);
 
-                Avis avis = new Avis(id, commentaire, dateExperience, note, oeuvre, user, likes, dislikes);
+                Avis avis = new Avis(id, commentaire, note, oeuvre, user, likes, dislikes,favoris);
                 avisList.add(avis);
             }
         } catch (SQLException e) {
@@ -178,16 +183,17 @@ public class ServiceAvis implements IService<Avis>{
             while (res.next()) {
                 int id = res.getInt("id_avis");
                 String commentaire = res.getString("commentaire");
-                Date dateExperience = res.getDate("date_experience");
                 int note = res.getInt("note");
                 int idUser = res.getInt("id_user");
                 int likes = res.getInt("likes");
                 int dislikes = res.getInt("dislikes");
+                boolean favoris = res.getBoolean("favoris");
+
 
                 ServicePersonne servicePersonne = new ServicePersonne();
                 User user = servicePersonne.getOneById(idUser);
 
-                Avis avis = new Avis(id, commentaire, dateExperience, note, oeuvre, user, likes, dislikes);
+                Avis avis = new Avis(id, commentaire, note, oeuvre, user, likes, dislikes,favoris);
                 avisList.add(avis);
             }
         } catch (SQLException e) {
@@ -242,7 +248,18 @@ public class ServiceAvis implements IService<Avis>{
 
         dialog.showAndWait();
     }
+    public double getAverageRatingForOeuvre(Oeuvre oeuvre) {
+        List<Avis> avisList = getAvisByOeuvre(oeuvre);
+        if (avisList.isEmpty()) {
+            return 0.0; // Retourne 0 si aucun avis n'est disponible
+        }
 
+        double totalRating = 0.0;
+        for (Avis avis : avisList) {
+            totalRating += avis.getNote();
+        }
 
+        return totalRating / avisList.size();
+    }
 
 }

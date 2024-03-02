@@ -164,8 +164,7 @@ public class HistoriqueAvis {
         dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
 
         //champ date
-        DatePicker dateexperienceField = new DatePicker();
-        dateexperienceField.setValue(avis.getDateExperience().toLocalDate());
+
         // champ note
        // ChoiceBox<Integer> noteField = new ChoiceBox<>();
         //noteField.getItems().addAll(1,2,3,4,5);
@@ -201,10 +200,7 @@ public class HistoriqueAvis {
             noteErrorLabel.setText(erreurnote);
         });*/
 
-        dateexperienceField.valueProperty().addListener((observable, oldValue, newValue) -> {
-            String erreurDate = (newValue == null) ? "Veuillez sélectionner une date." : "";
-            dateErrorLabel.setText(erreurDate);
-        });
+
 
         // Layout for dialog
         GridPane grid = new GridPane();
@@ -222,9 +218,7 @@ public class HistoriqueAvis {
         grid.add(noteErrorLabel, 1, 3);
 
 
-        grid.add(new Label("Date de votre experience:"), 0, 4);
-        grid.add(dateexperienceField, 1, 4);
-        grid.add(dateErrorLabel, 1, 5);
+
 
 
 
@@ -235,13 +229,13 @@ public class HistoriqueAvis {
             if (dialogButton == saveButtonType) {
                 String commentaire = commentaireField.getText();
                 Integer note = (int) rating.getRating(); // Obtenez la valeur de la note
-                LocalDate localDate = dateexperienceField.getValue();
-                Date date = Date.valueOf(localDate); // Conversion LocalDate en Date
+
+            // Conversion LocalDate en Date
 
                 if (commentaireErrorLabel.getText().isEmpty() && noteErrorLabel.getText().isEmpty() && dateErrorLabel.getText().isEmpty()) {
                     avis.setCommentaire(commentaire);
                     avis.setNote(note);
-                    avis.setDateExperience(date);
+
 
                     // Update the database
                     serviceAvis.modifier(avis);
