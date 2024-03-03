@@ -136,32 +136,6 @@ public class ServiceCour implements IService<Cour> {
 
     @Override
     public Set<Cour> getAll() {
-       /* Set<Cour> cours = new HashSet<>();
-
-        String requete = "Select * from cours";
-        try {
-            Statement st = conn.createStatement();
-            ResultSet res = st.executeQuery(requete);
-            while (res.next()){
-                int id_cours = res.getInt(1);
-                String titre_cours = res.getString(2);
-                String description_cours = res.getString(3);
-
-                java.util.Date dateDebut_cours = res.getDate(4);
-                java.util.Date dateFin_cours = res.getDate(5);
-                User u= new User();
-               u.setId_user(res.getInt(6));
-
-                Cour r= new Cour(id_cours,titre_cours,description_cours,dateDebut_cours,dateFin_cours,u);
-                cours.add(r);
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-
-
-        return cours;*/
-
         Set<Cour> cours = new HashSet<>();
 
         String requete = "SELECT * FROM cours";
@@ -192,17 +166,151 @@ public class ServiceCour implements IService<Cour> {
 
         return cours;
     }
+    public Set<Cour> getAllDESC() {
+        Set<Cour> cours = new HashSet<>();
+
+        String requete = "SELECT * FROM cours ORDER BY descri_cours, titre_cours DESC";
+        try {
+            Statement st = conn.createStatement();
+            ResultSet res = st.executeQuery(requete);
+            while (res.next()) {
+                int id_cours = res.getInt(1);
+                String titre_cours = res.getString(2);
+                String description_cours = res.getString(3);
+                LocalDate dateDebut_cours = res.getDate(4).toLocalDate();
+                LocalDate dateFin_cours = res.getDate(5).toLocalDate();
+
+                // Retrieve user ID from the database
+                int userId = res.getInt(6);
+
+                // Initialize a User object with the retrieved ID
+                User u = new User();
+                u.setId_user(userId);
+
+                // Create Cour object with initialized User object
+                Cour r = new Cour(id_cours, titre_cours, description_cours, dateDebut_cours, dateFin_cours, u);
+                cours.add(r);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return cours;
+    }
+    //
+    public Set<Cour> chercherParDesc(String Desc, int tri)
+    {
+        Set<Cour> cours = new HashSet<>();
+        String requete;
+        switch(tri)
+        {
+            case 1:
+            {
+                requete = "SELECT * FROM cours WHERE descri_cours LIKE ? ORDER BY descri_cours DESC";
+                break;
+            }
+            default:
+            {
+                requete = "SELECT * FROM cours WHERE descri_cours LIKE ? ORDER BY descri_cours ASC";
+                break;
+            }
+        }
+
+        try {
+            PreparedStatement pst = conn.prepareStatement(requete);
+            pst.setString(1, "%" + Desc + "%");
+            ResultSet res = pst.executeQuery();
+            while (res.next()) {
+                int id_cours = res.getInt(1);
+                String titre_cours = res.getString(2);
+                String description_cours = res.getString(3);
+                LocalDate dateDebut_cours = res.getDate(4).toLocalDate();
+                LocalDate dateFin_cours = res.getDate(5).toLocalDate();
+
+                // Retrieve user ID from the database
+                int userId = res.getInt(6);
+
+                // Initialize a User object with the retrieved ID
+                User u = new User();
+                u.setId_user(userId);
+
+                // Create Cour object with initialized User object
+                Cour r = new Cour(id_cours, titre_cours, description_cours, dateDebut_cours, dateFin_cours, u);
+                cours.add(r);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return cours;
+    }
+    public Set<Cour> chercherParTitre(String titre, int tri) {
 
 
-    public Set<Cour> chercherParTitreOuDescription(String titre, String description) {
+        Set<Cour> cours = new HashSet<>();
+        String requete;
+        switch(tri)
+        {
+            case 1:
+            {
+                requete = "SELECT * FROM cours WHERE titre_cours LIKE ? ORDER BY titre_cours DESC";
+                break;
+            }
+            default:
+            {
+                requete = "SELECT * FROM cours WHERE titre_cours LIKE ? ORDER BY titre_cours ASC";
+                break;
+            }
+        }
+        try {
+            PreparedStatement pst = conn.prepareStatement(requete);
+            pst.setString(1, "%" + titre + "%");
+            ResultSet res = pst.executeQuery();
+            while (res.next()) {
+                int id_cours = res.getInt(1);
+                String titre_cours = res.getString(2);
+                String description_cours = res.getString(3);
+                LocalDate dateDebut_cours = res.getDate(4).toLocalDate();
+                LocalDate dateFin_cours = res.getDate(5).toLocalDate();
+
+                // Retrieve user ID from the database
+                int userId = res.getInt(6);
+
+                // Initialize a User object with the retrieved ID
+                User u = new User();
+                u.setId_user(userId);
+
+                // Create Cour object with initialized User object
+                Cour r = new Cour(id_cours, titre_cours, description_cours, dateDebut_cours, dateFin_cours, u);
+                cours.add(r);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return cours;
+    }
+
+    public Set<Cour> chercherParTitreOuDescription(String titre, int tri) {
 
 
             Set<Cour> cours = new HashSet<>();
-            String requete = "SELECT * FROM cours WHERE titre_cours LIKE ? OR descri_cours LIKE ?";
+            String requete;
+            switch(tri)
+            {
+                case 1:
+                {
+                    requete = "SELECT * FROM cours WHERE titre_cours LIKE ? OR descri_cours LIKE ? ORDER BY titre_cours,descri_cours DESC";
+                    break;
+                }
+                default:
+                {
+                    requete = "SELECT * FROM cours WHERE titre_cours LIKE ? OR descri_cours LIKE ? ORDER BY titre_cours,descri_cours ASC";
+                    break;
+                }
+            }
             try {
                 PreparedStatement pst = conn.prepareStatement(requete);
                 pst.setString(1, "%" + titre + "%");
-                pst.setString(2, "%" + description + "%");
+                pst.setString(2, "%" + titre + "%");
                 ResultSet res = pst.executeQuery();
                 while (res.next()) {
                     int id_cours = res.getInt(1);

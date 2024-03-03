@@ -1,6 +1,7 @@
 package controllers;
 
 import entities.Cour;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,6 +39,7 @@ import java.net.URL;
 import java.util.*;
 
 import java.sql.SQLException;
+import java.util.stream.Collectors;
 
 public class FrontFront {
 
@@ -49,19 +51,26 @@ public class FrontFront {
 
     @FXML
     private Button afficheratelier;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private ChoiceBox<String> searchAndOrderBox;
 
 
-   
+
 
         @FXML
         private VBox chosenCoursCard;
 
         @FXML
         private GridPane grid;
+        @FXML
+        private CheckBox FilterField;
     @FXML
     private Button artistiqueid;
 
-
+    @FXML
+    private TextField searchTF; // Champ de recherche
         @FXML
         private ScrollPane scroll;
 
@@ -70,9 +79,86 @@ public class FrontFront {
         @FXML
         public void initialize()
         {
-            System.out.println("test");
+            searchAndOrderBox.getItems().addAll("Par Titre / Description", "Par titre", "Par description");
+            searchAndOrderBox.setValue("Par Titre / Description");
+
             coursList.addAll(serviceCour.getAll());
             innitCoursUI();
+            // Ajoutez un écouteur sur le TextField de recherche pour gérer la recherche dynamiques
+           FilterField.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue)
+                {
+                    if(searchAndOrderBox.getValue().equals("Par titre") && !searchField.getText().isEmpty())
+                    {
+                        innitCoursByTitleUI(searchField.getText(),1);
+                    }
+                    else if(searchAndOrderBox.getValue().equals("Par description") && !searchField.getText().isEmpty())
+                    {
+                        innitCoursByDescUI(searchField.getText(),1);
+                    }
+                    else if(searchAndOrderBox.getValue().equals("Par Titre / Description") && !searchField.getText().isEmpty())
+                    {
+                        innitCoursByDescOrTitleUI(searchField.getText(),1);
+                    }
+                    else
+                    {
+                        innitCoursWithoutFieldUI();
+                    }
+                } else {
+                    if(searchAndOrderBox.getValue().equals("Par titre") && !searchField.getText().isEmpty())
+                    {
+                        innitCoursByTitleUI(searchField.getText(),0);
+                    }
+                    else if(searchAndOrderBox.getValue().equals("Par description") && !searchField.getText().isEmpty())
+                    {
+                        innitCoursByDescUI(searchField.getText(),0);
+                    }
+                    else if(searchAndOrderBox.getValue().equals("Par Titre / Description") && !searchField.getText().isEmpty())
+                    {
+                        innitCoursByDescOrTitleUI(searchField.getText(),0);
+                    }
+                    else
+                    {
+                        innitCoursWithoutFieldUI();
+                    }
+                }
+            });
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                if(searchAndOrderBox.getValue().equals("Par titre"))
+                {
+                    if(FilterField.isSelected()) {
+                        innitCoursByTitleUI(newValue,1);
+                    }
+                    else
+                    {
+                        innitCoursByTitleUI(newValue,0);
+                    }
+                }
+                else if(searchAndOrderBox.getValue().equals("Par description"))
+                {
+                    if(FilterField.isSelected())
+                    {
+                        innitCoursByDescUI(newValue, 1);
+                    }
+                    else
+                    {
+                        innitCoursByDescUI(newValue, 0);
+                    }
+
+                }
+                else
+                {
+                    if(FilterField.isSelected())
+                    {
+                        innitCoursByDescOrTitleUI(newValue, 1);
+                    }
+                    else
+                    {
+                        innitCoursByDescOrTitleUI(newValue, 0);
+                    }
+
+                }
+            });
         }
         public void initialize(URL url, ResourceBundle resourceBundle) {
             // Obtention des données des cours
@@ -131,6 +217,90 @@ public class FrontFront {
                 }
             }
         }
+    public void innitCoursByDescOrTitleUI(String descOrTitle, int tri)
+    {
+        listeCours = serviceCour.chercherParTitreOuDescription(descOrTitle,tri);
+        int pageSizeUsers;
+        if(!listeCours.isEmpty()) {
+            pageSizeUsers = listeCours.size() / COURS_PER_PAGE;
+            if (listeCours.size() % COURS_PER_PAGE != 0)
+            {
+                pageSizeUsers++;
+            }
+            PaginiationCours.setPageCount(pageSizeUsers);
+            PaginiationCours.setPageFactory(this::createUsersPage);
+            PaginiationCours.setCurrentPageIndex(0);
+        }
+        else
+        {
+            pageSizeUsers = 1;
+            PaginiationCours.setPageCount(pageSizeUsers);
+            PaginiationCours.setCurrentPageIndex(0);
+        }
+    }
+    public void innitCoursWithoutFieldUI()
+    {
+        listeCours = serviceCour.getAllDESC();
+        int pageSizeUsers;
+        if(!listeCours.isEmpty()) {
+            pageSizeUsers = listeCours.size() / COURS_PER_PAGE;
+            if (listeCours.size() % COURS_PER_PAGE != 0)
+            {
+                pageSizeUsers++;
+            }
+            PaginiationCours.setPageCount(pageSizeUsers);
+            PaginiationCours.setPageFactory(this::createUsersPage);
+            PaginiationCours.setCurrentPageIndex(0);
+        }
+        else
+        {
+            pageSizeUsers = 1;
+            PaginiationCours.setPageCount(pageSizeUsers);
+            PaginiationCours.setCurrentPageIndex(0);
+        }
+    }
+    public void innitCoursByDescUI(String desc, int tri)
+    {
+        listeCours = serviceCour.chercherParDesc(desc, tri);
+        int pageSizeUsers;
+        if(!listeCours.isEmpty()) {
+            pageSizeUsers = listeCours.size() / COURS_PER_PAGE;
+            if (listeCours.size() % COURS_PER_PAGE != 0)
+            {
+                pageSizeUsers++;
+            }
+            PaginiationCours.setPageCount(pageSizeUsers);
+            PaginiationCours.setPageFactory(this::createUsersPage);
+            PaginiationCours.setCurrentPageIndex(0);
+        }
+        else
+        {
+            pageSizeUsers = 1;
+            PaginiationCours.setPageCount(pageSizeUsers);
+            PaginiationCours.setCurrentPageIndex(0);
+        }
+    }
+    public void innitCoursByTitleUI(String titre, int tri)
+    {
+        listeCours = serviceCour.chercherParTitre(titre, tri);
+        int pageSizeUsers;
+        if(!listeCours.isEmpty()) {
+            pageSizeUsers = listeCours.size() / COURS_PER_PAGE;
+            if (listeCours.size() % COURS_PER_PAGE != 0)
+            {
+                pageSizeUsers++;
+            }
+            PaginiationCours.setPageCount(pageSizeUsers);
+            PaginiationCours.setPageFactory(this::createUsersPage);
+            PaginiationCours.setCurrentPageIndex(0);
+        }
+        else
+        {
+            pageSizeUsers = 1;
+            PaginiationCours.setPageCount(pageSizeUsers);
+            PaginiationCours.setCurrentPageIndex(0);
+        }
+    }
     public void innitCoursUI()
     {
         listeCours = serviceCour.getAll();
@@ -284,4 +454,4 @@ public class FrontFront {
 
     }
 
-    }
+}

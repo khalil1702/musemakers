@@ -90,9 +90,9 @@
                         <Image url="@img/429861444_750648533696376_8904930798211278600_n.png" />
                      </image>
                   </ImageView>
-                  <TextField prefHeight="26.0" prefWidth="224.0" promptText="Chercher..." translateX="20.0" translateY="2.0" />
-                  <CheckBox mnemonicParsing="false" styleClass="checkbox" text="Trier" translateX="60.0" translateY="1.0" />
-                  <ChoiceBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="154.0" translateX="80.0" translateY="1.0" />
+                  <TextField fx:id="searchField" promptText="Chercher.." translateX="30.0" translateY="3.0" />
+                  <CheckBox fx:id="FilterField" mnemonicParsing="false" styleClass="checkbox" text="Trier" translateX="60.0" translateY="1.0" />
+                  <ChoiceBox fx:id="searchAndOrderBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="154.0" translateX="80.0" translateY="1.0" />
                </children>
             </HBox>
             <Pagination fx:id="PaginiationCours" prefHeight="481.0" prefWidth="486.0" stylesheets="@css/ajout.css" />
