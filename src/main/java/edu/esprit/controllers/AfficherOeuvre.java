@@ -27,6 +27,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
+import org.controlsfx.control.Rating;
 
 
 import java.awt.*;
@@ -410,7 +411,7 @@ public class AfficherOeuvre {
                 Label noteLabel = new Label("Note: " + avis.getNote());
                 noteLabel.setStyle("-fx-font-weight: bold;");
 
-                avisbox_id.getChildren().addAll(userLabel, commentLabel, noteLabel);*/
+                avisbox_id.getChildren().addAll(userLabel, commentLabel, noteLabel);
                 // Créez un Label personnalisé pour chaque avis
                 Label avisLabel = new Label();
                 avisLabel.setStyle("-fx-font-weight: bold; -fx-background-color: #d0d7ac; -fx-padding: 10px; -fx-border-radius: 20px;");
@@ -420,7 +421,21 @@ public class AfficherOeuvre {
                         + "\nCommentaire: " + avis.getCommentaire()
                         + "\nNote: " + avis.getNote());
 
-                vbox.getChildren().add(avisLabel);
+                vbox.getChildren().add(avisLabel);*/
+                VBox avisVBox = new VBox(); // Créez un conteneur VBox pour chaque avis
+                avisVBox.setStyle("-fx-padding: 10px; -fx-spacing: 5px;"); // Ajoutez des marges et un espacement
+
+                Label utilisateurLabel = new Label("Utilisateur: " + avis.getClient().getNom_user() + " " + avis.getClient().getPrenom_user());
+                Label commentaireLabel = new Label("Commentaire: " + avis.getCommentaire());
+
+                // Créez un composant Rating pour afficher la note
+                Rating noteRating = new Rating();
+                noteRating.setRating(avis.getNote());
+                noteRating.setDisable(true); // Désactivez la modification de la note par l'utilisateur
+
+                avisVBox.getChildren().addAll(utilisateurLabel, commentaireLabel, noteRating); // Ajoutez les éléments au conteneur VBox
+
+                vbox.getChildren().add(avisVBox); // Ajoutez le conteneur VBox à votre VBox principal
             }
 
             // Liez le VBox au ScrollPane

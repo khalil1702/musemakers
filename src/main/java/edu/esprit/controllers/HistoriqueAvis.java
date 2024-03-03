@@ -97,7 +97,7 @@ public class HistoriqueAvis {
             };
         });
         commentaire_id.setCellValueFactory(new PropertyValueFactory<Avis, String>("commentaire"));
-        dateexp_id.setCellValueFactory(new PropertyValueFactory<Avis, Date>("dateExperience"));
+
         //nomoeuvre_id.setCellValueFactory(new PropertyValueFactory<Avis, String>("oeuvre"));
         // Créez un Tooltip pour afficher l'image de l'oeuvre
         Tooltip tooltip = new Tooltip();

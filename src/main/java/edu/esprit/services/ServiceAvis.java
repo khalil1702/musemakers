@@ -262,4 +262,42 @@ public class ServiceAvis implements IService<Avis>{
         return totalRating / avisList.size();
     }
 
+    public Set<Oeuvre> getReviewedOeuvreByUser(int userId) {
+        Set<Oeuvre> favoritoeuvre = new HashSet<>();
+        String query = "SELECT oeuvre.* FROM oeuvre JOIN avis ON oeuvre.id_oeuvre = avis.id_oeuvre WHERE (avis.id_user = ? AND avis.favoris = 1);";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(query);
+            ps.setInt(1, userId);
+            ResultSet res = ps.executeQuery();
+            while (res.next()) {
+                int id = res.getInt("id_oeuvre");
+                String nom = res.getString("nom_oeuvre");
+                String categorie = res.getString("categorie_oeuvre");
+                float prix = res.getFloat("prix_oeuvre");
+                Date dateCreation = res.getDate("datecreation");
+                String description = res.getString("description");
+                String image = res.getString("image");
+                Oeuvre oeuvre = new Oeuvre(id, nom, categorie, prix, dateCreation, description, image);
+                favoritoeuvre.add(oeuvre);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error retrieving reviewed oeuvre: " + e.getMessage());
+        }
+        return favoritoeuvre;
+    }
+    public void modifierAvis(int idOeuvre) {
+        String req = "UPDATE avis SET favoris = ? WHERE id_oeuvre = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setBoolean(1, false); // Marquer l'avis comme non favori
+            ps.setInt(2, idOeuvre); // L'identifiant de l'œuvre à mettre à jour
+
+            ps.executeUpdate();
+            System.out.println("Avis modifié avec succès !");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
 }

@@ -6,6 +6,7 @@ import edu.esprit.entities.Avis;
 import edu.esprit.services.ServiceOeuvre;
 import edu.esprit.services.ServicePersonne;
 import edu.esprit.services.ServiceAvis;
+import edu.esprit.utils.DataSource;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
@@ -15,10 +16,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -28,6 +26,8 @@ import org.controlsfx.control.Rating;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -49,7 +49,8 @@ public class AfficherOeuvreClient {
     @FXML
     private Button Historique_id;
 
-
+    @FXML
+    private Button favoris_id;
 
     @FXML
     private ComboBox<String> comboBox;
@@ -204,6 +205,15 @@ public class AfficherOeuvreClient {
     @FXML
     void Afficherhistoriqueavis(ActionEvent event) throws IOException {
         FXMLLoader loader= new FXMLLoader(getClass().getResource("/client/HistoriqueAvis.fxml"));
+        Parent root=loader.load();
+
+        nameSearchID.getScene().setRoot(root);
+    }
+
+    @FXML
+    void handleFavorisAction(ActionEvent event) throws IOException{
+
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/client/AfficherOeuvreFavoris.fxml"));
         Parent root=loader.load();
 
         nameSearchID.getScene().setRoot(root);

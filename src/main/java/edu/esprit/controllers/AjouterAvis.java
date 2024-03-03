@@ -21,6 +21,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.geometry.Insets;
 import org.controlsfx.control.Rating;
+import org.controlsfx.control.ToggleSwitch;
+
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -32,11 +34,6 @@ public class AjouterAvis {
 
     @FXML
     private TextArea comment_id;
-
-
-
-    //@FXML
-    //private ChoiceBox<Integer> note_id;
 
     @FXML
     private Label details_id;
@@ -53,6 +50,9 @@ public class AjouterAvis {
 
     @FXML
     private Rating note_id;
+
+    @FXML
+    private ToggleSwitch favorisToggleSwitch;
 
     @FXML
     private Button historique_id;
@@ -204,12 +204,12 @@ public class AjouterAvis {
                 } else if  (deslike_id.getStyle().contains("-fx-background-color: red;")) {
                     dislikes=1;
                 }
-
+                boolean isFavoris = favorisToggleSwitch.isSelected();
                 // Si l'utilisateur clique sur Like, likes sera 1 et dislikes sera 0
                 // Si l'utilisateur clique sur Dislike, likes sera 0 et dislikes sera 1
 
                     // Create an avis
-                    Avis avis = new Avis(commentaire, note, oeuvre, client, likes, dislikes, false);
+                    Avis avis = new Avis(commentaire, note, oeuvre, client, likes, dislikes, isFavoris);
 
                     // Add the avis to the database
                     serviceAvis.ajouter(avis);

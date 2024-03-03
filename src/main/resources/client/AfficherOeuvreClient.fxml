@@ -30,6 +30,7 @@
                               <Image url="@../art/history.png" />
                            </image>
                         </ImageView>
+                        <Button fx:id="favoris_id" layoutX="37.0" layoutY="278.0" mnemonicParsing="false" onAction="#handleFavorisAction" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Voir favoris" />
                      </children></AnchorPane>
              </children></VBox>
           </left>
