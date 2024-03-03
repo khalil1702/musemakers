@@ -10,7 +10,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="670.0" prefWidth="1233.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChatBotController">
     <children>
-      <ImageView fitHeight="667.0" fitWidth="1223.0" layoutX="4.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="649.0" fitWidth="1165.0" layoutX="25.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@img/Chatbot.png" />
          </image>
@@ -31,10 +31,19 @@
                 <Font name="Arial Bold" size="12.0" />
             </font>
         </Label>
-        <ImageView fitHeight="129.0" fitWidth="137.0" layoutX="42.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="129.0" fitWidth="137.0" layoutX="56.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@img/logoo.png" />
             </image>
         </ImageView>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" prefHeight="32.0" prefWidth="42.0" style="-fx-background-color: transparant;">
+         <graphic>
+            <ImageView fitHeight="29.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/backkk.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
     </children>
 </AnchorPane>

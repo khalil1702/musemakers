@@ -6,10 +6,9 @@ import entities.User;
 import utils.DataSource;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class CommentaireService implements IService<Commentaire>{
     private Connection cnx;
@@ -161,5 +160,59 @@ public class CommentaireService implements IService<Commentaire>{
         }
         return commentCountByCategory;
     }
+    public List<Commentaire> trierParNomUserAscendant() throws SQLException {
+        List<Commentaire> commentaires = getAll();
+        return commentaires.stream()
+                .sorted(Comparator.comparing(c -> c.getReclamation().getUser().getNom_user()))
+                .collect(Collectors.toList());
+    }
 
+    public List<Commentaire> trierParNomUserDescendant() throws SQLException {
+        List<Commentaire> commentaires = getAll();
+        return commentaires.stream()
+                .sorted(Comparator.comparing(c -> c.getReclamation().getUser().getNom_user(), Comparator.reverseOrder()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Commentaire> trierParDateAscendant() throws SQLException {
+        List<Commentaire> commentaires = getAll();
+        return commentaires.stream()
+                .sorted(Comparator.comparing(Commentaire::getDateCom))
+                .collect(Collectors.toList());
+    }
+
+    public List<Commentaire> trierParDateDescendant() throws SQLException {
+        List<Commentaire> commentaires = getAll();
+        return commentaires.stream()
+                .sorted(Comparator.comparing(Commentaire::getDateCom, Comparator.reverseOrder()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Commentaire> trierParReclamationAscendant() throws SQLException {
+        List<Commentaire> commentaires = getAll();
+        return commentaires.stream()
+                .sorted(Comparator.comparing(c -> c.getReclamation().getIdRec()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Commentaire> trierParReclamationDescendant() throws SQLException {
+        List<Commentaire> commentaires = getAll();
+        return commentaires.stream()
+                .sorted(Comparator.comparing(c -> c.getReclamation().getIdRec(), Comparator.reverseOrder()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Commentaire> trierParContenuAscendant() throws SQLException {
+        List<Commentaire> commentaires = getAll();
+        return commentaires.stream()
+                .sorted(Comparator.comparing(Commentaire::getContenuCom))
+                .collect(Collectors.toList());
+    }
+
+    public List<Commentaire> trierParContenuDescendant() throws SQLException {
+        List<Commentaire> commentaires = getAll();
+        return commentaires.stream()
+                .sorted(Comparator.comparing(Commentaire::getContenuCom, Comparator.reverseOrder()))
+                .collect(Collectors.toList());
+    }
 }

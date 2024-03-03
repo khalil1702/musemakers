@@ -35,6 +35,8 @@
                               </ImageView>
                            </graphic>
                         </Button>
+                        <Button layoutX="14.0" layoutY="133.0" mnemonicParsing="false" onAction="#StatRec" styleClass="round-button" stylesheets="@style.css" text="Voir Statistiques des Commentaires" />
+                        <Button layoutX="16.0" layoutY="188.0" mnemonicParsing="false" onAction="#StatCom" styleClass="round-button" stylesheets="@style.css" text="Voir Statistiques Des Reclamations" />
                      </children></AnchorPane>
                     </children>
                 </VBox>
@@ -82,6 +84,7 @@
                         <Button fx:id="modifier" layoutX="375.0" layoutY="381.0" mnemonicParsing="false" onAction="#modifier" styleClass="round-button" stylesheets="@style.css" text="Modifier" />
                         <Label fx:id="satut" layoutX="202.0" layoutY="355.0" text="Statut du reclamation :" />
                         <TextField fx:id="searchTF" layoutX="203.0" layoutY="27.0" />
+                        <ComboBox fx:id="trie" layoutX="406.0" layoutY="27.0" prefWidth="150.0" promptText="Trier ASC/DSC" />
                             </children>
                         </AnchorPane>
                     </children>

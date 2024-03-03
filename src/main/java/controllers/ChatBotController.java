@@ -2,8 +2,12 @@ package controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.*;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -16,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import javafx.stage.Stage;
 
 
 public class ChatBotController implements Initializable {
@@ -81,48 +86,60 @@ public class ChatBotController implements Initializable {
                 + "Pouvez-vous reformuler votre question s'il vous plaît ?";
     }
 
+    @FXML
+    void back(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterReclamationUser.fxml"));
+        Parent root = loader.load();
 
+        // Créer une nouvelle scène
+        Scene scene = new Scene(root);
 
-}
+        // Configurer la nouvelle scène dans une nouvelle fenêtre
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.setTitle("Reclamations");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-  private String getResponse(String input) {
-    if (input.contains("hello") || input.contains("bonjour")) {
-        return "Bonjour! Comment puis-je vous aider aujourd'hui?";
-    } else if (input.contains("Je veux savoir l'heure quand mon plat sera pret")) {
-        return "EnergyBox Bot :Vous trouvez tous les informations qui concerne la réservation dans le QrcCode \n qui apparait lors de réserver ou bien le SMS qui sera envoyé à vous";
-    } else if (input.contains("Merci")) {
-        return "Je suis désolé pour cela. Je vais demander au coach de vous contacter directement.";
-    } else if (input.contains("je veux changer la date du cours avec ce coach")) {
-        return "D'accord, nous allons vous contacter pour fixer une nouvelle date.";
-    } else if (input.contains("merci")) {
-        return "Merci pour votre fidélité avec Sportifly !";
-    } else {
-        return "Je suis désolé, je ne comprends pas. Pouvez-vous reformuler votre question s'il vous plaît ?";
+        // Afficher la nouvelle fenêtre
+        stage.show();
     }
-}
+   /* @FXML
+    void com(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterComUser.fxml"));
+        Parent root = loader.load();
+
+        // Créer une nouvelle scène
+        Scene scene = new Scene(root);
+
+        // Configurer la nouvelle scène dans une nouvelle fenêtre
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.setTitle("Commentaires");
+
+        // Afficher la nouvelle fenêtre
+        stage.show();
+    }
+*/
 }
 
-*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

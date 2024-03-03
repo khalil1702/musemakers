@@ -25,8 +25,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class AfficherRecBack {
-    private final ReclamationService rs= new ReclamationService( );
-    private final service.ServiceUser su= new ServiceUser();
+    private final ReclamationService rs = new ReclamationService();
+    private final service.ServiceUser su = new ServiceUser();
 
     @FXML
     private TableColumn<?, ?> CvCat;
@@ -57,6 +57,9 @@ public class AfficherRecBack {
     private Button supprimer;
     @FXML
     private ComboBox<String> StatutCB;
+    @FXML
+    private ComboBox<String> trie;
+
     public void initialize() throws IOException {
         ObservableList<String> options = FXCollections.observableArrayList(
                 "En cours", "Resolue", "Fermée"
@@ -76,6 +79,17 @@ public class AfficherRecBack {
         searchTF.textProperty().addListener((observable, oldValue, newValue) -> {
             SearchRec(newValue); // Appel de la méthode de recherche avec le nouveau texte
         });
+        trie.getItems().addAll("Tri par nom utilisateur (ascendant)", "Tri par nom utilisateur (descendant)",
+                "Tri par description (ascendant)", "Tri par description (descendant)",
+                "Tri par statut (ascendant)", "Tri par statut (descendant)",
+                "Tri par date de réclamation (ascendant)", "Tri par date de réclamation (descendant)");
+
+        // Appel de la méthode trierOeuvres avec l'option sélectionnée lorsque l'utilisateur change la valeur de la ComboBox
+        trie.setOnAction(event -> {
+            String selectedOption = (String) trie.getValue();
+            trierReclamation(selectedOption);
+        });
+
     }
 
 
@@ -99,6 +113,14 @@ public class AfficherRecBack {
             }
         }
         TableColumn<Reclamation, Void> commentColumn = new TableColumn<>("Commenter");
+
+        // Ajoutez le reste de votre logique de création de colonnes ici...
+
+
+
+        if (TableViewRecB != null && TableViewRecB instanceof TableView) {
+            ((TableView<Reclamation>) TableViewRecB).setItems(FXCollections.observableArrayList(RecList));
+        }
         commentColumn.setCellFactory(param -> new TableCell<Reclamation, Void>() {
             private final Button commentButton = new Button("Commenter");
 
@@ -149,6 +171,7 @@ public class AfficherRecBack {
 
         TableViewRecB.getColumns().add(commentColumn);
         CvNom.setCellValueFactory(new PropertyValueFactory<>("userNom"));
+
         CvDescri.setCellValueFactory(new PropertyValueFactory<>("descriRec"));
         CvDate.setCellValueFactory(new PropertyValueFactory<>("DateRec"));
         CvCat.setCellValueFactory(new PropertyValueFactory<>("CategorieRec"));
@@ -173,11 +196,11 @@ public class AfficherRecBack {
 
             // Si l'utilisateur confirme la suppression, procéder
             if (result.isPresent() && result.get() == ButtonType.OK) {
-            selectedRec.setStatutRec(StatutCB.getValue());
+                selectedRec.setStatutRec(StatutCB.getValue());
 
-            // Update in database
-            rs.modifier(selectedRec);
-            sendSMS.sendSMS(selectedRec);
+                // Update in database
+                rs.modifier(selectedRec);
+                sendSMS.sendSMS(selectedRec);
             }
 
             // Refresh table view
@@ -205,9 +228,10 @@ public class AfficherRecBack {
 
             // Si l'utilisateur confirme la suppression, procéder
             if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Delete from database
+                // Delete from database
 
-            rs.supprimer(selectedRec.getIdRec()); }
+                rs.supprimer(selectedRec.getIdRec());
+            }
 
 
             // Refresh table view
@@ -218,6 +242,7 @@ public class AfficherRecBack {
             }
         }
     }
+
     private void displayActiviteInfo(Reclamation r) {
         StatutCB.setValue(r.getStatutRec());
 
@@ -253,6 +278,9 @@ public class AfficherRecBack {
                                 (reclamation != null &&
                                         reclamation.getCategorieRec() != null &&
                                         reclamation.getCategorieRec().toLowerCase().contains(searchText.toLowerCase())) ||
+                                (reclamation != null &&
+                                        reclamation.getDescriRec() != null &&
+                                        reclamation.getDescriRec().toLowerCase().contains(searchText.toLowerCase())) ||
 
                                 (reclamation != null &&
                                         reclamation.getStatutRec() != null &&
@@ -264,5 +292,74 @@ public class AfficherRecBack {
         TableViewRecB.setItems(FXCollections.observableArrayList(searchResult));
     }
 
+    private void trierReclamation(String option) {
+        try {
+            switch (option) {
+                case "Tri par nom utilisateur (ascendant)":
+                    TableViewRecB.setItems(FXCollections.observableArrayList(rs.trierParNomUserAscendant()));
+                    break;
+                case "Tri par nom utilisateur (descendant)":
+                    TableViewRecB.setItems(FXCollections.observableArrayList(rs.trierParNomUserDescendant()));
+                    break;
+                case "Tri par description (ascendant)":
+                    TableViewRecB.setItems(FXCollections.observableArrayList(rs.trierParDescriptionAscendant()));
+                    break;
+                case "Tri par description (descendant)":
+                    TableViewRecB.setItems(FXCollections.observableArrayList(rs.trierParDescriptionDescendant()));
+                    break;
+                case "Tri par statut (ascendant)":
+                    TableViewRecB.setItems(FXCollections.observableArrayList(rs.trierParStatutAscendant()));
+                    break;
+                case "Tri par statut (descendant)":
+                    TableViewRecB.setItems(FXCollections.observableArrayList(rs.trierParStatutDescendant()));
+                    break;
+                case "Tri par date de réclamation (ascendant)":
+                    TableViewRecB.setItems(FXCollections.observableArrayList(rs.trierParDateReclamationAscendant()));
+                    break;
+                case "Tri par date de réclamation (descendant)":
+                    TableViewRecB.setItems(FXCollections.observableArrayList(rs.trierParDateReclamationDescendant()));
+                    break;
+                default:
+                    // Faire quelque chose si aucune option ne correspond
+                    break;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer l'exception
+        }
 
+    }
+    @FXML
+    void StatCom(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/StatRec.fxml"));
+        Parent root = loader.load();
+
+        // Créer une nouvelle scène
+        Scene scene = new Scene(root);
+
+        // Configurer la nouvelle scène dans une nouvelle fenêtre
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.setTitle("Reclamations");
+
+        // Afficher la nouvelle fenêtre
+        stage.show();
+    }
+
+    @FXML
+    void StatRec(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/StatCom.fxml"));
+        Parent root = loader.load();
+
+        // Créer une nouvelle scène
+        Scene scene = new Scene(root);
+
+        // Configurer la nouvelle scène dans une nouvelle fenêtre
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.setTitle("Reclamations");
+
+        // Afficher la nouvelle fenêtre
+        stage.show();
+    }
 }

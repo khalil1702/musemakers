@@ -54,7 +54,8 @@ public class AjouterComAdmin {
 
     @FXML
     private Button modifier;
-
+    @FXML
+    private ComboBox<String> trie;
     @FXML
     private Button supprimer;
 
@@ -77,6 +78,16 @@ public class AjouterComAdmin {
             }
         });
         ShowCommentaire();
+        trie.getItems().addAll("Tri par nom utilisateur (ascendant)", "Tri par nom utilisateur (descendant)",
+                "Tri par date (ascendant)", "Tri par date (descendant)",
+                "Tri par reclamation (ascendant)", "Tri par reclamation (descendant)",
+                "Tri par contenu (ascendant)", "Tri par contenu (descendant)");
+
+        // Appel de la méthode trierOeuvres avec l'option sélectionnée lorsque l'utilisateur change la valeur de la ComboBox
+        trie.setOnAction(event -> {
+            String selectedOption = (String) trie.getValue();
+            trierCom(selectedOption);
+        });
 
         // Ajoutez un écouteur sur le TextField de recherche pour gérer la recherche dynamique
         searchTF.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -244,5 +255,41 @@ public class AjouterComAdmin {
         // Mettre à jour la ListView avec les résultats de la recherche
         ListViewCommentaire.setItems(FXCollections.observableArrayList(searchResult));
     }
+    private void trierCom(String option) {
+        try {
+            switch (option) {
+                case "Tri par nom utilisateur (ascendant)":
+                    ListViewCommentaire.setItems(FXCollections.observableArrayList(cs.trierParNomUserAscendant()));
+                    break;
+                case "Tri par nom utilisateur (descendant)":
+                    ListViewCommentaire.setItems(FXCollections.observableArrayList(cs.trierParNomUserDescendant()));
+                    break;
+                case "Tri par date (ascendant)":
+                    ListViewCommentaire.setItems(FXCollections.observableArrayList(cs.trierParDateAscendant()));
+                    break;
+                case "Tri par date (descendant)":
+                    ListViewCommentaire.setItems(FXCollections.observableArrayList(cs.trierParDateDescendant()));
+                    break;
+                case "Tri par reclamation (ascendant)":
+                    ListViewCommentaire.setItems(FXCollections.observableArrayList(cs.trierParReclamationAscendant()));
+                    break;
+                case "Tri par reclamation (descendant)":
+                    ListViewCommentaire.setItems(FXCollections.observableArrayList(cs.trierParReclamationDescendant()));
+                    break;
+                case "Tri par contenu (ascendant)":
+                    ListViewCommentaire.setItems(FXCollections.observableArrayList(cs.trierParContenuAscendant()));
+                    break;
+                case "Tri par contenu (descendant)":
+                    ListViewCommentaire.setItems(FXCollections.observableArrayList(cs.trierParContenuDescendant()));
+                    break;
+                default:
+                    // Faire quelque chose si aucune option ne correspond
+                    break;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer l'exception
+        }
 
+    }
 }

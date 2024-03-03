@@ -11,7 +11,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 import service.CommentaireService;
 import service.ReclamationService;
 import service.ServiceUser;
@@ -38,7 +42,8 @@ public class AjouterComUser {
 
     @FXML
     private Button ajout;
-
+    @FXML
+    private ComboBox<String> trie;
     @FXML
     private Button modifier;
 
@@ -77,6 +82,16 @@ public class AjouterComUser {
                     displayCommentaireInfo(selectedCommentaire);
                 }
             }
+        });
+        trie.getItems().addAll("Tri par nom utilisateur (ascendant)", "Tri par nom utilisateur (descendant)",
+                "Tri par date (ascendant)", "Tri par date (descendant)",
+                "Tri par reclamation (ascendant)", "Tri par reclamation (descendant)",
+                "Tri par contenu (ascendant)", "Tri par contenu (descendant)");
+
+        // Appel de la méthode trierOeuvres avec l'option sélectionnée lorsque l'utilisateur change la valeur de la ComboBox
+        trie.setOnAction(event -> {
+            String selectedOption = (String) trie.getValue();
+            trierCom(selectedOption);
         });
         ShowCommentaire();
 
@@ -118,6 +133,7 @@ public class AjouterComUser {
         try {
 
             cs.ajouter(c);
+            showNotification();
             Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
             successAlert.setTitle("Message d'information");
             successAlert.setHeaderText(null);
@@ -182,6 +198,7 @@ public class AjouterComUser {
                 .filter(commentaire ->
                         commentaire.getContenuCom().toLowerCase().contains(searchText.toLowerCase()) ||
                                 commentaire.getReclamation().getUser().getNom_user().toLowerCase().contains(searchText.toLowerCase()) ||
+                                commentaire.getReclamation().getDescriRec().toLowerCase().contains(searchText.toLowerCase()) ||
                                 commentaire.getReclamation().getStatutRec().toLowerCase().contains(searchText.toLowerCase()))
                 .collect(Collectors.toList());
 
@@ -204,5 +221,77 @@ public class AjouterComUser {
 
         // Afficher la nouvelle fenêtre
         stage.show();
+    }
+    private void trierCom(String option) {
+        try {
+            switch (option) {
+                case "Tri par nom utilisateur (ascendant)":
+                    ListViewCommentaire.setItems(FXCollections.observableArrayList(cs.trierParNomUserAscendant()));
+                    break;
+                case "Tri par nom utilisateur (descendant)":
+                    ListViewCommentaire.setItems(FXCollections.observableArrayList(cs.trierParNomUserDescendant()));
+                    break;
+                case "Tri par date (ascendant)":
+                    ListViewCommentaire.setItems(FXCollections.observableArrayList(cs.trierParDateAscendant()));
+                    break;
+                case "Tri par date (descendant)":
+                    ListViewCommentaire.setItems(FXCollections.observableArrayList(cs.trierParDateDescendant()));
+                    break;
+                case "Tri par reclamation (ascendant)":
+                    ListViewCommentaire.setItems(FXCollections.observableArrayList(cs.trierParReclamationAscendant()));
+                    break;
+                case "Tri par reclamation (descendant)":
+                    ListViewCommentaire.setItems(FXCollections.observableArrayList(cs.trierParReclamationDescendant()));
+                    break;
+                case "Tri par contenu (ascendant)":
+                    ListViewCommentaire.setItems(FXCollections.observableArrayList(cs.trierParContenuAscendant()));
+                    break;
+                case "Tri par contenu (descendant)":
+                    ListViewCommentaire.setItems(FXCollections.observableArrayList(cs.trierParContenuDescendant()));
+                    break;
+                default:
+                    // Faire quelque chose si aucune option ne correspond
+                    break;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer l'exception
+        }
+
+    }
+    @FXML
+    void chat(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChatBot.fxml"));
+        Parent root = loader.load();
+
+        // Créer une nouvelle scène
+        Scene scene = new Scene(root);
+
+        // Configurer la nouvelle scène dans une nouvelle fenêtre
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.setTitle("Reclamations");
+
+        // Afficher la nouvelle fenêtre
+        stage.show();
+    }
+    private void showNotification() {
+        try {
+            Image image = new Image("/img/tick.png");
+
+            // Redimensionner l'image
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(70); // ajustez la largeur comme vous le souhaitez
+            imageView.setFitHeight(70); // ajustez la hauteur comme vous le souhaitez
+
+            Notifications notifications = Notifications.create();
+            notifications.graphic(imageView); // Utilisez l'ImageView avec l'image redimensionnée
+            notifications.text("Comment added successfully");
+            notifications.title("Success Message");
+            notifications.hideAfter(Duration.seconds(4));
+            notifications.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

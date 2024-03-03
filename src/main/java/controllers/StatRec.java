@@ -1,10 +1,17 @@
 package controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
+import javafx.stage.Stage;
 import service.ReclamationService;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Map;
@@ -34,8 +41,8 @@ public class StatRec implements Initializable {
         Map<String, Integer> categoryCounts = rs.countReclamationsByCategory();
         Map<String, Integer> statusCounts = rs.countReclamationsByStatus();
 
-        populatePieChart(StatCat, "Categories", categoryCounts);
-        populatePieChart(StatS, "Statut", statusCounts);
+        populatePieChart(StatCat, "Categories des reclamations", categoryCounts);
+        populatePieChart(StatS, "Statut des reclamations", statusCounts);
     }
 
     private void populatePieChart(PieChart pieChart, String dataName, Map<String, Integer> data) {
@@ -48,5 +55,21 @@ public class StatRec implements Initializable {
                 pieChart.getData().add(pieData);
             }
         }
+    }
+    @FXML
+    void exit(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherRecBack.fxml"));
+        Parent root = loader.load();
+
+        // Créer une nouvelle scène
+        Scene scene = new Scene(root);
+
+        // Configurer la nouvelle scène dans une nouvelle fenêtre
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.setTitle("Reclamations");
+
+        // Afficher la nouvelle fenêtre
+        stage.show();
     }
 }

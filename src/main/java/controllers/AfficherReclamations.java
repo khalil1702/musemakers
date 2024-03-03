@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AfficherReclamations {
     private final ReclamationService rs = new ReclamationService();
@@ -47,13 +48,25 @@ public class AfficherReclamations {
 
     @FXML
     private TextField searchTF;
-
+    @FXML
+    private ComboBox<String> trie;
     List<Reclamation> RecList;
 
     private Reclamation selectedReservation;
 
     public void initialize() throws IOException {
         ShowReclamation();
+        trie.getItems().addAll("Tri par nom utilisateur (ascendant)", "Tri par nom utilisateur (descendant)",
+                "Tri par description (ascendant)", "Tri par description (descendant)",
+                "Tri par statut (ascendant)", "Tri par statut (descendant)",
+                "Tri par date de réclamation (ascendant)", "Tri par date de réclamation (descendant)");
+
+        // Appel de la méthode trierOeuvres avec l'option sélectionnée lorsque l'utilisateur change la valeur de la ComboBox
+        trie.setOnAction(event -> {
+            String selectedOption = (String) trie.getValue();
+            trierReclamation(selectedOption);
+        });
+
     }
 
     public void ShowReclamation() throws IOException {
@@ -169,5 +182,41 @@ public class AfficherReclamations {
         stage.show();
     }
 
+    private void trierReclamation(String option) {
+        try {
+            switch (option) {
+                case "Tri par nom utilisateur (ascendant)":
+                    ListViewRec.setItems(FXCollections.observableArrayList(rs.trierParNomUserAscendant()));
+                    break;
+                case "Tri par nom utilisateur (descendant)":
+                    ListViewRec.setItems(FXCollections.observableArrayList(rs.trierParNomUserDescendant()));
+                    break;
+                case "Tri par description (ascendant)":
+                    ListViewRec.setItems(FXCollections.observableArrayList(rs.trierParDescriptionAscendant()));
+                    break;
+                case "Tri par description (descendant)":
+                    ListViewRec.setItems(FXCollections.observableArrayList(rs.trierParDescriptionDescendant()));
+                    break;
+                case "Tri par statut (ascendant)":
+                    ListViewRec.setItems(FXCollections.observableArrayList(rs.trierParStatutAscendant()));
+                    break;
+                case "Tri par statut (descendant)":
+                    ListViewRec.setItems(FXCollections.observableArrayList(rs.trierParStatutDescendant()));
+                    break;
+                case "Tri par date de réclamation (ascendant)":
+                    ListViewRec.setItems(FXCollections.observableArrayList(rs.trierParDateReclamationAscendant()));
+                    break;
+                case "Tri par date de réclamation (descendant)":
+                    ListViewRec.setItems(FXCollections.observableArrayList(rs.trierParDateReclamationDescendant()));
+                    break;
+                default:
+                    // Faire quelque chose si aucune option ne correspond
+                    break;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer l'exception
+        }
 
+}
 }

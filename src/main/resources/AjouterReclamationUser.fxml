@@ -99,8 +99,15 @@
                                     </font>
                                 </Label>
                                 <ComboBox fx:id="CatRecCB" layoutX="27.0" layoutY="107.0" prefWidth="150.0" promptText="Catégorie" stylesheets="@style.css" />
-                        <Button fx:id="tri" layoutX="201.0" layoutY="52.0" mnemonicParsing="false" text="Trier" />
-                        <ComboBox fx:id="AscDsc" layoutX="258.0" layoutY="52.0" prefWidth="150.0" promptText="ASC/DSC" />
+                        <Button layoutX="62.0" layoutY="370.0" mnemonicParsing="false" onAction="#chat" prefHeight="32.0" prefWidth="164.0" styleClass="underline-button" stylesheets="@style.css" text="Tu as besoin d'aide?">
+                           <graphic>
+                              <ImageView fitHeight="55.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/help.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                             </children>
                         </AnchorPane>
                     </children>
