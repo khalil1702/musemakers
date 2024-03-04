@@ -17,7 +17,7 @@
             <children>
                 <HBox prefHeight="35.0" prefWidth="221.0" translateY="400.0">
                     <children>
-                        <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="99.0" styleClass="buttonx" text="Quitter" translateX="20.0" />
+                        <Button fx:id="Quitterid" mnemonicParsing="false" onAction="#Quitter" prefHeight="32.0" prefWidth="99.0" styleClass="buttonx" text="Quitter" translateX="20.0" />
                         <ImageView fitHeight="27.0" fitWidth="27.0" translateX="22.0" translateY="3.0">
                             <image>
                                 <Image url="@img/426748723_947994023356526_1036875586550144222_n.png" />
@@ -95,9 +95,9 @@
                                 <Image url="@img/429861444_750648533696376_8904930798211278600_n.png" />
                             </image>
                         </ImageView>
-                        <TextField prefHeight="26.0" prefWidth="224.0" promptText="Chercher..." translateX="20.0" translateY="2.0" />
+                        <TextField fx:id="searchFieldd" prefHeight="26.0" prefWidth="224.0" promptText="Chercher..." translateX="20.0" translateY="2.0" />
                         <CheckBox mnemonicParsing="false" styleClass="checkbox" text="Trier" translateX="60.0" translateY="1.0" />
-                        <ChoiceBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="154.0" translateX="80.0" translateY="1.0" />
+                        <ChoiceBox fx:id="searchAndOrderBoxx" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="154.0" translateX="80.0" translateY="1.0" />
                     </children>
                 </HBox>
                 <Pagination fx:id="PaginiationAteliers" prefHeight="481.0" prefWidth="486.0" />

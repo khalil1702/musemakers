@@ -2,7 +2,6 @@ package controllers;
 
 
 import entities.Atelier;
-import entities.Cour;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,10 +9,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Pagination;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -25,13 +21,11 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import service.ServiceAtelier;
-import service.ServiceCour;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-import java.sql.SQLException;
 public class FrontAfficherAtelier {
 
 
@@ -42,12 +36,18 @@ public class FrontAfficherAtelier {
         @FXML
         private Pagination PaginiationAteliers;
 
+
         @FXML
         private Button afficheratelier;
+    @FXML
+    private Button Quitterid;
 
 
+    @FXML
+    private ChoiceBox<String> searchAndOrderBoxx;
 
-
+    @FXML
+    private TextField searchFieldd;
         @FXML
         private VBox chosenCoursCard;
 
@@ -65,6 +65,8 @@ public class FrontAfficherAtelier {
         @FXML
         public void initialize()
         {
+            searchAndOrderBoxx.getItems().addAll("Par lien ");
+            searchAndOrderBoxx.setValue("Par lien");
             System.out.println("test");
             ateliersList.addAll(serviceAtelier.getAll());
             innitAteliersUI();
@@ -79,8 +81,8 @@ public class FrontAfficherAtelier {
         }
 
         @FXML
-        void handle1(ActionEvent event) throws IOException {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AfficherAtelierNv.fxml")));
+        void Quitter (ActionEvent event) throws IOException {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Acceuiluser.fxml")));
             // Créer une nouvelle scène
             Scene scene = new Scene(root);
 

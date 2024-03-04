@@ -7,8 +7,8 @@ import utils.DataSource;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ServiceCour implements IService<Cour> {
     private Connection conn;
@@ -336,6 +336,60 @@ public class ServiceCour implements IService<Cour> {
             return cours;
         }
 
+    public List<Cour> trierParTitreAscendant() {
+        List<Cour> cours = new ArrayList<>(getAll());
+        return cours.stream()
+                .sorted(Comparator.comparing(Cour::getTitre_cours))
+                .collect(Collectors.toList());
+    }
+    public List<Cour> trierParTitreDescendant() {
+        List<Cour> cours = new ArrayList<>(getAll());
+        return cours.stream()
+                .sorted(Comparator.comparing(Cour::getTitre_cours).reversed())
+                .collect(Collectors.toList());
+    }
+
+    public List<Cour> trierParDecriptionAscendant() {
+        List<Cour> cours = new ArrayList<>(getAll());
+        return cours.stream()
+                .sorted(Comparator.comparing(Cour::getTitre_cours).reversed())
+                .collect(Collectors.toList());
+    }
+    public List<Cour> trierParDescriptionDescendant() {
+        List<Cour> cours = new ArrayList<>(getAll());
+        return cours.stream()
+                .sorted(Comparator.comparing(Cour::getTitre_cours))
+                .collect(Collectors.toList());
+    }
+
+
+
+    public List<Cour> trierParDateDebutAscendant() {
+        List<Cour> cours = new ArrayList<>(getAll());
+        return cours.stream()
+                .sorted(Comparator.comparing(Cour::getDateDebut_cours))
+                .collect(Collectors.toList());
+    }
+
+    public List<Cour> trierParDateDebutDescendant() {
+        List<Cour> cours = new ArrayList<>(getAll());
+        return cours.stream()
+                .sorted(Comparator.comparing(Cour::getDateDebut_cours).reversed())
+                .collect(Collectors.toList());
+    }
+    public List<Cour> trierParDateFinAscendant() {
+        List<Cour> cours = new ArrayList<>(getAll());
+        return cours.stream()
+                .sorted(Comparator.comparing(Cour::getDateFin_cours))
+                .collect(Collectors.toList());
+    }
+
+    public List<Cour> trierParDateFinDescendant() {
+        List<Cour> cours = new ArrayList<>(getAll());
+        return cours.stream()
+                .sorted(Comparator.comparing(Cour::getDateFin_cours).reversed())
+                .collect(Collectors.toList());
+    }
     }
 
 
