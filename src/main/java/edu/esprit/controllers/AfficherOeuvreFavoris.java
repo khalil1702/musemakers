@@ -67,8 +67,6 @@ public class AfficherOeuvreFavoris {
                 removeButton.setOnAction(event -> {
                     // Récupérer l'identifiant de l'œuvre associée à cette action
                     int idOeuvre = o.getId();
-
-
                     // Mettre à jour l'avis associé à cette œuvre pour marquer l'œuvre comme non favorite
                     serviceAvis.modifierAvis(idOeuvre,userId);
 

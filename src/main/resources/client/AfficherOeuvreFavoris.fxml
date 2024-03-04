@@ -19,15 +19,7 @@
             <left>
                 <VBox prefHeight="569.0" prefWidth="176.0" style="-fx-background-color: #e9d9d0;" BorderPane.alignment="CENTER">
                     <children>
-                        <AnchorPane prefHeight="644.0" prefWidth="176.0" style="-fx-background-color: d0d7ac;">
-                            <children>
-
-                                <ImageView fitHeight="33.0" fitWidth="33.0" layoutX="20.0" layoutY="201.0">
-                                    <image>
-                                        <Image url="@../art/history.png" />
-                                    </image>
-                                </ImageView>
-                            </children></AnchorPane>
+                        <AnchorPane prefHeight="644.0" prefWidth="176.0" style="-fx-background-color: d0d7ac;" />
                     </children></VBox>
             </left>
             <top>
@@ -41,7 +33,7 @@
                                     </image>
                                 </ImageView>
                                 <Button layoutX="286.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Cours Artistiques" />
-                                <Button fx:id="button_afficher" layoutX="420.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="Les chefs d'oeuvres" onAction="#Afficheroeuvre" />
+                                <Button fx:id="button_afficher" layoutX="420.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="Les chefs d'oeuvres" onAction="#Afficheroeuvre"/>
                                 <Button layoutX="719.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" styleClass="underline-button" text="Réservations" />
                                 <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" styleClass="underline-button" text="Expositions" />
                                 <Button layoutX="844.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Reclamations" />

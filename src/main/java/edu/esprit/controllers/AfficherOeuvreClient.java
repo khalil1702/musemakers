@@ -76,6 +76,13 @@ public class AfficherOeuvreClient {
             handleSearch();
         });
 
+        comboBox.setItems(FXCollections.observableArrayList(
+                "Prix Ascendant", "Prix Descendant", "Catégorie Ascendante", "Catégorie Descendante", "Nom Ascendant", "Nom Descendant"
+        ));
+
+        // Définir l'action à effectuer lorsque l'utilisateur sélectionne une option dans la ComboBox
+        comboBox.setOnAction(event -> handleSortAction());
+
 
 
     }
@@ -218,6 +225,42 @@ public class AfficherOeuvreClient {
 
         nameSearchID.getScene().setRoot(root);
     }
+    private void handleSortAction() {
+        String selectedOption = comboBox.getValue();
+
+        switch(selectedOption) {
+            case "Prix Ascendant":
+                // Trier les oeuvres par prix ascendant
+                listeo = listeo.stream().sorted(Comparator.comparingDouble(Oeuvre::getPrix)).collect(Collectors.toCollection(LinkedHashSet::new));
+                break;
+            case "Prix Descendant":
+                // Trier les oeuvres par prix descendant
+                listeo = listeo.stream().sorted(Comparator.comparingDouble(Oeuvre::getPrix).reversed()).collect(Collectors.toCollection(LinkedHashSet::new));
+                break;
+            case "Catégorie Ascendante":
+                // Trier les oeuvres par catégorie ascendante
+                listeo = listeo.stream().sorted(Comparator.comparing(Oeuvre::getCategorie)).collect(Collectors.toCollection(LinkedHashSet::new));
+                break;
+            case "Catégorie Descendante":
+                // Trier les oeuvres par catégorie descendante
+                listeo = listeo.stream().sorted(Comparator.comparing(Oeuvre::getCategorie).reversed()).collect(Collectors.toCollection(LinkedHashSet::new));
+                break;
+            case "Nom Ascendant":
+                // Trier les oeuvres par nom ascendante
+                listeo = listeo.stream().sorted(Comparator.comparing(Oeuvre::getNom)).collect(Collectors.toCollection(LinkedHashSet::new));
+                break;
+            case "Nom Descendant":
+                // Trier les oeuvres par nom descendante
+                listeo = listeo.stream().sorted(Comparator.comparing(Oeuvre::getNom).reversed()).collect(Collectors.toCollection(LinkedHashSet::new));
+                break;
+            default:
+                break;
+        }
+
+        // Réafficher les expositions après le tri
+        displayExhibitions();
+    }
+
 
 }
 

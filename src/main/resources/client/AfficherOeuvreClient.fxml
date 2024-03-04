@@ -25,12 +25,17 @@
                   <AnchorPane prefHeight="644.0" prefWidth="176.0" style="-fx-background-color: d0d7ac;">
                      <children>
                         <Button fx:id="Historique_id" layoutX="46.0" layoutY="204.0" mnemonicParsing="false" onAction="#Afficherhistoriqueavis" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Historique Avis" />
+                        <Button fx:id="favoris_id" layoutX="37.0" layoutY="278.0" mnemonicParsing="false" onAction="#handleFavorisAction" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Voir favoris" />
+                        <ImageView fitHeight="33.0" fitWidth="29.0" layoutX="22.0" layoutY="275.0">
+                           <image>
+                              <Image url="@../art/favorite.png" />
+                           </image>
+                        </ImageView>
                         <ImageView fitHeight="33.0" fitWidth="33.0" layoutX="20.0" layoutY="201.0">
                            <image>
                               <Image url="@../art/history.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="favoris_id" layoutX="37.0" layoutY="278.0" mnemonicParsing="false" onAction="#handleFavorisAction" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Voir favoris" />
                      </children></AnchorPane>
              </children></VBox>
           </left>
@@ -62,7 +67,7 @@
                       <TextField fx:id="categorieSearchID" layoutX="358.0" layoutY="14.0" promptText="Categorie" />
                       <Text fill="#b1aeae" layoutX="157.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="saisir le nom de l'oeuvre" />
                       <Text fill="#b1aeae" layoutX="364.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="saisir la categorie" />
-                     <ComboBox fx:id="comboBox" layoutX="565.0" layoutY="14.0" prefWidth="150.0" promptText="Trier" />
+                     <ComboBox fx:id="comboBox" layoutX="565.0" layoutY="14.0" prefWidth="150.0" promptText="Trier" styleClass="submit_button" />
 
                   </children>
               </AnchorPane>

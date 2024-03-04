@@ -102,7 +102,7 @@ public class AjouterAvis {
         // Set the image in the ImageView
         //details_id.setText("Exposition: " + oeuvre.getNom() );
         // Récupérez les avis de la base de données
-        List<Avis> avisList = serviceAvis.getAvisByOeuvre(oeuvre); 
+        List<Avis> avisList = serviceAvis.getAvisByOeuvre(oeuvre);
 
         // Ajoutez les avis au VBox
         for (Avis avis : avisList) {
@@ -181,7 +181,7 @@ public class AjouterAvis {
     private void submitAvis(ActionEvent event) {
         try {
             // Get the note entered by the user
-           // Integer note = note_id.getValue();
+            // Integer note = note_id.getValue();
             int note = (int) note_id.getRating();
 
             // Get the comment entered by the user
@@ -208,27 +208,27 @@ public class AjouterAvis {
                 // Si l'utilisateur clique sur Like, likes sera 1 et dislikes sera 0
                 // Si l'utilisateur clique sur Dislike, likes sera 0 et dislikes sera 1
 
-                    // Create an avis
-                    Avis avis = new Avis(commentaire, note, oeuvre, client, likes, dislikes, isFavoris);
+                // Create an avis
+                Avis avis = new Avis(commentaire, note, oeuvre, client, likes, dislikes, isFavoris);
 
-                    // Add the avis to the database
-                    serviceAvis.ajouter(avis);
+                // Add the avis to the database
+                serviceAvis.ajouter(avis);
 
 
-                    comment_id.clear();
+                comment_id.clear();
 
-                    //note_id.setValue(null);
+                //note_id.setValue(null);
 
-                    // Show a confirmation message
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Avis soumis");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Votre avis a été enregistré. Merci pour votre feedback!");
-                    alert.showAndWait();
-                    setOeuvre(oeuvre);
-                    // Close the dialog
+                // Show a confirmation message
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Avis soumis");
+                alert.setHeaderText(null);
+                alert.setContentText("Votre avis a été enregistré. Merci pour votre feedback!");
+                alert.showAndWait();
+                setOeuvre(oeuvre);
+                // Close the dialog
 
-                }
+            }
         } catch (NumberFormatException e) {
             // Handle the case where the user enters a non-numeric value for note
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -248,8 +248,8 @@ public class AjouterAvis {
     }
     @FXML
     void Affichergallerie(javafx.event.ActionEvent event) throws IOException {
-       FXMLLoader loader= new FXMLLoader(getClass().getResource("/client/AfficherOeuvreClient.fxml"));
-       Parent root=loader.load();
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/client/AfficherOeuvreClient.fxml"));
+        Parent root=loader.load();
 
         comment_id.getScene().setRoot(root);
 
