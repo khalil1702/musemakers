@@ -84,7 +84,11 @@
                         <Button fx:id="modifier" layoutX="375.0" layoutY="381.0" mnemonicParsing="false" onAction="#modifier" styleClass="round-button" stylesheets="@style.css" text="Modifier" />
                         <Label fx:id="satut" layoutX="202.0" layoutY="355.0" text="Statut du reclamation :" />
                         <TextField fx:id="searchTF" layoutX="203.0" layoutY="27.0" />
-                        <ComboBox fx:id="trie" layoutX="406.0" layoutY="27.0" prefWidth="150.0" promptText="Trier ASC/DSC" />
+                        <ImageView fitHeight="20.0" fitWidth="24.0" layoutX="177.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/chercher.png" />
+                           </image>
+                        </ImageView>
                             </children>
                         </AnchorPane>
                     </children>

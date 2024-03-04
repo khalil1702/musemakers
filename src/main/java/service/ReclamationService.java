@@ -3,6 +3,7 @@ package service;
 import entities.Reclamation;
 import entities.User;
 import utils.DataSource;
+import utils.FilterBadWord;
 
 import java.sql.*;
 import java.sql.Date;
@@ -31,8 +32,8 @@ public class ReclamationService implements IService<Reclamation>{
         String requete = " insert into reclamation (idU,descriRec,DateRec,CategorieRec,StatutRec) values (?,?,?,?,?)" ;
 
             pst=cnx.prepareStatement(requete);
-        pst.setInt(1,r.getUser().getId_user());  // Utilisez 'r.getUser().getId_user()' au lieu de 'r.getIdU()'
-            pst.setString(2,r.getDescriRec());
+        pst.setInt(1, r.getUser().getId_user());  // Utilisez 'r.getUser().getId_user()' au lieu de 'r.getIdU()'
+            pst.setString(2,FilterBadWord.filter(r.getDescriRec()));
             pst.setDate(3, new java.sql.Date(r.getDateRec().getTime()));
             pst.setString(4,r.getCategorieRec());
             pst.setString(5,r.getStatutRec());

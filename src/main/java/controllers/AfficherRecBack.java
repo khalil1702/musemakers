@@ -57,8 +57,7 @@ public class AfficherRecBack {
     private Button supprimer;
     @FXML
     private ComboBox<String> StatutCB;
-    @FXML
-    private ComboBox<String> trie;
+
 
     public void initialize() throws IOException {
         ObservableList<String> options = FXCollections.observableArrayList(
@@ -79,16 +78,7 @@ public class AfficherRecBack {
         searchTF.textProperty().addListener((observable, oldValue, newValue) -> {
             SearchRec(newValue); // Appel de la méthode de recherche avec le nouveau texte
         });
-        trie.getItems().addAll("Tri par nom utilisateur (ascendant)", "Tri par nom utilisateur (descendant)",
-                "Tri par description (ascendant)", "Tri par description (descendant)",
-                "Tri par statut (ascendant)", "Tri par statut (descendant)",
-                "Tri par date de réclamation (ascendant)", "Tri par date de réclamation (descendant)");
 
-        // Appel de la méthode trierOeuvres avec l'option sélectionnée lorsque l'utilisateur change la valeur de la ComboBox
-        trie.setOnAction(event -> {
-            String selectedOption = (String) trie.getValue();
-            trierReclamation(selectedOption);
-        });
 
     }
 
@@ -292,43 +282,7 @@ public class AfficherRecBack {
         TableViewRecB.setItems(FXCollections.observableArrayList(searchResult));
     }
 
-    private void trierReclamation(String option) {
-        try {
-            switch (option) {
-                case "Tri par nom utilisateur (ascendant)":
-                    TableViewRecB.setItems(FXCollections.observableArrayList(rs.trierParNomUserAscendant()));
-                    break;
-                case "Tri par nom utilisateur (descendant)":
-                    TableViewRecB.setItems(FXCollections.observableArrayList(rs.trierParNomUserDescendant()));
-                    break;
-                case "Tri par description (ascendant)":
-                    TableViewRecB.setItems(FXCollections.observableArrayList(rs.trierParDescriptionAscendant()));
-                    break;
-                case "Tri par description (descendant)":
-                    TableViewRecB.setItems(FXCollections.observableArrayList(rs.trierParDescriptionDescendant()));
-                    break;
-                case "Tri par statut (ascendant)":
-                    TableViewRecB.setItems(FXCollections.observableArrayList(rs.trierParStatutAscendant()));
-                    break;
-                case "Tri par statut (descendant)":
-                    TableViewRecB.setItems(FXCollections.observableArrayList(rs.trierParStatutDescendant()));
-                    break;
-                case "Tri par date de réclamation (ascendant)":
-                    TableViewRecB.setItems(FXCollections.observableArrayList(rs.trierParDateReclamationAscendant()));
-                    break;
-                case "Tri par date de réclamation (descendant)":
-                    TableViewRecB.setItems(FXCollections.observableArrayList(rs.trierParDateReclamationDescendant()));
-                    break;
-                default:
-                    // Faire quelque chose si aucune option ne correspond
-                    break;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Gérer l'exception
-        }
 
-    }
     @FXML
     void StatCom(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/StatRec.fxml"));

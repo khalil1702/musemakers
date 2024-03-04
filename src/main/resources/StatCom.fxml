@@ -38,18 +38,18 @@
             <top>
                 <HBox prefHeight="110.0" prefWidth="1034.0" styleClass="navbar_admin" BorderPane.alignment="CENTER">
                     <children>
-                        <AnchorPane prefHeight="119.0" prefWidth="1034.0" style="-fx-background-color: ffff;">
+                        <AnchorPane prefHeight="110.0" prefWidth="1076.0" style="-fx-background-color: ffff;">
                             <children>
-                                <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="473.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="50.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@img/logo.png" />
                                     </image>
                                 </ImageView>
-                                <Button layoutX="143.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: transparant;" styleClass="underline-button" text="Les artistes" underline="true" />
-                                <Button layoutX="300.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" style="-fx-background-color: transparant;" styleClass="underline-button" text="Les chefs d'oeuvres" underline="true" />
-                                <Button layoutX="719.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: transparant;" styleClass="underline-button" text="Réservations" underline="true" />
-                                <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" style="-fx-background-color: transparant;" styleClass="underline-button" text="Expositions" underline="true" />
-                                <Button layoutX="873.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: transparant;" styleClass="underline-button" text="Reclamations" underline="true" />
+                                <Button layoutX="184.0" layoutY="42.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: transparant;" styleClass="underline-button" text="Les artistes" underline="true" />
+                                <Button layoutX="349.0" layoutY="42.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" style="-fx-background-color: transparant;" styleClass="underline-button" text="Les chefs d'oeuvres" underline="true" />
+                                <Button layoutX="741.0" layoutY="42.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: transparant;" styleClass="underline-button" text="Réservations" underline="true" />
+                                <Button layoutX="558.0" layoutY="42.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" style="-fx-background-color: transparant;" styleClass="underline-button" text="Expositions" underline="true" />
+                                <Button layoutX="898.0" layoutY="42.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: transparant;" styleClass="underline-button" text="Reclamations" underline="true" />
                             </children>
                         </AnchorPane>
                     </children></HBox>
@@ -64,7 +64,7 @@
                               <Image url="@img/backstat.png" />
                            </image>
                         </ImageView>
-                        <PieChart fx:id="StatCte" layoutX="187.0" layoutY="95.0" prefHeight="298.0" prefWidth="441.0" />
+                        <PieChart fx:id="StatCte" layoutX="129.0" layoutY="93.0" prefHeight="354.0" prefWidth="602.0" />
                      </children></AnchorPane>
                     </children>
                 </AnchorPane>

@@ -38,18 +38,18 @@
             <top>
                 <HBox prefHeight="110.0" prefWidth="1034.0" styleClass="navbar_admin" BorderPane.alignment="CENTER">
                     <children>
-                        <AnchorPane prefHeight="119.0" prefWidth="1034.0" style="-fx-background-color: ffff;">
+                        <AnchorPane prefHeight="110.0" prefWidth="1062.0" style="-fx-background-color: ffff;">
                             <children>
-                                <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="473.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@img/logo.png" />
-                                    </image>
-                                </ImageView>
-                                <Button layoutX="143.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: transparant;" styleClass="underline-button" text="Les artistes" underline="true" />
-                                <Button fx:id="button_afficher" layoutX="300.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" style="-fx-background-color: transparant;" styleClass="underline-button" text="Les chefs d'oeuvres" underline="true" />
-                                <Button layoutX="719.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: transparant;" styleClass="underline-button" text="Réservations" underline="true" />
-                                <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" style="-fx-background-color: transparant;" styleClass="underline-button" text="Expositions" underline="true" />
-                                <Button layoutX="873.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: transparant;" styleClass="underline-button" text="Reclamations" underline="true" />
+                                <Button layoutX="155.0" layoutY="42.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: transparant;" styleClass="underline-button" text="Les artistes" underline="true" />
+                                <Button fx:id="button_afficher" layoutX="319.0" layoutY="42.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" style="-fx-background-color: transparant;" styleClass="underline-button" text="Les chefs d'oeuvres" underline="true" />
+                                <Button layoutX="699.0" layoutY="42.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: transparant;" styleClass="underline-button" text="Réservations" underline="true" />
+                                <Button layoutX="526.0" layoutY="42.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" style="-fx-background-color: transparant;" styleClass="underline-button" text="Expositions" underline="true" />
+                                <Button layoutX="870.0" layoutY="42.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: transparant;" styleClass="underline-button" text="Reclamations" underline="true" />
+                        <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="26.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/logo.png" />
+                           </image>
+                        </ImageView>
                             </children>
                         </AnchorPane>
                     </children></HBox>
@@ -64,8 +64,8 @@
                               <Image url="@img/backstat.png" />
                            </image>
                         </ImageView>
-                                <PieChart fx:id="StatCat" layoutX="47.0" layoutY="71.0" prefHeight="347.0" prefWidth="368.0" />
-                                <PieChart fx:id="StatS" layoutX="422.0" layoutY="71.0" prefHeight="347.0" prefWidth="368.0" />
+                                <PieChart fx:id="StatCat" layoutX="36.0" layoutY="68.0" prefHeight="363.0" prefWidth="400.0" />
+                                <PieChart fx:id="StatS" layoutX="426.0" layoutY="68.0" prefHeight="357.0" prefWidth="368.0" />
                             </children></AnchorPane>
                     </children>
                 </AnchorPane>
