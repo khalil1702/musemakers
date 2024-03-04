@@ -285,17 +285,27 @@ public class ServiceAvis implements IService<Avis>{
         }
         return favoritoeuvre;
     }
-    public void modifierAvis(int idOeuvre) {
-        String req = "UPDATE avis SET favoris = ? WHERE id_oeuvre = ?";
+    public void modifierAvis(int idOeuvre, int idUtilisateur) {
+        String req = "UPDATE avis SET favoris = ? WHERE id_oeuvre = ? AND id_user = ?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setBoolean(1, false); // Marquer l'avis comme non favori
             ps.setInt(2, idOeuvre); // L'identifiant de l'œuvre à mettre à jour
+            ps.setInt(3, idUtilisateur);
+            // Exécuter la mise à jour
+            int rowsUpdated = ps.executeUpdate();
 
-            ps.executeUpdate();
-            System.out.println("Avis modifié avec succès !");
+            // Vérifier si la mise à jour a réussi
+            if (rowsUpdated > 0) {
+                System.out.println("L'œuvre a été retirée des favoris avec succès pour l'utilisateur " + idUtilisateur);
+            } else {
+                System.out.println("Échec de la mise à jour de l'œuvre des favoris pour l'utilisateur " + idUtilisateur);
+            }
+
+            // Fermer la connexion et la déclaration préparée
+
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Erreur lors de la mise à jour de l'avis : " + e.getMessage());
         }
     }
 
