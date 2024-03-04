@@ -4,7 +4,7 @@ import edu.esprit.entities.Avis;
 import edu.esprit.entities.User;
 import edu.esprit.services.ServiceOeuvre;
 import edu.esprit.services.ServiceAvis;
-import edu.esprit.services.ServicePersonne;
+import edu.esprit.services.ServiceUser;
 import edu.esprit.utils.DataSource;
 
 public class Main {

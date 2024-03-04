@@ -96,7 +96,7 @@ public class ServiceAvis implements IService<Avis>{
 
                 ServiceOeuvre serviceOeuvre = new ServiceOeuvre();
                 Oeuvre oeuvre = serviceOeuvre.getOneById(idOeuvre);
-                ServicePersonne servicePersonne = new ServicePersonne();
+                ServiceUser servicePersonne = new ServiceUser();
                 User user = servicePersonne.getOneById(idUser);
 
                 Avis avis = new Avis(id, commentaire, note,oeuvre,user,likes,dislikes,favoris );
@@ -130,7 +130,7 @@ public class ServiceAvis implements IService<Avis>{
 
                 ServiceOeuvre serviceOeuvre = new ServiceOeuvre();
                 Oeuvre oeuvre = serviceOeuvre.getOneById(idOeuvre);
-                ServicePersonne servicePersonne = new ServicePersonne();
+                ServiceUser servicePersonne = new ServiceUser();
                 User user = servicePersonne.getOneById(idUser);
 
                 Avis avis = new Avis(commentaire, note,oeuvre,user,likes,dislikes,favoris);
@@ -162,7 +162,7 @@ public class ServiceAvis implements IService<Avis>{
                 ServiceOeuvre serviceOeuvre = new ServiceOeuvre();
                 Oeuvre oeuvre = serviceOeuvre.getOneById(idOeuvre);
 
-                ServicePersonne servicePersonne = new ServicePersonne();
+                ServiceUser servicePersonne = new ServiceUser();
                 User user = servicePersonne.getOneById(userId);
 
                 Avis avis = new Avis(id, commentaire, note, oeuvre, user, likes, dislikes,favoris);
@@ -190,7 +190,7 @@ public class ServiceAvis implements IService<Avis>{
                 boolean favoris = res.getBoolean("favoris");
 
 
-                ServicePersonne servicePersonne = new ServicePersonne();
+                ServiceUser servicePersonne = new ServiceUser();
                 User user = servicePersonne.getOneById(idUser);
 
                 Avis avis = new Avis(id, commentaire, note, oeuvre, user, likes, dislikes,favoris);

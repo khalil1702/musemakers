@@ -1,6 +1,5 @@
 package edu.esprit.services;
 
-import edu.esprit.entities.Oeuvre;
 import edu.esprit.entities.User;
 import edu.esprit.utils.DataSource;
 
@@ -8,7 +7,7 @@ import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ServicePersonne implements IService<User> {
+public class ServiceUser implements IService<User> {
     Connection cnx= DataSource.getInstance().getCnx();
     @Override
     public void ajouter(User p) {

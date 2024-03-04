@@ -4,7 +4,7 @@ package edu.esprit.controllers;
 import edu.esprit.entities.Oeuvre;
 import edu.esprit.entities.Avis;
 import edu.esprit.services.ServiceOeuvre;
-import edu.esprit.services.ServicePersonne;
+import edu.esprit.services.ServiceUser;
 import edu.esprit.services.ServiceAvis;
 import edu.esprit.utils.DataSource;
 import javafx.collections.FXCollections;
@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 
 public class AfficherOeuvreClient {
     private final ServiceAvis serviceAvis = new ServiceAvis();
-    private final ServicePersonne servicePersonne = new ServicePersonne();
+    private final ServiceUser servicePersonne = new ServiceUser();
     private final ServiceOeuvre oe = new ServiceOeuvre();
     private Set<Oeuvre> listeo = oe.getAll();
 

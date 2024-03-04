@@ -4,7 +4,7 @@ import edu.esprit.entities.Avis;
 import edu.esprit.entities.Oeuvre;
 import edu.esprit.entities.User;
 import edu.esprit.services.ServiceAvis;
-import edu.esprit.services.ServicePersonne;
+import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -81,7 +81,7 @@ public class AjouterAvis {
 
     private boolean likeClique = false;
     private boolean dislikeClique = false;
-    ServicePersonne servicePersonne = new ServicePersonne();
+    ServiceUser servicePersonne = new ServiceUser();
     ServiceAvis serviceAvis = new ServiceAvis();
     Avis a=new Avis();
 
