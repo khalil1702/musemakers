@@ -9,6 +9,7 @@ public class User {
     private String prenom_user;
     private String email ;
     private String mdp ;
+    private  User loggedInUser;
 
 
     public User() {
@@ -98,5 +99,12 @@ public class User {
                 '}';
     }
 
+    public User getLoggedInUser() {
+        return loggedInUser;
+    }
 
+    public void setLoggedInUser(User loggedInUser) {
+        this.loggedInUser = loggedInUser;
+    }
 }
+

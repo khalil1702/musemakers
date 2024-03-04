@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import entities.Artiste;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import service.ServiceUser;
 
@@ -106,6 +107,26 @@ public class InscriptionArtiste {
             alert.showAndWait();
             return;
         }
+        try {
+            // Charger la vue du captcha
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Captcha.fxml"));
+            Parent root = loader.load();
+
+            // Créer une nouvelle scène avec la vue du captcha
+            Scene scene = new Scene(root);
+
+            // Créer une nouvelle fenêtre (stage) pour le captcha
+            Stage captchaStage = new Stage();
+            captchaStage.setScene(scene);
+
+            // Afficher la fenêtre du captcha
+            captchaStage.show();
+
+            // ... (autres opérations d'inscription ici) ...
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
 
         Artiste artiste = new Artiste(nom, prenom, email, password, tel, Date.valueOf(date), cartepro);
@@ -147,6 +168,7 @@ public class InscriptionArtiste {
             passeid.setDisable(false);
         }
     }
+
 
 }
 

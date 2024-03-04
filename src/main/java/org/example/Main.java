@@ -1,9 +1,6 @@
 package org.example;
 
-import entities.Admin;
-import entities.Artiste;
-import entities.Client;
-import entities.User;
+import entities.*;
 import service.ServiceUser;
 import utils.DataSource;
 
@@ -16,6 +13,8 @@ import java.util.Set;
 // Press Shift twice to open the Search Everywhere dialog and type show whitespaces,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
+    private static User user;
+
     public static void main(String[] args) throws ParseException {
 
         DataSource ds = DataSource.getInstance();
@@ -42,7 +41,8 @@ public class Main {
 
 
 
-    //ajouter version finale
+
+        //ajouter version finale
         // Appelez la fonction pour ajouter l'utilisateur à la base de données
       /*
         ServiceUser ServiceUser = new ServiceUser();

@@ -1,21 +1,18 @@
 package controllers;
 
 import entities.Client;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import service.ServiceUser;
+import utils.DataSource;
 
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -77,6 +74,7 @@ public class AfficherClientNV {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/musemakers";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = ""; // Mettez votre mot de passe de base de données ici
+    Connection cnx = DataSource.getInstance().getCnx();
 
     public void initialize() {
         // Obtenez tous les clients

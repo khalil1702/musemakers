@@ -19,7 +19,7 @@ import java.sql.*;
 import java.util.Optional;
 import java.util.Random;
 
-public class LoginAdmin {
+public class LoginUserControllers {
 
     @FXML
     private TextField mailid;
@@ -43,16 +43,6 @@ public class LoginAdmin {
     private Label passwordChangeStatusLabel;
     @FXML
     private VBox changePasswordVBox;
-    private static User loggedInUser;
-
-    public static void setLoggedInUser(User user) {
-        loggedInUser = user;
-    }
-
-    // Méthode pour obtenir l'utilisateur connecté
-    public static User getLoggedInUser() {
-        return loggedInUser;
-    }
     private static final String DB_URL = "jdbc:mysql://localhost:3306/musemakers";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = ""; // Mettez votre mot de passe de base de données ici
@@ -82,79 +72,76 @@ public class LoginAdmin {
     }
     public void seConnecter() {
 
-            String email = mailid.getText();
-            String motDePasse = passeid.getText();
+        String email = mailid.getText();
+        String motDePasse = passeid.getText();
 
+        Platform.runLater(() -> {
+            errorLabel.setText("");
+        });
+
+        if (email.isEmpty() || motDePasse.isEmpty()) {
             Platform.runLater(() -> {
-                errorLabel.setText("");
+                errorLabel.setText("L'email et le mot de passe ne peuvent pas être vides");
             });
+            return;
+        }
 
-            if (email.isEmpty() || motDePasse.isEmpty()) {
-                Platform.runLater(() -> {
-                    errorLabel.setText("L'email et le mot de passe ne peuvent pas être vides");
-                });
-                return;
-            }
-
-            String role = findUserByEmailAndPassword(email, motDePasse);
-        User loggedInUser = findUserByEmailAndPassword2(email, motDePasse);
-        System.out.println(loggedInUser);
-
-        if (loggedInUser != null) {
-                // Affichez le rôle de l'utilisateur après la connexion
-                System.out.println("Login effectué en tant que " + role);
+        String role = findUserByEmailAndPassword(email, motDePasse);
+        User user = findUserByEmailAndPassword2(email , motDePasse );
+        if (role != null) {
+            // Affichez le rôle de l'utilisateur après la connexion
+            System.out.println("Login effectué en tant que " + role);
 
 
-            TextToSpeech.main(new String[]{});
 
-                updateUserStatus(email, "connected");
-
-
-                try {
-                    // Définir le chemin du fichier FXML en fonction du rôle
-                    String fxmlFile = "";
-                    switch (role) {
-                        case "Admin":
-                            fxmlFile = "/AccueilAdmin.fxml";
-                            break;
-                        case "Artiste":
-                            fxmlFile = "/AccueilArtiste.fxml";
-                            break;
-                        case "Client":
-                            fxmlFile = "/AccueilUser.fxml";
-                            break;
-                    }
-
-                    // Charger le fichier FXML
-                    Parent root = null;
-                    try {
-                        root = FXMLLoader.load(getClass().getResource(fxmlFile));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    // Créer une nouvelle scène
-                    Scene scene = new Scene(root);
-
-                    // Obtenir le stage actuel
-                    Stage currentStage = (Stage) mailid.getScene().getWindow();
-
-                    // Afficher la nouvelle scène
-                    currentStage.setScene(scene);
-                    currentStage.show();
-                } catch (RuntimeException e) {
-                    e.printStackTrace();
+            updateUserStatus(email, "connected");
 
 
+            try {
+                // Définir le chemin du fichier FXML en fonction du rôle
+                String fxmlFile = "";
+                switch (role) {
+                    case "Admin":
+                        fxmlFile = "/AccueilAdmin.fxml";
+                        break;
+                    case "Artiste":
+                        fxmlFile = "/AccueilArtiste.fxml";
+                        break;
+                    case "Client":
+                        fxmlFile = "/AccueilUser.fxml";
+                        break;
                 }
-            } else {
-                // Les informations d'identification ne sont pas valides, affichez un message d'erreur
-                Platform.runLater(() -> {
-                    errorLabel.setText("Email ou mot de passe invalide");
-                });
-            }
 
-   }
+                // Charger le fichier FXML
+                Parent root = null;
+                try {
+                    root = FXMLLoader.load(getClass().getResource(fxmlFile));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                // Créer une nouvelle scène
+                Scene scene = new Scene(root);
+
+                // Obtenir le stage actuel
+                Stage currentStage = (Stage) mailid.getScene().getWindow();
+
+                // Afficher la nouvelle scène
+                currentStage.setScene(scene);
+                currentStage.show();
+            } catch (RuntimeException e) {
+                e.printStackTrace();
+
+
+            }
+        } else {
+            // Les informations d'identification ne sont pas valides, affichez un message d'erreur
+            Platform.runLater(() -> {
+                errorLabel.setText("Email ou mot de passe invalide");
+            });
+        }
+
+    }
 
     private String findUserByEmailAndPassword(String email, String password) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
@@ -271,38 +258,38 @@ public class LoginAdmin {
     }
 
 
-        public void modifierPassword(String email, String newPassword) {
-            String req = "UPDATE user SET mdp = ? WHERE email = ?";
-            Connection conn = null;
-            try {
-                // Chargez le pilote JDBC
-                Class.forName("com.mysql.cj.jdbc.Driver");
+    public void modifierPassword(String email, String newPassword) {
+        String req = "UPDATE user SET mdp = ? WHERE email = ?";
+        Connection conn = null;
+        try {
+            // Chargez le pilote JDBC
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
-                // Créez la connexion
-                conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            // Créez la connexion
+            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
-                PreparedStatement pst = conn.prepareStatement(req);
-                pst.setString(1, newPassword);
-                pst.setString(2, email);
-                int rowsAffected = pst.executeUpdate();
-                if (rowsAffected > 0) {
-                    System.out.println("Password updated successfully for user with email: " + email);
-                } else {
-                    System.out.println("No user found with the email: " + email);
-                }
-            } catch (ClassNotFoundException | SQLException e) {
-                System.out.println("Error updating password for user with email: " + email);
-                e.printStackTrace();
-            } finally {
-                if (conn != null) {
-                    try {
-                        conn.close();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+            PreparedStatement pst = conn.prepareStatement(req);
+            pst.setString(1, newPassword);
+            pst.setString(2, email);
+            int rowsAffected = pst.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Password updated successfully for user with email: " + email);
+            } else {
+                System.out.println("No user found with the email: " + email);
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Error updating password for user with email: " + email);
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
         }
+    }
 
 
 
@@ -378,7 +365,7 @@ public class LoginAdmin {
 
         changePasswordVBox.setVisible(false);
     }
-
+   
     /*@FXML
   private void handleButtonAction(ActionEvent event) throws IOException {
       // Charger le deuxième fichier FXML

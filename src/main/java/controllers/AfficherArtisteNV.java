@@ -58,6 +58,8 @@ public class AfficherArtisteNV {
     private Button compteid;
     @FXML
     private Button retourid ;
+    @FXML
+    private ImageView imageview;
     private static final String DB_URL = "jdbc:mysql://localhost:3306/musemakers";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = ""; // Mettez votre mot de passe de base de données ici
@@ -116,7 +118,7 @@ public class AfficherArtisteNV {
         });
         // Ajoutez les artistes à la ListView
         listView.setItems(filteredList);
-
+ 
         // Ajoutez un ChangeListener à la sélection du ListView
         listView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
@@ -130,6 +132,13 @@ public class AfficherArtisteNV {
                 java.time.LocalDate localDate = sqlDate.toLocalDate();
                 dateField.setValue(localDate);
                 carteproField.setText(selectedArtiste.getCartepro());
+            }
+        });
+        listView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                Artiste artiste = newSelection;
+                Image image = new Image(artiste.getCartepro());
+                imageview.setImage(image);
             }
         });
         logoutid.setOnAction(event -> {
