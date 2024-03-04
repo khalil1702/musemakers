@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="626.0" prefWidth="981.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AccueilAdmin">
+    <children>
+        <ImageView fitHeight="659.0" fitWidth="1190.0" layoutY="-10.0" opacity="0.83" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@img/AdminBack.png" />
+            </image>
+        </ImageView>
+        <Button fx:id="artisteid" layoutX="132.0" layoutY="240.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="238.0" styleClass="round-button" text="Gestion Des Artistes">
+         <stylesheets>
+            <URL value="@style.css" />
+            <URL value="@stylee.css" />
+         </stylesheets></Button>
+        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@img/logou.png" />
+            </image>
+        </ImageView>
+        <Button layoutX="132.0" layoutY="381.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="238.0" styleClass="round-button" text="Gestion Des Expositions">
+         <stylesheets>
+            <URL value="@style.css" />
+            <URL value="@stylee.css" />
+         </stylesheets></Button>
+        <Button fx:id="clientid" layoutX="467.0" layoutY="240.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="238.0" styleClass="round-button" text="Gestion Des Clients">
+         <stylesheets>
+            <URL value="@style.css" />
+            <URL value="@stylee.css" />
+         </stylesheets></Button>
+        <Button layoutX="467.0" layoutY="381.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="238.0" styleClass="round-button" text="Gestion Des Reclamations">
+         <stylesheets>
+            <URL value="@style.css" />
+            <URL value="@stylee.css" />
+         </stylesheets></Button>
+        <Button layoutX="804.0" layoutY="381.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="238.0" styleClass="round-button" text="Gestion Des Oeuvres">
+         <stylesheets>
+            <URL value="@style.css" />
+            <URL value="@stylee.css" />
+         </stylesheets></Button>
+        <Button layoutX="804.0" layoutY="240.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="238.0" styleClass="round-button" text="Gestion Des Reservations">
+         <stylesheets>
+            <URL value="@style.css" />
+            <URL value="@stylee.css" />
+         </stylesheets></Button>
+    </children>
+</AnchorPane>

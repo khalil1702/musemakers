@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="685.0" prefWidth="883.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherArtiste">
+   <children>
+      <TextField fx:id="nomField" layoutX="554.0" layoutY="83.0" />
+      <TextField fx:id="prenomField" layoutX="720.0" layoutY="83.0" />
+      <TextField fx:id="mailField" layoutX="554.0" layoutY="159.0" />
+      <TextField fx:id="passeField" layoutX="720.0" layoutY="159.0" />
+      <TextField fx:id="telField" layoutX="554.0" layoutY="225.0" />
+      <DatePicker fx:id="dateField" layoutX="708.0" layoutY="225.0" />
+      <TextField fx:id="carteproField" layoutX="554.0" layoutY="305.0" />
+      <Button fx:id="browseid" layoutX="708.0" layoutY="305.0" mnemonicParsing="false" text="browse" />
+      <Button fx:id="modifierid" layoutX="616.0" layoutY="381.0" mnemonicParsing="false" text="modifier" />
+      <Button fx:id="supprimerid" layoutX="104.0" layoutY="480.0" mnemonicParsing="false" text="supprimer" />
+      <ListView fx:id="listView" layoutX="14.0" layoutY="62.0" prefHeight="291.0" prefWidth="534.0" />
+   </children>
+</AnchorPane>

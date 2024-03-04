@@ -1,0 +1,49 @@
+.underline-button {
+    -fx-background-color: transparent;
+    -fx-underline: true;
+}
+
+.underline-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.1); /* Optional: Add a hover effect */
+}
+
+/* ****************** */
+.navbar_admin{
+    -fx-background-color: #ffffff; /*  Change background color on hover */
+}
+
+.submit_button {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-border-color: black;
+}
+
+.submit_button:hover {
+    -fx-background-color: lightgray; /* Change to the desired hover color */
+}
+
+/* **********image browse******** */
+
+.browseButton {
+    -fx-background-color: #696666;
+    -fx-text-fill: white;
+}
+
+.browseButton:hover {
+    -fx-background-color: darkgray; /* Change to the desired hover color */
+}
+.round-button{
+    -fx-background-radius: 30;
+    -fx-background-color: #000000; /* Jaune */
+    -fx-text-fill: #ffffff; /* Bleu roi pour le texte */
+}
+
+.round-button:hover {
+    -fx-background-color: #D0D7AC; /* Bleu au survol */
+    -fx-text-fill: #000000; /* Bleu roi pour le texte */
+}
+
+.round-button:pressed {
+    -fx-background-color: #D0D7AC; /* Bleu clair enfoncé */
+    -fx-text-fill: #000000; /* Bleu roi pour le texte */
+}

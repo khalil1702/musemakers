@@ -1,59 +1,7 @@
-.underline-button {
-    -fx-background-color: transparent;
-    -fx-underline: true;
+.text-field:focused {
+    -fx-prompt-text-fill: black;
 }
 
-.underline-button:hover {
-    -fx-background-color: rgba(0, 0, 0, 0.1); /* Optional: Add a hover effect */
-}
-
-/* ******************** */
-.navbar_admin{
-    -fx-background-color: #ffffff; /*  Change background color on hover */
-}
-
-.submit_button {
-    -fx-background-color: white;
-    -fx-text-fill: black;
-    -fx-border-color: black;
-}
-
-
-
-.submit_button:hover {
-    -fx-background-color: lightgray; /* Change to the desired hover color */
-}
-
-/* ***********image browse********* */
-
-.browseButton {
-    -fx-background-color: #696666;
-    -fx-text-fill: white;
-}
-
-.browseButton:hover {
-    -fx-background-color: darkgray; /* Change to the desired hover color */
-}
-
-.exhibition-box {
-    -fx-border-radius: 10px;
-    -fx-border-color: #7A6FAC; /* Border color */
-    -fx-border-width: 2px;
-    -fx-background-color: #B3A4C9; /* Background color */
-    -fx-padding: 10px;
-}
-.round-button{
-    -fx-background-radius: 30;
-    -fx-background-color: black;
-    -fx-text-fill: white ;
-}
-
-.round-button:hover {
-    -fx-background-color: #D0D7AC;
-    -fx-text-fill: white ;
-}
-
-.round-button:pressed {
-    -fx-background-color: #D0D7AC;
-    -fx-text-fill: white ;
+.password-field:focused {
+    -fx-prompt-text-fill: black;
 }
