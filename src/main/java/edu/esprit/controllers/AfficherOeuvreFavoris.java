@@ -6,6 +6,7 @@ import edu.esprit.services.ServiceAvis;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -47,6 +48,7 @@ public class AfficherOeuvreFavoris {
             try {
                 // Créer un HBox pour chaque œuvre
                 HBox oeuvreBox = new HBox(10);
+                oeuvreBox.setAlignment(Pos.CENTER);
 
                 // Créer un ImageView pour l'image de l'œuvre
                 ImageView imageView = new ImageView();
@@ -54,6 +56,10 @@ public class AfficherOeuvreFavoris {
                 imageView.setImage(image);
                 imageView.setFitWidth(200);
                 imageView.setFitHeight(200);
+
+                VBox detailsVBox = new VBox(5);
+                detailsVBox.setAlignment(Pos.CENTER_LEFT);
+
 
                 // Créer un Label pour le nom de l'œuvre
                 Label nameLabel = new Label("Nom: " + o.getNom());
@@ -76,7 +82,9 @@ public class AfficherOeuvreFavoris {
                 });
 
                 // Ajouter les éléments à la HBox
-                oeuvreBox.getChildren().addAll(imageView, nameLabel, descriptionLabel, removeButton);
+                detailsVBox.getChildren().addAll(imageView, nameLabel, descriptionLabel, removeButton);
+                oeuvreBox.getChildren().addAll(imageView, detailsVBox);
+                oeuvreBox.getStyleClass().add("exhibition-box");
 
                 // Ajouter la HBox à la VBox
                 exhibitionVBox.getChildren().add(oeuvreBox);
