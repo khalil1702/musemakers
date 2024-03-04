@@ -11,7 +11,8 @@ public class DataSource {
     private String pwd="";
     private static DataSource instance;
 
-    private DataSource() {
+    private
+    DataSource() {
         try {
             cnx= DriverManager.getConnection(url,login,pwd);
             System.out.println("Connected Successfully");

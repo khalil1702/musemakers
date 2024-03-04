@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="626.0" prefWidth="981.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModifierCompteArtiste">
+    <stylesheets>
+        <URL value="@stylee.css" />
+    </stylesheets>
+    <children>
+        <BorderPane prefHeight="200.0" prefWidth="200.0" />
+        <BorderPane layoutY="-3.0" prefHeight="634.0" prefWidth="1033.0">
+            <left>
+                <VBox prefHeight="200.0" prefWidth="230.0" styleClass="sidebar_admin" BorderPane.alignment="CENTER">
+                    <children>
+                        <AnchorPane prefHeight="523.0" prefWidth="248.0" style="-fx-background-color: d0d7ac;" />
+                    </children>
+                </VBox>
+            </left>
+            <top>
+                <HBox prefHeight="110.0" prefWidth="1034.0" styleClass="navbar_admin" BorderPane.alignment="CENTER" />
+            </top>
+            <center>
+                <AnchorPane prefHeight="534.0" prefWidth="665.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <AnchorPane layoutY="7.0" prefHeight="514.0" prefWidth="802.0" style="-fx-background-color: ffff;">
+                     <children>
+                        <TextField layoutX="118.0" layoutY="101.0" />
+                        <TextField layoutX="412.0" layoutY="101.0" />
+                        <TextField layoutX="118.0" layoutY="190.0" />
+                        <TextField layoutX="412.0" layoutY="190.0" />
+                     </children></AnchorPane>
+                    </children>
+                </AnchorPane>
+            </center>
+        </BorderPane>
+        <AnchorPane layoutY="1.0" prefHeight="97.0" prefWidth="1044.0" style="-fx-background-color: ffff;">
+            <children>
+                <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="473.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@img/logooo.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="artisti" layoutX="143.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Les artistes" />
+                <Button fx:id="button_afficher" layoutX="300.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="Les chefs d'oeuvres" />
+                <Button layoutX="719.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" styleClass="underline-button" text="Réservations" />
+                <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" styleClass="underline-button" text="Expositions" />
+                <Button layoutX="873.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Reclamations" />
+                <Button fx:id="clientid" layoutX="28.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Les clients" />
+                <ImageView fitHeight="54.0" fitWidth="71.0" layoutX="18.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@img/retourni.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="retourid" layoutX="19.0" layoutY="12.0" mnemonicParsing="false" opacity="0.0" prefHeight="54.0" prefWidth="52.0" text="Button" />
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

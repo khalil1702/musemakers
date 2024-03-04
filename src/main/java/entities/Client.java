@@ -7,16 +7,16 @@ public class Client extends User {
     private int num_tel;
 
     @Override
+
     public String toString() {
-        return "Client{" +
-                " nom_user='" + getNom_user()  +
-                ", prenom_user='" + getPrenom_user() + '\'' +
-                ", email='" + getEmail() + '\'' +
-                ", mdp='" + getMdp() + '\'' +
-                ", num_tel=" + num_tel +
-                ", date_de_naissance=" + date_de_naissance +
-                '}';
+        return "Nom : " + getNom_user() + "\n" +
+                "Prénom : " + getPrenom_user() + "\n" +
+                "Email : " + getEmail() + "\n" +
+                "Mot de passe : " + getMdp() + "\n" +
+                "Numéro de téléphone : " + num_tel + "\n" +
+                "Date de naissance : " + date_de_naissance;
     }
+
 
     public Date getDate_de_naissance() {
         return date_de_naissance;

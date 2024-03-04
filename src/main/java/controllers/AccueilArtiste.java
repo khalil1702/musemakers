@@ -13,19 +13,20 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class AccueilUser {
+public class AccueilArtiste {
     @FXML
     private Button compteid;
     @FXML
-    private Button logoutid;
+    private Button logoutid ;
     private static final String DB_URL = "jdbc:mysql://localhost:3306/musemakers";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
+
     public void initialize() {
         compteid.setOnAction(event -> {
             try {
                 // Charger l'interface AfficherClientNV.fxml
-                Parent root = FXMLLoader.load(getClass().getResource("/ModifierPassword2.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/ModifierPassword3.fxml"));
                 Stage stage = (Stage) compteid.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.show();
@@ -33,21 +34,20 @@ public class AccueilUser {
                 e.printStackTrace();
             }
         });
+        logoutid.setOnAction(event -> {
+            try {
+                // Mettre à jour le statut de tous les utilisateurs
+                updateAllUserStatusToNull();
 
-logoutid.setOnAction(event -> {
-        try {
-            // Mettre à jour le statut de tous les utilisateurs
-            updateAllUserStatusToNull();
-
-            // Charger l'interface loginAdmin.fxml
-            Parent root = FXMLLoader.load(getClass().getResource("/LoginAdmin.fxml"));
-            Stage stage = (Stage) logoutid.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    });}
+                // Charger l'interface loginAdmin.fxml
+                Parent root = FXMLLoader.load(getClass().getResource("/LoginAdmin.fxml"));
+                Stage stage = (Stage) logoutid.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });}
     public void updateAllUserStatusToNull() {
         String req = "UPDATE user SET status = NULL";
         Connection conn = null;
@@ -77,4 +77,6 @@ logoutid.setOnAction(event -> {
                 }
             }
         }
-    }}
+    }
+    }
+

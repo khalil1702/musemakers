@@ -1,31 +1,42 @@
 package controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class AccueilAdmin {
     @FXML
-    void gererRec(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherRecBack.fxml"));
-        Parent root = loader.load();
+    private Button clientid, artisteid;
 
-        // Créer une nouvelle scène
-        Scene scene = new Scene(root);
+    public void initialize() {
+        clientid.setOnAction(event -> {
+            try {
+                // Charger l'interface AfficherClientNV.fxml
+                Parent root = FXMLLoader.load(getClass().getResource("/AfficherClientNV.fxml"));
+                Stage stage = (Stage) clientid.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
-        // Configurer la nouvelle scène dans une nouvelle fenêtre
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.setTitle("Reclamations");
-
-        // Afficher la nouvelle fenêtre
-        stage.show();
+        artisteid.setOnAction(event -> {
+            try {
+                // Charger l'interface AfficherArtisteNV.fxml
+                Parent root = FXMLLoader.load(getClass().getResource("/AfficherArtisteNV.fxml"));
+                Stage stage = (Stage) artisteid.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
-
 }
+
