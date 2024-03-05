@@ -77,6 +77,7 @@ public class AfficherCourNV {
         // Ajoutez un écouteur sur le TextField de recherche pour gérer la recherche dynamique
         searchTF.textProperty().addListener((observable, oldValue, newValue) -> {
             searchCour(newValue); // Appel de la méthode de recherche avec le nouveau texte
+
         });
         trie.getItems().addAll("Tri par titre (ascendant)", "Tri par titre (descendant)",
                 "Tri par description (ascendant)", "Tri par description (descendant)",

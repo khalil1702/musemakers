@@ -2,14 +2,12 @@ package service;
 
 import entities.Atelier;
 import entities.Cour;
-import entities.User;
 import utils.DataSource;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ServiceAtelier implements IService<Atelier>{
 
@@ -145,6 +143,46 @@ public class ServiceAtelier implements IService<Atelier>{
         return ateliers;
     }
 
+
+
+    public List<Atelier> trierParlieuAscendant() {
+        List<Atelier> ateliers = new ArrayList<>(getAll());
+        return ateliers.stream()
+                .sorted(Comparator.comparing(Atelier::getDateDebut_atelier))
+                .collect(Collectors.toList());
+    }
+
+    public List<Atelier> trierParlieuDescendant() {
+        List<Atelier> ateliers = new ArrayList<>(getAll());
+        return ateliers.stream()
+                .sorted(Comparator.comparing(Atelier::getDateDebut_atelier).reversed())
+                .collect(Collectors.toList());
+    }
+    public List<Atelier> trierParDateDebutAscendant() {
+        List<Atelier> ateliers = new ArrayList<>(getAll());
+        return ateliers.stream()
+                .sorted(Comparator.comparing(Atelier::getDateFin_atelier))
+                .collect(Collectors.toList());
+    }
+    public List<Atelier> trierParDateDebutDescendant() {
+        List<Atelier> ateliers = new ArrayList<>(getAll());
+        return ateliers.stream()
+                .sorted(Comparator.comparing(Atelier::getDateFin_atelier))
+                .collect(Collectors.toList());
+    }
+
+    public List<Atelier> trierParDateFinAscendant() {
+        List<Atelier> ateliers = new ArrayList<>(getAll());
+        return ateliers.stream()
+                .sorted(Comparator.comparing(Atelier::getDateFin_atelier).reversed())
+                .collect(Collectors.toList());
+    }
+    public List<Atelier> trierParDateFinDescendant() {
+        List<Atelier> ateliers = new ArrayList<>(getAll());
+        return ateliers.stream()
+                .sorted(Comparator.comparing(Atelier::getDateFin_atelier).reversed())
+                .collect(Collectors.toList());
+    }
 
 }
 

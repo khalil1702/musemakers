@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterAtelierNV">
+<AnchorPane prefHeight="565.0" prefWidth="966.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterAtelierNV">
 
 
 
@@ -28,10 +28,10 @@
                 <left>
                     <VBox prefHeight="200.0" prefWidth="230.0" styleClass="sidebar_admin" BorderPane.alignment="CENTER">
                         <children>
-                            <AnchorPane prefHeight="523.0" prefWidth="248.0" style="-fx-background-color: d0d7ac;">
+                            <AnchorPane prefHeight="553.0" prefWidth="230.0" style="-fx-background-color: d0d7ac;">
                                 <children>
                                     <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-8.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Button fx:id="afficheriiid" layoutX="14.0" layoutY="263.0" mnemonicParsing="false" onAction="#handle" styleClass="round-button" stylesheets="@style.css" text="AfficherAtelier" />
+                                    <Button fx:id="afficheriiid" layoutX="14.0" layoutY="263.0" mnemonicParsing="false" onAction="#handle" prefHeight="20.0" prefWidth="200.0" styleClass="round-button" stylesheets="@style.css" text="AfficherAtelier" />
                                 </children></AnchorPane>
                         </children>
                     </VBox>
@@ -60,21 +60,26 @@
                         <children>
                             <AnchorPane layoutY="7.0" prefHeight="514.0" prefWidth="802.0" style="-fx-background-color: ffff;">
                                 <children>
+                        <ImageView fitHeight="522.0" fitWidth="831.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/Black%20and%20Red%20Minimalist%20Modern%20Registration%20Gym%20Website%20Prototype%20(1).png" />
+                           </image>
+                        </ImageView>
                                     <Text fx:id="erreurDescriptionLabel" layoutX="369.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                     <Text fx:id="erreurDateLabel" layoutX="23.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                     <Text fx:id="erreurprix" layoutX="22.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                     <Text fx:id="erreurNomLabel" layoutX="27.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                     <Text fx:id="erreurCategorieLabel" layoutX="23.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                     <Text fx:id="erreurImageLabel" layoutX="369.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                        <AnchorPane layoutY="-1.0" prefHeight="358.0" prefWidth="295.0">
+                        <AnchorPane layoutX="285.0" layoutY="118.0" prefHeight="358.0" prefWidth="295.0">
                            <children>
-                              <VBox layoutX="38.0" layoutY="83.0" spacing="10.0">
+                              <VBox layoutX="60.0" layoutY="87.0" spacing="10.0">
                                  <children>
                                     <VBox spacing="10.0">
                                        <children>
-                                          <Label text="Date de début">
+                                          <Label prefHeight="27.0" prefWidth="154.0" text="Date de début">
                                              <font>
-                                                <Font name="Corbel Italic" size="18.0" />
+                                                <Font name="System Bold" size="18.0" />
                                              </font></Label>
                                           <DatePicker fx:id="datePickerDebut" />
                                        </children>
@@ -83,7 +88,7 @@
                                        <children>
                                           <Label text="Date de fin">
                                              <font>
-                                                <Font name="System Italic" size="18.0" />
+                                                <Font name="System Bold" size="18.0" />
                                              </font></Label>
                                           <DatePicker fx:id="datePickerFin" />
                                        </children>
@@ -92,26 +97,21 @@
                                        <children>
                                           <Label text="Lien">
                                              <font>
-                                                <Font name="System Italic" size="20.0" />
+                                                <Font name="System Bold" size="20.0" />
                                              </font></Label>
                                           <TextField fx:id="lienField" />
                                        </children>
                                     </VBox>
                                  </children>
                               </VBox>
-                              <Text layoutX="10.0" layoutY="37.0" text="Ajouter un nouveau atelier" underline="true" wrappingWidth="265.976806640625">
+                              <Text layoutX="10.0" layoutY="37.0" underline="true" wrappingWidth="265.976806640625">
                                  <font>
                                     <Font name="System Bold Italic" size="21.0" />
                                  </font>
                               </Text>
-                              <Button layoutX="40.0" layoutY="329.0" mnemonicParsing="false" onAction="#Ajouter" styleClass="round-button" stylesheets="@style.css" text="Ajouter" />
+                              <Button layoutX="76.0" layoutY="322.0" mnemonicParsing="false" onAction="#Ajouter" prefHeight="26.0" prefWidth="133.0" styleClass="round-button" stylesheets="@style.css" text="Ajouter" />
                            </children>
                         </AnchorPane>
-                        <ImageView fitHeight="347.0" fitWidth="518.0" layoutX="290.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@img/dessin.png" />
-                           </image>
-                        </ImageView>
 
                                 </children>
                             </AnchorPane>

@@ -4,6 +4,7 @@ import entities.Cour;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,6 +13,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 import service.ServiceCour;
 
 import java.io.IOException;
@@ -70,6 +73,9 @@ public class AjouterCourNV1 {
             String description = descriptionField.getText();
             Cour cour = new Cour(titre, description, dateDebut, dateFin, null);
             serviceCour.ajouter(cour);
+            Notifications.create()
+                    .darkStyle().title("Cour ajouté avec succès Bien").position(Pos.BOTTOM_RIGHT).hideAfter(Duration.seconds(20)).show();//
+
 
             // Afficher une confirmation à l'utilisateur
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

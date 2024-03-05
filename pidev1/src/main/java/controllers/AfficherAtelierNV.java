@@ -1,6 +1,7 @@
 package controllers;
 
 import entities.Atelier;
+import entities.Cour;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,13 +14,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import service.IService;
 import service.ServiceAtelier;
+import service.ServiceCour;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class AfficherAtelierNV {
 
@@ -52,22 +57,34 @@ public class AfficherAtelierNV {
     private Button btnSave;
 
 
+    @FXML
+    private TextField searchTFF;
 
     @FXML
     private Label lblTitreError, lblDescriptionError, lblDateDebutError, lblDateFinError;
-
+    @FXML
+    private ComboBox<?> triee;
     @FXML
     private Button ajoutid;
 
     private Atelier atelier;
 
     private final IService<Atelier> serviceAtelier = new ServiceAtelier();
-
+    private final ServiceAtelier sa = new ServiceAtelier();
+    List<Atelier> atelierList;
     @FXML
     void initialize() throws SQLException {
-        // Récupérer la liste des ateliers depuis le service
-        Set<Atelier> ateliers = serviceAtelier.getAll();
-        ObservableList<Atelier> atelierList = FXCollections.observableArrayList(ateliers);
+
+        // Ajoutez un écouteur sur le TextField de recherche pour gérer la recherche dynamique
+        searchTFF.textProperty().addListener((observable, oldValue, newValue) -> {
+            searchAtelier(newValue); // Appel de la méthode de recherche avec le nouveau texte
+        });
+
+        // Appel de la méthode trierAtelier avec l'option sélectionnée lorsque l'utilisateur change la valeur de la ComboBox
+        triee.setOnAction(event -> {
+            String selectedOption = (String) triee.getValue();
+            trierAtelier(selectedOption);
+        });
 
         // Initialiser les colonnes de la table avec les valeurs appropriées
 
@@ -177,5 +194,45 @@ public class AfficherAtelierNV {
 
         // Afficher la nouvelle fenêtre
         stage.show();
+    }
+    private void trierAtelier(String option) {
+        switch (option) {
+            case "Tri par lien (ascendant)":
+                tableAtelier.setItems(FXCollections.observableArrayList(sa.trierParlieuAscendant()));
+                break;
+            case "Tri par lien (descendant)":
+                tableAtelier.setItems(FXCollections.observableArrayList(sa.trierParlieuDescendant()));
+                break;
+
+            case "Tri par date de début (ascendant)":
+                tableAtelier.setItems(FXCollections.observableArrayList(sa.trierParDateDebutAscendant()));
+                break;
+            case "Tri par date de debut (descendant)":
+                tableAtelier.setItems(FXCollections.observableArrayList(sa.trierParDateDebutDescendant()));
+                break;
+            case "Tri par date de Fin (ascendant)":
+                tableAtelier.setItems(FXCollections.observableArrayList(sa.trierParDateFinAscendant()));
+                break;
+            case "Tri par date de Fin (descendant)":
+                tableAtelier.setItems(FXCollections.observableArrayList(sa.trierParDateFinDescendant()));
+                break;
+
+        }
+    }
+
+    @FXML
+    void searchAtelier(String searchText) {
+        List<Atelier> searchResult = atelierList.stream()
+                .filter(atelier ->
+                                atelier.getLien().toLowerCase().contains(searchText.toLowerCase()) ||
+
+                                atelier.getDateDebut_atelier().toString().toLowerCase().contains(searchText.toLowerCase()) ||
+                                atelier.getDateFin_atelier().toString().toLowerCase().contains(searchText.toLowerCase())
+
+                )
+                .collect(Collectors.toList());
+
+        // Mettre à jour la TableView avec les résultats de la recherche
+        tableAtelier.setItems(FXCollections.observableArrayList(searchResult));
     }
 }

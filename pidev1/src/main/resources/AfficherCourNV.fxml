@@ -27,7 +27,16 @@
             <left>
                 <VBox prefHeight="200.0" prefWidth="230.0" styleClass="sidebar_admin" BorderPane.alignment="CENTER">
                     <children>
-                        <AnchorPane prefHeight="523.0" prefWidth="248.0" style="-fx-background-color: d0d7ac;" />
+                        <AnchorPane prefHeight="523.0" prefWidth="248.0" style="-fx-background-color: d0d7ac;">
+                     <children>
+                              <ComboBox fx:id="trie" layoutX="5.0" layoutY="249.0" prefHeight="11.0" prefWidth="218.0" promptText="Trier par..." />
+                        <TextField fx:id="searchTF" layoutX="5.0" layoutY="211.0" prefHeight="26.0" prefWidth="217.0" promptText="Recherche" />
+                        <ImageView fitHeight="18.0" fitWidth="20.0" layoutX="202.0" layoutY="193.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/search_121134.png" />
+                           </image>
+                        </ImageView>
+                     </children></AnchorPane>
                     </children>
                 </VBox>
             </left>
@@ -55,33 +64,32 @@
                     <children>
                         <AnchorPane layoutY="4.0" prefHeight="514.0" prefWidth="802.0" style="-fx-background-color: ffff;">
                             <children>
+                        <ImageView fitHeight="529.0" fitWidth="815.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/background.png" />
+                           </image>
+                        </ImageView>
                                 <Text fx:id="erreurDescriptionLabel" layoutX="369.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                 <Text fx:id="erreurDateLabel" layoutX="23.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                 <Text fx:id="erreurprix" layoutX="22.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                 <Text fx:id="erreurNomLabel" layoutX="27.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                 <Text fx:id="erreurCategorieLabel" layoutX="23.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
                                 <Text fx:id="erreurImageLabel" layoutX="369.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />
-                        <TextField fx:id="txtTitre" layoutX="14.0" layoutY="378.0" promptText="Titre" styleClass="browseButton" stylesheets="@style.css" />
-                        <TextField fx:id="txtDescription" layoutX="208.0" layoutY="378.0" promptText="Description" styleClass="browseButton" stylesheets="@style.css" />
-                        <DatePicker fx:id="datePickerDebut" layoutX="409.0" layoutY="378.0" promptText="Date Début" styleClass="browseButton" stylesheets="@style.css" />
-                        <DatePicker fx:id="datePickerFin" layoutX="619.0" layoutY="378.0" promptText="Date Fin" styleClass="browseButton" stylesheets="@style.css" />
-                        <Button fx:id="btnSave" layoutX="346.0" layoutY="437.0" onAction="#saveChanges" styleClass="round-button" stylesheets="@style.css" text="Enregistrer" />
-                        <ImageView fitHeight="422.0" fitWidth="398.0" layoutX="420.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@img/-peinture.jpg" />
-                           </image>
-                        </ImageView>
-                        <ComboBox fx:id="trie" layoutX="14.0" layoutY="437.0" prefWidth="150.0" promptText="trier ASC/DSC" />
-                        <TextField fx:id="searchTF" layoutX="183.0" layoutY="437.0" />
+                        <TextField fx:id="txtTitre" layoutX="24.0" layoutY="418.0" prefHeight="19.0" prefWidth="148.0" promptText="Titre" styleClass="course-icon" stylesheets="@style.css" />
+                        <TextField fx:id="txtDescription" layoutX="201.0" layoutY="418.0" prefHeight="49.0" prefWidth="190.0" promptText="Description" styleClass="course-icon" stylesheets="@style.css" />
+                        <DatePicker fx:id="datePickerDebut" layoutX="420.0" layoutY="422.0" promptText="Date Début" styleClass="browseButton" stylesheets="@style.css" />
+                        <DatePicker fx:id="datePickerFin" layoutX="629.0" layoutY="421.0" promptText="Date Fin" styleClass="browseButton" stylesheets="@style.css" />
+                        <Button fx:id="btnSave" layoutX="356.0" layoutY="479.0" onAction="#saveChanges" prefHeight="30.0" prefWidth="128.0" styleClass="round-button" stylesheets="@style.css" text="Enregistrer" />
                             </children>
                         </AnchorPane>
-                  <TableView fx:id="tableCour" layoutX="10.0" layoutY="10.0" prefHeight="286.0" prefWidth="406.0">
+
+                        <TableView fx:id="tableCour" layoutX="66.0" layoutY="43.0" opacity="0.84" prefHeight="362.0" prefWidth="722.0">
                      <columns>
-                        <TableColumn fx:id="colTitre" text="Titre" />
-                        <TableColumn fx:id="colDescription" text="Description" />
-                        <TableColumn fx:id="colDateDebut" text="Date Début" />
-                        <TableColumn fx:id="colDateFin" text="Date Fin" />
-                        <TableColumn fx:id="colDelete" text="Supprimer" />
+                        <TableColumn fx:id="colTitre" prefWidth="121.60001373291016" text="Titre" />
+                        <TableColumn fx:id="colDescription" prefWidth="247.20001220703125" text="Description" />
+                        <TableColumn fx:id="colDateDebut" minWidth="0.0" prefWidth="147.19998168945312" text="Date Début" />
+                        <TableColumn fx:id="colDateFin" prefWidth="133.5999755859375" text="Date Fin" />
+                        <TableColumn fx:id="colDelete" prefWidth="73.59991455078125" text="Supprimer" />
                      </columns>
                   </TableView>
                     </children>

@@ -5,6 +5,7 @@ import entities.Cour;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,8 +13,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 import service.ServiceAtelier;
 
+import javax.management.Notification;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -64,6 +68,8 @@ public class AjouterAtelierNV {
             alert.setTitle("Validation");
             alert.setContentText("Atelier ajouté avec succès");
             alert.showAndWait();
+            Notifications.create()
+                    .darkStyle().title("Atelier ajouté avec succès Bien").position(Pos.BOTTOM_RIGHT).hideAfter(Duration.seconds(20)).show();
         } catch (Exception e) {
             // Gérer les exceptions et afficher une alerte d'erreur
             afficherAlerteErreur("Erreur", e.getMessage());
