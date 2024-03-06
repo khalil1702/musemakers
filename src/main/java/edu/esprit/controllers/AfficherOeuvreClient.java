@@ -109,6 +109,16 @@ public class AfficherOeuvreClient {
                 System.out.println(e.getMessage());
                 // Gérer l'exception, par exemple, définir une image par défaut
             }
+            imageView.setOnScroll(event -> {
+                double zoomFactor = 1.05;
+                double deltaY = event.getDeltaY();
+                if (deltaY < 0){
+                    zoomFactor = 2.0 - zoomFactor;
+                }
+                imageView.setScaleX(imageView.getScaleX() * zoomFactor);
+                imageView.setScaleY(imageView.getScaleY() * zoomFactor);
+                event.consume();
+            });
 
             // VBox pour les détails de l'oeuvre
             VBox detailsVBox = new VBox(5);

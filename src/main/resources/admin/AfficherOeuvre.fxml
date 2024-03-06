@@ -56,6 +56,7 @@
                               <Image url="@../art/graph.png" />
                            </image>
                         </ImageView>
+                        <Button fx:id="chat_id" layoutX="46.0" layoutY="392.0" mnemonicParsing="false" onAction="#AfficherChat" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="voir chat" />
                      </children></AnchorPane>
                     </children>
                 </VBox>

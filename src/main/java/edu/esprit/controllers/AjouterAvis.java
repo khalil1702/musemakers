@@ -8,10 +8,13 @@ import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 
+import java.net.URL;
 import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.prefs.Preferences;
 import javafx.scene.image.Image;
@@ -30,7 +33,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
-public class AjouterAvis {
+
+public class AjouterAvis  {
 
     @FXML
     private TextArea comment_id;
@@ -92,6 +96,8 @@ public class AjouterAvis {
     public void initialize() {
 
     }
+
+
     public void setOeuvre(Oeuvre oeuvre) {
         vbox1.getChildren().clear();
         this.oeuvre = oeuvre;
@@ -176,6 +182,8 @@ public class AjouterAvis {
     public void setImage(Image image) {
         image_id.setImage(image);
     }
+
+
 
     @FXML
     private void submitAvis(ActionEvent event) {

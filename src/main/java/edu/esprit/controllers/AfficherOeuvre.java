@@ -61,7 +61,8 @@ public class AfficherOeuvre {
     private ImageView image_id;
 
 
-
+    @FXML
+    private Button chat_id;
     @FXML
     private TableColumn<Oeuvre, String> nom_id;
 
@@ -523,6 +524,13 @@ public class AfficherOeuvre {
     {
 
         serviceAvis.afficherStatistiquesAvis();
+    }
+    @FXML
+    void AfficherChat(ActionEvent event) throws IOException {
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/admin/Chat.fxml"));
+        Parent root=loader.load();
+//
+        TableView.getScene().setRoot(root);
     }
 }
 

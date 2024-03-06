@@ -106,7 +106,7 @@ public class AjouterOeuvre {
 
         // Validation du champ description
         String description = description_id.getText();
-        String erreurDescription = (description.isEmpty() || description.length() > 30 || !description.matches("[a-zA-Z0-9,\\- ]+")) ? "Le description est vide, ou elle a  dépasse 30 caractères et doit contenir uniquement des lettres, des chiffres, des virgules et des tirets." : "";
+        String erreurDescription = (description.isEmpty()  || !description.matches("[a-zA-Z0-9,\\- ]+")) ? "Le description est vide, ou elle a  dépasse 30 caractères et doit contenir uniquement des lettres, des chiffres, des virgules et des tirets." : "";
 
         // Validation du champ image
         String image = image_id.getText();
