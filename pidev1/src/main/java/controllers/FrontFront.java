@@ -1,6 +1,8 @@
 package controllers;
 
 import entities.Cour;
+import entities.CoursFavoris;
+import entities.User;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,6 +35,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import service.ServiceCour;
+import service.ServiceCoursFavoris;
 
 import java.io.IOException;
 import java.net.URL;
@@ -44,7 +47,9 @@ import java.util.stream.Collectors;
 public class FrontFront {
 
     private final ServiceCour serviceCour = new ServiceCour();
+    private final ServiceCoursFavoris scf = new ServiceCoursFavoris();
     private Set<Cour> listeCours;
+    private Set<CoursFavoris> listeCoursFav;
     private final int COURS_PER_PAGE = 6;
     @FXML
     private Pagination PaginiationCours;
@@ -322,6 +327,29 @@ public class FrontFront {
             PaginiationCours.setCurrentPageIndex(0);
         }
     }
+    public void innitCoursFavorisUI()
+    {
+        User u = new User();
+        u.setId_user(1);
+        listeCoursFav = scf.getAllByUser(u);
+        int pageSizeUsers;
+        if(!listeCoursFav.isEmpty()) {
+            pageSizeUsers = listeCoursFav.size() / COURS_PER_PAGE;
+            if (listeCoursFav.size() % COURS_PER_PAGE != 0)
+            {
+                pageSizeUsers++;
+            }
+            PaginiationCours.setPageCount(pageSizeUsers);
+            PaginiationCours.setPageFactory(this::x);
+            PaginiationCours.setCurrentPageIndex(0);
+        }
+        else
+        {
+            pageSizeUsers = 1;
+            PaginiationCours.setPageCount(pageSizeUsers);
+            PaginiationCours.setCurrentPageIndex(0);
+        }
+    }
     private AnchorPane createUsersPage(int pageIndex) {
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.setPrefWidth(600); // Decreased width
@@ -438,6 +466,12 @@ public class FrontFront {
                 datefin.setPrefWidth(200);
                 productPane.getChildren().add(datefin);
 
+                Button modifyButton = new Button("Ajouter Favoris");
+                modifyButton.setLayoutX(90); // Adjust position as needed
+                modifyButton.setLayoutY(175); // Adjust position as needed
+                modifyButton.setOnAction(event -> handleAddingtoFavorite(item)); // Define action for modify button
+                productPane.getChildren().add(modifyButton);
+
                 anchorPane.getChildren().add(productPane);
 
 
@@ -452,6 +486,153 @@ public class FrontFront {
 
         return anchorPane;
 
+    }
+
+    private AnchorPane x(int pageIndex) {
+        AnchorPane anchorPane = new AnchorPane();
+        anchorPane.setPrefWidth(600); // Decreased width
+        anchorPane.setPrefHeight(500); // Increased height
+
+        int startIndex = pageIndex * COURS_PER_PAGE;
+        int endIndex = Math.min(startIndex + COURS_PER_PAGE, listeCoursFav.size());
+
+        int xOffset = 10; // Margin added on the left
+        int yOffset = 20; // Decreased yOffset
+        int xIncrement = 180; // Decreased xIncrement
+        int yIncrement = 210; // Increased yIncrement
+        int index = 0;
+        for (CoursFavoris item : listeCoursFav) {
+
+            if (index >= startIndex && index < endIndex) {
+                AnchorPane productPane = new AnchorPane();
+                productPane.setLayoutX(xOffset);
+                productPane.setLayoutY(yOffset);
+                productPane.setPrefSize(160, 180); // Increased height and slightly decreased width
+                productPane.setStyle(
+                        "-fx-background-color: white; /* Change background color to white */\n" +
+                                "-fx-background-radius: 20px;\n" +
+                                "-fx-border-color: #ccc;\n" +
+                                "-fx-border-width: 0px;\n" +
+                                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);\n" +
+                                "color: white; /* Change text color to red */\n"); // Smaller drop shadow
+
+                Label questionLabel = new Label(item.getCour().getTitre_cours().toUpperCase());
+                questionLabel.setLayoutX(8); // Smaller layout X
+                questionLabel.setLayoutY(20); // Smaller layout Y
+                questionLabel.setMaxWidth(150); // Set maximum width
+                questionLabel.setMinWidth(productPane.getPrefWidth() - 30); // Set minimum width based on pane width
+                questionLabel.setStyle("-fx-text-fill: black; -fx-font-weight: bold; -fx-font-size: 10px;");
+                questionLabel.setWrapText(true);
+                productPane.getChildren().add(questionLabel);
+
+                Circle profilePic = new Circle(40, 40, 21); // Adjust size and position as needed
+                profilePic.setLayoutX(productPane.getPrefWidth() - 70); // Move the circle to the right
+                profilePic.setLayoutY(-10); // Adjust vertical position as needed
+                profilePic.setFill(new ImagePattern(new Image("img/toile.png"))); // Load user's profile picture
+                profilePic.setStyle("-fx-background-color: white; \n" +
+                        "    -fx-background-radius: 50%; \n" +
+                        "    -fx-border-color: #d3d3d3;\n" +
+                        "    -fx-border-width: 2px; \n" +
+                        "    -fx-effect: dropshadow(three-pass-box, rgba(80, 80, 80, 0.6), 15, 0, 0, 0);");
+                productPane.getChildren().add(profilePic);
+
+                Label titrecours = new Label();
+                TextFlow textFlowx = new TextFlow();
+                Text boldTextx = new Text("Titre Cours: ");
+                boldTextx.setStyle("-fx-font-weight: bold;");
+                Text regularTextx = new Text(item.getCour().getTitre_cours());
+                textFlowx.getChildren().addAll(boldTextx, regularTextx);
+
+                titrecours.setGraphic(textFlowx);
+                titrecours.setLayoutX(8); // Smaller layout X
+                titrecours.setLayoutY(60); // Smaller layout Y
+                titrecours.setMaxWidth(150); // Set maximum width
+                titrecours.setMinWidth(productPane.getPrefWidth() - 40); // Set minimum width based on pane width
+                titrecours.setStyle("-fx-text-fill: #333333; -fx-font-size: 10px;");
+                titrecours.setWrapText(true);
+                titrecours.setPrefWidth(200);
+                productPane.getChildren().add(titrecours);
+
+                Label desccour = new Label();
+                TextFlow textFlowxx = new TextFlow();
+                Text boldTextxx = new Text("Desc Cours: ");
+                boldTextxx.setStyle("-fx-font-weight: bold;");
+                Text regularTextxx = new Text(item.getCour().getDescription_cours());
+                textFlowxx.getChildren().addAll(boldTextxx, regularTextxx);
+
+                desccour.setGraphic(textFlowxx);
+                desccour.setLayoutX(8); // Smaller layout X
+                desccour.setLayoutY(80); // Smaller layout Y
+                desccour.setMaxWidth(150); // Set maximum width
+                desccour.setMinWidth(productPane.getPrefWidth() - 40); // Set minimum width based on pane width
+                desccour.setStyle("-fx-text-fill: #333333; -fx-font-size: 10px;");
+                desccour.setWrapText(true);
+                desccour.setPrefWidth(200);
+                productPane.getChildren().add(desccour);
+
+                Label datedebut = new Label();
+                TextFlow textFlowxxx = new TextFlow();
+                Text boldTextxxx = new Text("datedebut: ");
+                boldTextxx.setStyle("-fx-font-weight: bold;");
+                Text regularTextxxx = new Text(item.getCour().getDateDebut_cours().toString());
+                textFlowxxx.getChildren().addAll(boldTextxxx, regularTextxxx);
+
+                datedebut.setGraphic(textFlowxxx);
+                datedebut.setLayoutX(8); // Smaller layout X
+                datedebut.setLayoutY(100); // Smaller layout Y
+                datedebut.setMaxWidth(150); // Set maximum width
+                datedebut.setMinWidth(productPane.getPrefWidth() - 40); // Set minimum width based on pane width
+                datedebut.setStyle("-fx-text-fill: #333333; -fx-font-size: 10px;");
+                datedebut.setWrapText(true);
+                datedebut.setPrefWidth(200);
+                productPane.getChildren().add(datedebut);
+
+                Label datefin = new Label();
+                TextFlow textFlowxxxx = new TextFlow();
+                Text boldTextxxxx = new Text("datefin: ");
+                boldTextxx.setStyle("-fx-font-weight: bold;");
+                Text regularTextxxxx = new Text(item.getCour().getDateFin_cours().toString());
+                textFlowxxxx.getChildren().addAll(boldTextxxxx, regularTextxxxx);
+
+                datefin.setGraphic(textFlowxxxx);
+                datefin.setLayoutX(8); // Smaller layout X
+                datefin.setLayoutY(120); // Smaller layout Y
+                datefin.setMaxWidth(150); // Set maximum width
+                datefin.setMinWidth(productPane.getPrefWidth() - 40); // Set minimum width based on pane width
+                datefin.setStyle("-fx-text-fill: #333333; -fx-font-size: 10px;");
+                datefin.setWrapText(true);
+                datefin.setPrefWidth(200);
+                productPane.getChildren().add(datefin);
+
+
+                anchorPane.getChildren().add(productPane);
+
+
+                xOffset += xIncrement + 10; // Margin added on the right
+                if ((index + 1) % 3 == 0) {
+                    xOffset = 10; // Reset xOffset for the next row
+                    yOffset += yIncrement;
+                }
+            }
+            index++;
+        }
+
+        return anchorPane;
+
+    }
+    @FXML
+    void handleCoursFavoris(ActionEvent event) {
+        innitCoursFavorisUI();
+    }
+    public void handleAddingtoFavorite(Cour c)
+    {
+        ServiceCoursFavoris scf = new ServiceCoursFavoris();
+        CoursFavoris cf = new CoursFavoris();
+        cf.setCour(c);
+        User u = new User();
+        u.setId_user(1);
+        cf.setUser(u);
+        scf.ajouter(cf);
     }
 
 }

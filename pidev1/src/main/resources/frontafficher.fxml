@@ -15,6 +15,7 @@
    <children>
       <VBox layoutY="73.0" prefHeight="522.0" prefWidth="162.0" styleClass="rounded-box-x" stylesheets="@css/ajout.css" translateX="-2.0">
          <children>
+            <Button fx:id="AfficherCoursFavoris" mnemonicParsing="false" onAction="#handleCoursFavoris" prefHeight="32.0" prefWidth="130.0" styleClass="buttonx" text="Cours Favoris" translateX="15.0" translateY="180.0" />
             <HBox prefHeight="35.0" prefWidth="221.0" translateY="400.0">
                <children>
                   <Button fx:id="afficheratelier" mnemonicParsing="false" onAction="#handle1" prefHeight="32.0" prefWidth="158.0" styleClass="buttonx" text="Afficher les ateliers" />

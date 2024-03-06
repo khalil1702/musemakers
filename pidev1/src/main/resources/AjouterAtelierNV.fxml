@@ -28,7 +28,7 @@
                 <left>
                     <VBox prefHeight="200.0" prefWidth="230.0" styleClass="sidebar_admin" BorderPane.alignment="CENTER">
                         <children>
-                            <AnchorPane prefHeight="553.0" prefWidth="230.0" style="-fx-background-color: d0d7ac;">
+                            <AnchorPane prefHeight="530.0" prefWidth="286.0" style="-fx-background-color: d0d7ac;">
                                 <children>
                                     <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-8.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true" />
                                     <Button fx:id="afficheriiid" layoutX="14.0" layoutY="263.0" mnemonicParsing="false" onAction="#handle" prefHeight="20.0" prefWidth="200.0" styleClass="round-button" stylesheets="@style.css" text="AfficherAtelier" />
@@ -58,11 +58,11 @@
                 <center>
                     <AnchorPane prefHeight="534.0" prefWidth="665.0" BorderPane.alignment="CENTER">
                         <children>
-                            <AnchorPane layoutY="7.0" prefHeight="514.0" prefWidth="802.0" style="-fx-background-color: ffff;">
+                            <AnchorPane layoutX="1.0" layoutY="7.0" prefHeight="522.0" prefWidth="833.0" style="-fx-background-color: ffff;">
                                 <children>
                         <ImageView fitHeight="522.0" fitWidth="831.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@img/Black%20and%20Red%20Minimalist%20Modern%20Registration%20Gym%20Website%20Prototype%20(1).png" />
+                              <Image url="@img/Black and Red Minimalist Modern Registration Gym Website Prototype (1).png" />
                            </image>
                         </ImageView>
                                     <Text fx:id="erreurDescriptionLabel" layoutX="369.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.13671875" />

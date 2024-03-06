@@ -75,16 +75,8 @@ public class AfficherAtelierNV {
     @FXML
     void initialize() throws SQLException {
 
-        // Ajoutez un écouteur sur le TextField de recherche pour gérer la recherche dynamique
-        searchTFF.textProperty().addListener((observable, oldValue, newValue) -> {
-            searchAtelier(newValue); // Appel de la méthode de recherche avec le nouveau texte
-        });
-
-        // Appel de la méthode trierAtelier avec l'option sélectionnée lorsque l'utilisateur change la valeur de la ComboBox
-        triee.setOnAction(event -> {
-            String selectedOption = (String) triee.getValue();
-            trierAtelier(selectedOption);
-        });
+        Set<Atelier> ateliers = serviceAtelier.getAll();
+        ObservableList<Atelier> atelierList = FXCollections.observableArrayList(ateliers);
 
         // Initialiser les colonnes de la table avec les valeurs appropriées
 
@@ -94,6 +86,8 @@ public class AfficherAtelierNV {
 
         // Ajouter les ateliers à la table
         tableAtelier.setItems(atelierList);
+
+
 
         // Gérer le clic sur une ligne de la table
         tableAtelier.setOnMouseClicked(event -> {
