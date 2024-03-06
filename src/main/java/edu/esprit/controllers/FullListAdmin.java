@@ -6,23 +6,31 @@ import edu.esprit.entities.User;
 import edu.esprit.services.ServiceExposition;
 import edu.esprit.services.ServicePersonne;
 import edu.esprit.services.ServiceReservation;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Optional;
 import java.util.Set;
 
 public class FullListAdmin {
+    @FXML
+    private Button statButton;
     @FXML
     private TableColumn<Exposition, Timestamp> dateDebutColumn;
 
@@ -128,11 +136,13 @@ public class FullListAdmin {
         Set<Reservation> getallReservations = serviceReservation.getAll();
         reservationTableView.getItems().addAll(getallReservations);
     }
+
+
     @FXML
     void Afficher(ActionEvent event) {
         try {
             // Load the new FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/admin/afficherExpo.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/admin/afficherExpo_un.fxml"));
             Parent root = loader.load();
 
             // Create a new scene
@@ -153,7 +163,7 @@ public class FullListAdmin {
     void ajouterNav(ActionEvent event) throws IOException {
         try {
             // Load the new FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/admin/ajouterexpo.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/admin/ajouterExpo_1.fxml"));
             Parent root = loader.load();
 
             // Create a new scene
@@ -197,6 +207,13 @@ public class FullListAdmin {
         ServiceReservation serviceReservation = new ServiceReservation(/* pass your database connection */);
         serviceReservation.afficherStatistiques();
     }
+
+    @FXML
+    public void handleAfficherStatistiquesButton(ActionEvent event) {
+        ServiceReservation serviceReservation = new ServiceReservation();
+        serviceReservation.genererStatistiquesClientsFideles();
+    }
+
     @FXML
     void histoAdminNav(ActionEvent event) throws IOException {
         try {

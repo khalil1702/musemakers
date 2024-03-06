@@ -10,4 +10,5 @@ public interface IService<T> {
     public T getOneById(int id)throws SQLException;
     public Set<T> getAll()throws SQLException;
 
+
 }

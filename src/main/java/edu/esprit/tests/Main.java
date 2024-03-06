@@ -23,10 +23,13 @@ public class Main {
         ServiceExposition exposition=new ServiceExposition();
         ServiceReservation reservation=new ServiceReservation();
 
+//        System.out.println(reservation.trierParDateReservation());
+
         Exposition e=new Exposition();
         User p = new User();
-        System.out.println(exposition.chercherParThemeOuNom("Art numérique","aa"));
+//        System.out.println(exposition.chercherParThemeOuNom("Art numérique","aa"));
 
+        System.out.println(personne.getConnectedUserId());
         int num_exp=11;
         int num_user=5;
 //reservation.modifierNombreTickets(6,15,12);

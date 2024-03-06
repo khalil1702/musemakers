@@ -7,6 +7,7 @@ import edu.esprit.services.ServiceExposition;
 import edu.esprit.services.ServicePersonne;
 import edu.esprit.services.ServiceReservation;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,15 +20,24 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.LinkedHashSet;
+
 import java.sql.Date;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class AfficherExpositionClient {
+    @FXML
+    private ComboBox<String> comboBox;
+
     @FXML
     private TextField nameSearchID;
 
@@ -49,7 +59,8 @@ public class AfficherExpositionClient {
 
     // Méthode appelée lors de l'initialisation de la vue
     @FXML
-    public void initialize() {
+    public void initialize() throws SQLException {
+        displayExhibitions();
 
         // Add a ChangeListener to the nameSearchID TextField
         nameSearchID.textProperty().addListener((observable, oldValue, newValue) -> handleSearch());
@@ -57,13 +68,19 @@ public class AfficherExpositionClient {
         // Add a ChangeListener to the themeSearchID TextField
         themeSearchID.valueProperty().addListener((observable, oldValue, newValue) -> handleSearch());
 
-        // Initial display of all exhibitions
-        displayExhibitions();
+        comboBox.setItems(FXCollections.observableArrayList(
+                "date Ascendante", "date Descendante"
+        ));
+
+        comboBox.setOnAction(event -> handleSortAction());
+
     }
+
 
 
     // Méthode pour afficher toutes les expositions
     private void displayExhibitions() {
+        exhibitionVBox.getChildren().clear();
         for (Exposition expo : listexpo) {
             if (expo.getDateDebut().toLocalDate().isBefore(currentDate.toLocalDate())) {
                 continue;  // Skip this exhibition
@@ -71,16 +88,26 @@ public class AfficherExpositionClient {
 
             HBox exhibitionBox = new HBox(10);
             exhibitionBox.setAlignment(javafx.geometry.Pos.CENTER);
-
             ImageView imageView = new ImageView();
             try {
-                Image image = new Image(new File(expo.getImage()).toURI().toString());
+                String imagePath = "file:C:\\xampp\\htdocs\\user_images\\" + expo.getImage();
+                Image image = new Image(imagePath);
                 imageView.setImage(image);
                 imageView.setFitWidth(200);
                 imageView.setFitHeight(200);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
+
+//            ImageView imageView = new ImageView();
+//            try {
+//                Image image = new Image(new File(expo.getImage()).toURI().toString());
+//                imageView.setImage(image);
+//                imageView.setFitWidth(200);
+//                imageView.setFitHeight(200);
+//            } catch (Exception e) {
+//                System.out.println(e.getMessage());
+//            }
 
             VBox detailsVBox = new VBox(5);
             detailsVBox.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
@@ -158,12 +185,6 @@ public class AfficherExpositionClient {
         }
     }
 
-
-
-
-
-
-
     //
     private boolean userHasReservationForExhibition(User user, Exposition exposition) {
         // Use your actual logic to check if the user has a reservation for the given exhibition
@@ -176,7 +197,7 @@ public class AfficherExpositionClient {
     // Replace this with your actual logic to get the current user
     private User getCurrentUser() {
         // Simulated logic to get the current user (replace with your actual logic)
-        return servicePersonne.getOneById(5);
+        return servicePersonne.getOneById(LoginAdmin.getLoggedInUser().getId_user());
     }
     //
 
@@ -289,6 +310,74 @@ public class AfficherExpositionClient {
         // Format as "HH:mm"
         return String.format("%02d:%02d", hours, minutes);
     }
+    private String formatDateTime(LocalDate date) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return date.format(dateTimeFormatter);
+    }
+
+    //    @FXML
+//    private void sortByDateAscending() {
+//        try {
+//            listexpo.clear();
+//            listexpo.addAll(exp.trierParDateDebutAsc());
+//
+//            // Force a refresh of the UI
+//            Platform.runLater(() -> {
+//                // Clear the previous exhibitions from exhibitionVBox
+//                exhibitionVBox.getChildren().clear();
+//
+//                // Display the updated listexpo in exhibitionVBox
+//                displayExhibitions();
+//            });
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    @FXML
+//    private void sortByDateDescending() {
+//        try {
+//            listexpo.clear();
+//            listexpo.addAll(exp.trierParDateDebutDesc());
+//
+//            // Force a refresh of the UI
+//            Platform.runLater(() -> {
+//                // Clear the previous exhibitions from exhibitionVBox
+//                exhibitionVBox.getChildren().clear();
+//
+//                // Display the updated listexpo in exhibitionVBox
+//                displayExhibitions();
+//            });
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+    private void handleSortAction() {
+        String selectedOption = comboBox.getValue();
+
+        switch (selectedOption) {
+            case "date Ascendante":
+                System.out.println("Sorting by date Ascendante");
+                // Trier les expositions par date de début ascendante
+                listexpo = listexpo.stream().sorted(Comparator.comparing(Exposition::getDateDebut)).collect(Collectors.toCollection(LinkedHashSet::new));
+                break;
+            case "date Descendante":
+                System.out.println("Sorting by date Descendante");
+                // Trier les expositions par date de début descendante
+                listexpo = listexpo.stream().sorted(Comparator.comparing(Exposition::getDateDebut).reversed()).collect(Collectors.toCollection(LinkedHashSet::new));
+                break;
+            default:
+                break;
+        }
+
+        // Print the sorted list for debugging
+        System.out.println("Sorted Exhibitions: " + listexpo);
+
+        // Réafficher les expositions après le tri
+        displayExhibitions();
+    }
+
+
 
 
 

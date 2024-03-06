@@ -1,7 +1,15 @@
 package edu.esprit.controllers;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
 import edu.esprit.entities.Exposition;
 import edu.esprit.entities.Reservation;
+import edu.esprit.entities.User;
+import edu.esprit.pdf.PdfGenerator;
 import edu.esprit.services.ServiceReservation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,12 +18,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
 
 public class HistoriqueReservation {
@@ -39,6 +54,8 @@ public class HistoriqueReservation {
 
     @FXML
     private TableView<Reservation> reservationTableView;
+
+
 
 //    @FXML
 //    private TableColumn<Exposition, String> themeExpositionColumn;
@@ -97,7 +114,7 @@ public class HistoriqueReservation {
     @FXML
     private void initialize() {
         // Assuming you have a method to retrieve reservations for a specific user
-        userReservations.addAll(serviceReservation.getReservationsByUser(5));
+        userReservations.addAll(serviceReservation.getReservationsByUser(LoginAdmin.getLoggedInUser().getId_user()));
 
         // Populate the TableView with user reservations
         reservationTableView.setItems(userReservations);
@@ -182,6 +199,7 @@ public class HistoriqueReservation {
                 });
             }
 
+
             @Override
             protected void updateItem(Integer ticketsNumber, boolean empty) {
                 super.updateItem(ticketsNumber, empty);
@@ -235,7 +253,135 @@ public class HistoriqueReservation {
                 }
             }
         });
+        TableColumn<Reservation, Void> pdfDownloadColumn = new TableColumn<>("PDF réservation");
+        pdfDownloadColumn.setCellFactory(column -> new TableCell<Reservation, Void>() {
+            private final Button pdfDownloadButton = new Button("⇩");
+
+            {
+                pdfDownloadButton.setOnAction(event -> {
+                    Reservation reservation = getTableView().getItems().get(getIndex());
+                    handlePDFDownloadButtonAction(reservation);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    Reservation reservation = getTableView().getItems().get(getIndex());
+
+                    // Check if accessByAdmin is 1 (accepted)
+                    if (reservation.getAccessByAdmin() == 1) {
+                        setGraphic(pdfDownloadButton);
+                    } else {
+                        setGraphic(null); // Hide the button if not accepted
+                    }
+                }
+            }
+        });
+
+        // Add the PDF download column to the TableView
+        reservationTableView.getColumns().add(pdfDownloadColumn);
     }
+    private void handlePDFDownloadButtonAction(Reservation reservation) {
+        if (reservation.getAccessByAdmin() == 1) { // Check if the reservation is accepted
+            PdfGenerator.generatePDF(reservation.getExposition(), reservation.getClient(), reservation);
+        } else {
+            // Display an alert that PDF download is only available for accepted reservations
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("PDF Download Error");
+            alert.setContentText("PDF download is only available for accepted reservations.");
+            alert.showAndWait();
+        }
+    }
+//    private void pdf(Exposition exposition, User user, Reservation reservation) {
+//        try {
+//            Document document = new Document();
+//            PdfWriter.getInstance(document, new FileOutputStream("output.pdf"));
+//            document.open();
+//
+//            Rectangle rect = new Rectangle(577, 825, 18, 15);
+//            rect.enableBorderSide(1);
+//            rect.enableBorderSide(2);
+//            rect.enableBorderSide(4);
+//            rect.enableBorderSide(8);
+//            rect.setBorderColor(BaseColor.BLUE);
+//            rect.setBorderWidth(5);
+//            document.add(rect);
+//
+//            LineSeparator ls = new LineSeparator();
+//            ls.setLineColor(new BaseColor(135, 206, 235));
+//            document.add(new Chunk(ls));
+//
+//            Chunk chunk = new Chunk("Confirmation de la Reservation");
+//            Paragraph p = new Paragraph(chunk);
+//            p.setAlignment(Element.ALIGN_CENTER);
+//            document.add(p);
+//
+//            String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+//            Chunk dateChunk = new Chunk(date);
+//            Paragraph dateParagraph = new Paragraph(dateChunk);
+//            dateParagraph.setAlignment(Element.ALIGN_CENTER);
+//            document.add(new Chunk(ls));
+//            document.add(dateParagraph);
+//
+//            document.add(new Chunk(ls));
+//
+//            Paragraph clientParagraph = new Paragraph();
+//            clientParagraph.add(new Phrase("Cher(e) " + user.getNom_user() + ",\n\n"));
+//            clientParagraph.add(new Phrase("Merci d'avoir réservé une exposition dans notre salle de gallerie. Nous sommes impatients de vous accueillir etc.\n\n"));
+//            clientParagraph.add(new Phrase("Ci-dessous, vous trouverez les détails de votre réservation :\n\n"));
+//            document.add(clientParagraph);
+//
+//            document.add(new Paragraph("\n\n\n\n\n"));
+//
+//            PdfPTable table = new PdfPTable(1);
+//
+//            PdfPCell cell;
+//            p = new Paragraph("Nom de la séance : " + exposition.getNom());
+//            cell = new PdfPCell(p);
+//            cell.setBorder(Rectangle.BOX);
+//            cell.setPadding(10);
+//            cell.setBackgroundColor(BaseColor.WHITE);
+//            table.addCell(cell);
+//
+//            p = new Paragraph("Nom et prénom du client : " + user.getPrenom_user());
+//            cell = new PdfPCell(p);
+//            cell.setBorder(Rectangle.BOX);
+//            cell.setPadding(10);
+//            cell.setBackgroundColor(new BaseColor(224, 224, 224));
+//            table.addCell(cell);
+//
+//            p = new Paragraph("nombre de ticket " + reservation.getTicketsNumber());
+//            cell = new PdfPCell(p);
+//            cell.setBorder(Rectangle.BOX);
+//            cell.setPadding(10);
+//            cell.setBackgroundColor(BaseColor.WHITE);
+//            table.addCell(cell);
+//
+//            document.add(table);
+//
+//            document.add(new Paragraph("\n\n\n\n\n\n\n\n"));
+//
+//            Paragraph footer = new Paragraph("MuseMakers Gallery, 1, 2 rue André Ampère - 2083 - Pôle Technologique - El Ghazala.,nTel : 71500500,Email : musemakers@gmail.com");
+//            footer.setAlignment(Element.ALIGN_CENTER);
+//            document.add(footer);
+//
+//            document.close();
+//            File pdfFile = new File("output.pdf");
+//            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.OPEN)) {
+//                Desktop.getDesktop().open(pdfFile);
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+
+
 
     private void handleXButtonAction(Reservation reservation) {
         // Implement the logic to handle the X button action
@@ -297,6 +443,7 @@ public class HistoriqueReservation {
         // Format as "HH:mm"
         return String.format("%02d:%02d", hours, minutes);
     }
+
 
 
 }

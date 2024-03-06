@@ -82,7 +82,7 @@
                               </ImageView>
                                         <AnchorPane layoutX="23.0" layoutY="14.0" prefHeight="348.0" prefWidth="607.0">
                                             <children>
-                                                <TableView fx:id="reservationTableView" layoutX="14.0" layoutY="102.0" prefHeight="388.0" prefWidth="731.0" style="-fx-background-color: #FDF2E9;" styleClass="historique-reservation-table">
+                                                <TableView fx:id="reservationTableView" layoutX="-29.0" layoutY="102.0" prefHeight="388.0" prefWidth="774.0" style="-fx-background-color: #FDF2E9;" styleClass="historique-reservation-table">
                                                     <columns>
                                                         <TableColumn fx:id="nomExpositionColumn" prefWidth="95.19998168945312" text="Exposition" />
                                                         <TableColumn fx:id="dateDebutColumn" prefWidth="107.20001220703125" text="Date debut" />
@@ -91,7 +91,7 @@
                                                         <TableColumn fx:id="timeFinColumn" prefWidth="90" text="Heure fin" />
                                                         <TableColumn fx:id="ticketsNumberColumn" prefWidth="80" text="Tickets" />
                                                         <TableColumn fx:id="etatrdv" minWidth="0.0" prefWidth="80.7999267578125" text="Etat" />
-                                                        <TableColumn fx:id="action" prefWidth="89.59995117187498" text="Action" />
+                                                        <TableColumn fx:id="action" prefWidth="47.2001953125" text="Action" />
                                                     </columns>
                                                 </TableView>
                                     <Text fill="#714747" layoutX="246.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="custom-font" text="Mes réservations" wrappingWidth="453.1900329589844">

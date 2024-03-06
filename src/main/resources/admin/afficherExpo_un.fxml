@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="626.0" prefWidth="971.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherExposition_un">
+    <stylesheets>
+        <URL value="@../style.css" />
+    </stylesheets>
+    <children>
+        <BorderPane layoutY="-3.0" prefHeight="634.0" prefWidth="1033.0">
+            <left>
+                <VBox prefHeight="200.0" prefWidth="230.0" style="-fx-background-color: E8DBCE;" BorderPane.alignment="CENTER">
+                    <children>
+                        <AnchorPane prefHeight="530.0" prefWidth="230.0" style="-fx-background-color: d0d7ac;">
+                            <children>
+                                <Button layoutX="27.0" layoutY="108.0" mnemonicParsing="false" onAction="#Afficher" prefHeight="26.0" prefWidth="200.0" styleClass="underline-button" text="Afficher expositions" textFill="#696666" />
+                                <Button layoutX="29.0" layoutY="50.0" mnemonicParsing="false" onAction="#ajouterNav" prefHeight="26.0" prefWidth="190.0" styleClass="underline-button" text="Ajouter Expositions" textFill="#696666" />
+                                <ImageView fitHeight="50.0" fitWidth="51.0" layoutX="14.0" layoutY="42.0">
+                                    <image>
+                                        <Image url="@../assets/icons/modern-art.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fitHeight="48.0" fitWidth="49.0" layoutX="15.0" layoutY="97.0">
+                                    <image>
+                                        <Image url="@../assets/icons/art-gallery.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </VBox>
+            </left>
+            <top>
+                <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <AnchorPane prefHeight="119.0" prefWidth="1034.0" style="-fx-background-color: ffff;">
+                            <children>
+                                <ImageView fitHeight="105.0" fitWidth="94.0" layoutX="14.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../assets/logo.png" />
+                                    </image>
+                                </ImageView>
+                                <Button layoutX="310.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Les artistes" />
+                                <Button layoutX="451.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" styleClass="underline-button" text="Les chefs d'oeuvres" />
+                                <Button layoutX="719.0" layoutY="76.0" mnemonicParsing="false" onAction="#demandeNav" prefHeight="26.0" prefWidth="117.0" styleClass="underline-button" text="Réservations" />
+                                <Button layoutX="564.0" layoutY="76.0" mnemonicParsing="false" onAction="#Afficher" prefHeight="26.0" prefWidth="145.0" styleClass="underline-button" text="Expositions" />
+                                <Button layoutX="873.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Reclamations" />
+                                <Button layoutX="168.0" layoutY="76.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" styleClass="underline-button" text="Les clients" />
+                                <ImageView fitHeight="56.0" fitWidth="65.0" layoutX="952.0" layoutY="14.0">
+                                    <image>
+                                        <Image url="@../assets/icons/logout.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </AnchorPane>
+                    </children></HBox>
+            </top>
+            <center>
+                <AnchorPane prefHeight="450.0" prefWidth="734.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <ImageView fitHeight="530.0" fitWidth="798.0">
+                            <image>
+                                <Image url="@../assets/expos/mur1.jpg" />
+                            </image>
+                        </ImageView>
+                        <AnchorPane layoutX="5.0" layoutY="19.0" prefHeight="475.0" prefWidth="789.0">
+                            <children>
+                                <TableView fx:id="TableView" layoutX="6.0" layoutY="49.0" prefHeight="327.0" prefWidth="491.0">
+                                    <columns>
+                                        <TableColumn fx:id="nom_expo" prefWidth="80" text="Exposition" />
+                                        <TableColumn fx:id="date_debut" prefWidth="70" text="Date debut" />
+                                        <TableColumn fx:id="date_fin" prefWidth="70.0" text="Date fin" />
+                                        <TableColumn fx:id="heure_debut" prefWidth="94.39996337890625" text="heure debut" />
+                                        <TableColumn fx:id="heure_fin" prefWidth="85.60003662109375" text="heure fin" />
+                                        <TableColumn fx:id="theme" minWidth="70" prefWidth="89.60003662109375" text="Theme" />
+
+
+                                    </columns>
+                                </TableView>
+                                <Button fx:id="supprimer" layoutX="484.0" layoutY="387.0" mnemonicParsing="false" onAction="#supprimer" styleClass="submit_button" text="Supprimer" />
+                                <ImageView fx:id="imageView" fitHeight="327.0" fitWidth="264.0" layoutX="512.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
+                                <Text fill="#fff9f9" layoutX="328.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="custom-font" text="Liste exposition" />
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </AnchorPane>
+            </center>
+
+        </BorderPane>
+    </children>
+
+</AnchorPane>

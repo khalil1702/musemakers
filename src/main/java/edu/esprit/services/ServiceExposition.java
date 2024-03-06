@@ -5,8 +5,8 @@ import edu.esprit.utils.DataSource;
 
 import java.sql.*;
 import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ServiceExposition implements IService<Exposition> {
     Connection cnx = DataSource.getInstance().getCnx();
@@ -175,6 +175,27 @@ public class ServiceExposition implements IService<Exposition> {
             return null; // Return null as a placeholder for the Date
         }
     }
+//    public List<Exposition> trierParDateDebutAsc() throws SQLException {
+//        Set<Exposition> expositionsSet = getAll();
+//        List<Exposition> expositionsList = new ArrayList<>(expositionsSet);
+//
+//        return expositionsList.stream()
+//                .sorted(Comparator.comparing(Exposition::getDateDebut))
+//                .collect(Collectors.toList());
+//    }
+
+
+
+    // Tri descendant par date de début
+//    public List<Exposition> trierParDateDebutDesc() throws SQLException {
+//        Set<Exposition> expositionsSet = getAll();
+//        List<Exposition> expositionsList = new ArrayList<>(expositionsSet);
+//
+//        return expositionsList.stream()
+//                .sorted(Comparator.comparing(Exposition::getDateDebut).reversed())
+//                .collect(Collectors.toList());
+//    }
+
 
 
 

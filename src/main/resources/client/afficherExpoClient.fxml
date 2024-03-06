@@ -68,11 +68,13 @@
             </top>
             <center>
                 <VBox alignment="CENTER" prefHeight="545.0" prefWidth="820.0" spacing="10">
+
+
                     <AnchorPane prefHeight="53.0" prefWidth="610.0">
                         <children>
                             <!-- <Button fx:id="searchButton" layoutX="645.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleSearch" text="chercher" /> -->
-                            <TextField fx:id="nameSearchID" layoutX="154.0" layoutY="14.0" promptText="Nom exposition" styleClass="submit_button" />
-                            <ComboBox fx:id="themeSearchID" layoutX="383.0" layoutY="14.0" promptText="Choisissez un thème" styleClass="submit_button">
+                            <TextField fx:id="nameSearchID" layoutX="201.0" layoutY="14.0" promptText="Nom exposition" styleClass="submit_button" />
+                            <ComboBox fx:id="themeSearchID" layoutX="419.0" layoutY="14.0" promptText="Choisissez un thème" styleClass="submit_button">
                                 <items>
                                     <FXCollections fx:factory="observableArrayList">
                                         <String fx:value="" /> <!-- Add an empty value for displaying all exhibitions -->
@@ -86,12 +88,14 @@
                                         <String fx:value="Art fantastique" />
                                     </FXCollections>
                                 </items>
-                            </ComboBox>                            <Text fill="#b1aeae" layoutX="157.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="saisir le nom de l'expositon" />
-                     <ImageView fitHeight="29.0" fitWidth="29.0" layoutX="600.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                            </ComboBox>                            <Text fill="#b1aeae" layoutX="229.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="saisir le nom de l'expositon" />
+                     <ImageView fitHeight="29.0" fitWidth="29.0" layoutX="622.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                         <image>
                            <Image url="@../assets/icons/search.png" />
                         </image>
                      </ImageView>
+                            <ComboBox fx:id="comboBox" layoutX="49.0" layoutY="14.0" prefHeight="26.0" prefWidth="127.0" styleClass="submit_button" promptText=" Trier par date " />
+
 
                         </children>
                     </AnchorPane>

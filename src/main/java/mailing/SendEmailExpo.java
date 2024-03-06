@@ -3,14 +3,19 @@ package mailing;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
+import javax.activation.DataHandler;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
+
 
 public class SendEmailExpo {
 
-    public static void send(String toEmail, String dateDebut, String dateFin,String nomExpo,String timeD,String timeF) {
-        String from = "oussama.sfaxi@esprit.tn"; // Change this to your sender email address
+    public static void send(String toEmail, String dateDebut, String dateFin, String nomExpo, String timeD, String timeF,byte[] attachmentData) {
+        String from = "oussama.sfaxi@esprit.tn";
         String host = "smtp.gmail.com";
 
         Properties properties = System.getProperties();
@@ -19,9 +24,9 @@ public class SendEmailExpo {
         properties.put("mail.smtp.ssl.enable", "true");
         properties.put("mail.smtp.auth", "true");
 
-        Session session = Session.getInstance(properties, new javax.mail.Authenticator(){
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("oussama.sfaxi@esprit.tn", "211JMT6879"); // Change this to your sender email password
+                return new PasswordAuthentication("oussama.sfaxi@esprit.tn", "211JMT6879");
             }
         });
 
@@ -35,14 +40,29 @@ public class SendEmailExpo {
 
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
             message.setSubject("Information sur les dates");
-            message.setText("Votre réservation pour l'exposition " + nomExpo + " a été confirmée.\n" +
-                    "La date de début est : " + dateDebut + "\nLa date de fin est : " + dateFin + "\n L'heure de début est : "+timeD  + "\n L'heure de fin est : "+timeF);
+
+            Multipart multipart = new MimeMultipart();
+
+            MimeBodyPart textPart = new MimeBodyPart();
+//            textPart.setText("Votre réservation pour l'exposition " + nomExpo + " a été confirmée.\n" +
+//                    "La date de début est : " + dateDebut + "\nLa date de fin est : " + dateFin + "\n L'heure de début est : " + timeD + "\n L'heure de fin est : " + timeF);
+                     textPart.setText("Votre réservation pour l'exposition " + nomExpo + " a été confirmée.\n" +
+                "ci joint vous trouverez les détails de votre réservations ");
+            multipart.addBodyPart(textPart);
+
+            BodyPart pdfBodyPart = new MimeBodyPart();
+            pdfBodyPart.setDataHandler(new DataHandler(new ByteArrayDataSource(attachmentData, "application/pdf")));
+            pdfBodyPart.setFileName("Reservation.pdf");
+            multipart.addBodyPart(pdfBodyPart);
+
+
+            message.setContent(multipart);
 
             Transport.send(message);
+
             System.out.println("Email sent successfully to " + toEmail);
-        } catch (MessagingException mex) {
-            mex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
 }

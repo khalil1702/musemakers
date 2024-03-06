@@ -49,7 +49,7 @@ public class ReservationController {
             int ticketsNumber = Integer.parseInt(ticketsTextField.getText());
 
             // Get the user with ID 6 (You can modify this part based on your requirements)
-            User user = servicePersonne.getOneById(5);
+            User user = servicePersonne.getOneById(LoginAdmin.getLoggedInUser().getId_user());
 
 
 

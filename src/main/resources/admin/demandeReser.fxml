@@ -2,6 +2,7 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -92,7 +93,7 @@
                                           <TableColumn fx:id="action" prefWidth="88.800048828125" text="action" />
                                                     </columns>
                                                 </TableView>
-                                                <Button fx:id="tripardate" layoutX="318.0" layoutY="14.0" mnemonicParsing="false" onAction="#triparDateAncienne" text="trier par date la plus récente" />
+                                    <ComboBox fx:id="ComboBox" layoutX="335.0" layoutY="14.0" prefHeight="26.0" prefWidth="184.0" promptText="Trier par date reservation" styleClass="submit_button" />
                                             </children>
                                         </AnchorPane>
                                     </children>

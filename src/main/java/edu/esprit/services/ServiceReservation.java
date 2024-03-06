@@ -6,14 +6,31 @@ import edu.esprit.entities.User;
 import edu.esprit.utils.DataSource;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.chart.PieChart;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.chart.*;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.paint.Color;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+
+import java.awt.*;
 import java.sql.*;
 import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static javafx.application.Application.launch;
 
 public class ServiceReservation implements IService<Reservation> {
     Connection cnx= DataSource.getInstance().getCnx();
@@ -162,6 +179,15 @@ public class ServiceReservation implements IService<Reservation> {
         }
         return reservations;
     }
+    public List<Reservation> trierParDateReservation() throws SQLException {
+        Set<Reservation> reservationsSet = getEnCoursReservations();
+        List<Reservation> reservationsList = new ArrayList<>(reservationsSet);
+
+        return reservationsList.stream()
+                .sorted(Comparator.comparing(Reservation::getDateReser))
+                .collect(Collectors.toList());
+    }
+
 
 
     public Set<Reservation> triparDateAncienne() {
@@ -402,7 +428,7 @@ public class ServiceReservation implements IService<Reservation> {
                     case 0:
                         accessCategory = "En cours";
                         break;
-                        case 1:
+                    case 1:
                         accessCategory = "Acceptés";
                         break;
                     case 2:
@@ -433,6 +459,152 @@ public class ServiceReservation implements IService<Reservation> {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }}
+
+
+
+
+
+//    public void afficherStatistiques2() {
+//        Map<String, Double> statistics = generateStatistics();
+//
+//        // Créer le jeu de données pour le graphique
+//        DefaultPieDataset dataset = new DefaultPieDataset();
+//        statistics.forEach(dataset::setValue);
+//
+//        // Créer le graphique à partir du jeu de données
+//        JFreeChart chart = ChartFactory.createPieChart(
+//                "Statistique de réservation",  // Titre du graphique
+//                dataset,  // Jeu de données
+//                true,     // Inclure une légende
+//                true,
+//                false
+//        );
+//
+//        // Personnaliser le graphique si nécessaire
+//        PiePlot plot = (PiePlot) chart.getPlot();
+//        plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0} ({2})"));
+//
+//        // Afficher le graphique dans une fenêtre Swing
+//        JFrame frame = new JFrame("Statistiques de réservation");
+//        ChartPanel chartPanel = new ChartPanel(chart);
+//        frame.getContentPane().add(chartPanel, BorderLayout.CENTER);
+//        frame.setSize(500, 500);
+//        frame.setLocationRelativeTo(null);
+//        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//        frame.setVisible(true);
+//    }
+
+    // À remplacer par votre logique réelle de génération de statistiques
+    public Map<String, Double> generateStatistics() {
+        String query = "SELECT accessByAdmin, COUNT(*) as count FROM reservation GROUP BY accessByAdmin";
+        Map<String, Double> statistics = new HashMap<>();
+
+        try (PreparedStatement statement = cnx.prepareStatement(query)) {
+            ResultSet resultSet = statement.executeQuery();
+
+            // Calculer le total pour obtenir les pourcentages
+            int totalReservations = 0;
+            while (resultSet.next()) {
+                int accessByAdmin = resultSet.getInt("accessByAdmin");
+                int count = resultSet.getInt("count");
+
+                // Mettre à jour le total
+                totalReservations += count;
+
+                // Mettre à jour les statistiques pour chaque catégorie
+                String category = getCategoryLabel(accessByAdmin);
+                double percentage = ((double) count / totalReservations) * 100;
+                statistics.put(category + " (" + String.format("%.2f", percentage) + "%)", percentage);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching statistics: " + e.getMessage());
+        }
+
+        return statistics;
+    }
+
+    private String getCategoryLabel(int accessByAdmin) {
+        // Vous pouvez personnaliser les étiquettes de catégorie en fonction des valeurs d'accessByAdmin
+        switch (accessByAdmin) {
+            case 0:
+                return "En cours";
+            case 1:
+                return "Acceptés";
+            case 2:
+                return "Refusés";
+            case 3:
+                return "Annulés";
+            default:
+                return "Autre";
+        }
+    }
+    public void triParDateReser(List<Reservation> reser, boolean ascendant) {
+        reser.sort(Comparator.comparing(Reservation::getDateReser));
+        if (!ascendant) {
+            reser.sort(Comparator.comparing(Reservation::getDateReser).reversed());
+        }
+    }
+    /////////////////////////////////////
+    public void genererStatistiquesClientsFideles() {
+        try {
+            Statement st = cnx.createStatement();
+            ResultSet res = st.executeQuery("SELECT id_user, COUNT(*) as count FROM reservation WHERE accessByAdmin = 1 GROUP BY id_user");
+
+            CategoryAxis xAxis = new CategoryAxis();
+            NumberAxis yAxis = new NumberAxis();
+            BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
+            barChart.setTitle("Statistiques des clients fidèles");
+            barChart.setLegendVisible(false);
+            barChart.setAnimated(false);
+
+            int total = 0;
+            Map<String, Integer> dataMap = new HashMap<>();
+            while (res.next()) {
+                int id_user = res.getInt("id_user");
+                int count = res.getInt("count");
+                total += count;
+
+                // Utilisez votre service de personne pour obtenir le nom et le prénom de l'utilisateur en fonction de l'ID
+                ServicePersonne servicePersonne = new ServicePersonne();
+                User user = servicePersonne.getOneById(id_user);
+
+                String username = (user != null) ? user.getNom_user() + " " + user.getPrenom_user() : "Utilisateur inconnu";
+                dataMap.put(username, count);
+            }
+
+            int seriesIndex = 0;
+            for (Map.Entry<String, Integer> entry : dataMap.entrySet()) {
+                XYChart.Series<String, Number> series = new XYChart.Series<>();
+                String username = entry.getKey();
+                int count = entry.getValue();
+
+                // Créer une étiquette personnalisée pour inclure le nom et le nombre de réservations
+                String label = username + "\n" + count + " réservations";
+
+                series.setName(label);
+                double percentage = ((double) count / total) * 100;
+                series.getData().add(new XYChart.Data<>(label, percentage));
+
+                barChart.getData().add(series);
+                seriesIndex++;
+            }
+
+            // Ajuster la largeur des barres
+            double barWidth = 0.7; // Valeur entre 0 et 1, où 1 signifie que la barre remplit tout l'espace disponible
+            double categoryGap = 800 * (1 - barWidth) / dataMap.size();
+            barChart.setCategoryGap(categoryGap);
+
+            // Créer une nouvelle fenêtre pour afficher le graphique
+            Stage stage = new Stage();
+            Scene scene = new Scene(barChart, 800, 600);
+            scene.getStylesheets().add("style.css"); // Ajoutez votre propre feuille de style ici
+            stage.setScene(scene);
+            stage.setTitle("Statistiques des clients fidèles");
+            stage.show();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -447,6 +619,33 @@ public class ServiceReservation implements IService<Reservation> {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

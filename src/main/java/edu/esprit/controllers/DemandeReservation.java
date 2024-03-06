@@ -3,6 +3,8 @@ package edu.esprit.controllers;
 import edu.esprit.entities.Exposition;
 import edu.esprit.entities.Reservation;
 import edu.esprit.entities.User;
+import edu.esprit.pdf.PdfGenerator;
+import edu.esprit.pdf.PdfGeneratorMail;
 import edu.esprit.services.ServiceExposition;
 import edu.esprit.services.ServicePersonne;
 import edu.esprit.services.ServiceReservation;
@@ -25,10 +27,15 @@ import mailing.SendEmailExpo;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class DemandeReservation {
+    private List<Reservation> resrInitiales;
+    @FXML
+    private ComboBox<String> ComboBox;
     @FXML
     private TableColumn<Exposition, Timestamp> dateDebutColumn;
 
@@ -41,8 +48,7 @@ public class DemandeReservation {
     @FXML
     private TableColumn<User, String> emailColumn;
 
-    @FXML
-    private Button tripardate;
+
     @FXML
     private TableColumn<Exposition, String> nomExpositionColumn;
 
@@ -80,7 +86,6 @@ public class DemandeReservation {
         dateDebutColumn.setCellValueFactory(new PropertyValueFactory<>("ExpositionDateD"));
         dateFinColumn.setCellValueFactory(new PropertyValueFactory<>("ExpositionDateF"));
         ticketsNumberColumn.setCellValueFactory(new PropertyValueFactory<>("ticketsNumber"));
-        tripardate.setOnAction(event -> triparDateAncienne());
 
         dateReservationColumn.setCellValueFactory(new PropertyValueFactory<>("dateReser"));
 //        etatrdv.setCellValueFactory(new PropertyValueFactory<>("accessByAdmin"));
@@ -89,32 +94,54 @@ public class DemandeReservation {
             private final Button xButton = new Button("X");
 
             {
-
                 checkButton.setOnAction(event -> {
                     checkButton.getStyleClass().add("edit-button");
                     Reservation reservation = getTableRow().getItem();
+
                     if (reservation != null && showConfirmationDialog("accepter cette reservation")) {
                         serviceReservation.acceptReservation(reservation.getIdReservation());
                         refreshTable();
 
-                        // Obtenez l'adresse e-mail, la date de début et la date de fin de l'objet reservation
+                        // Obtain the email address, start date, end date, and other details from the reservation object
                         String toEmail = reservation.getUserEmail();
-                        String nomExpo=reservation.getExpositionNom();
+                        String nomExpo = reservation.getExpositionNom();
                         String dateDebut = reservation.getExpositionDateD().toString();
                         String dateFin = reservation.getExpositionDateF().toString();
                         String timeD = reservation.getHeureDebutExpo().toString();
                         String timeF = reservation.getHeureFinExpo().toString();
 
+                        // Ensure that you have the correct user object with non-null values
+                        User user = reservation.getClient(); // Assuming there is a getUser method in the Reservation class
+                        Exposition exposition = reservation.getExposition(); // Assuming there is a getExposition method in the Reservation class
 
-                        // Envoyez l'e-mail
-                        SendEmailExpo.send(toEmail, dateDebut, dateFin,nomExpo,timeD,timeF);
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("email envoyé avec succes");
-                        alert.setHeaderText(null);
-                        alert.setContentText("L'e-mail a été envoyé avec succès à \" "+ toEmail);
-                        alert.showAndWait();
+                        if (user != null && exposition != null) {
+                            byte[] pdfData = PdfGeneratorMail.generatePDFMail(exposition, user, reservation);
+
+                            SendEmailExpo.send(toEmail, dateDebut, dateFin, nomExpo, timeD, timeF, pdfData);
+
+                            // Show a success alert
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Email envoyé avec succès");
+                            alert.setHeaderText(null);
+                            alert.setContentText("L'e-mail a été envoyé avec succès à \"" + toEmail + "\"\n"
+//                                    "Nom de l'exposition : " + nomExpo + "\n" +
+//                                    "Date de début : " + dateDebut + "\n" +
+//                                    "Date de fin : " + dateFin + "\n" +
+//                                    "Heure de début : " + timeD + "\n" +
+//                                    "Heure de fin : " + timeF
+                                    );
+                            alert.showAndWait();
+                        } else {
+                            // Handle the case where the user or exposition object is null
+                            System.err.println("User or exposition object is null");
+                        }
                     }
                 });
+
+
+
+
+
                 xButton.setOnAction(event -> {
                     xButton.getStyleClass().add("x-button");
                     Reservation reservation = getTableRow().getItem();
@@ -123,6 +150,9 @@ public class DemandeReservation {
                         refreshTable();
                     }
                 });
+
+
+
             }
 
             @Override
@@ -136,6 +166,20 @@ public class DemandeReservation {
                 }
             }
         });
+        ComboBox.getItems().add("");
+
+        // Ajoutez les options de tri au ComboBox
+        ComboBox.getItems().addAll("Date ascendante", "Date descendante");
+
+        // Faites une copie de la liste initiale des œuvres
+        resrInitiales = FXCollections.observableArrayList(reservationTableView.getItems());
+
+        // Ajoutez un écouteur pour détecter quand l'utilisateur change l'option de tri
+        ComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            trierReser(newValue);
+        });
+
+
     }
 
     // Method to show a confirmation dialog
@@ -170,7 +214,7 @@ public class DemandeReservation {
     void Afficher(ActionEvent event) {
         try {
             // Load the new FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/admin/afficherExpo.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/admin/afficherExpo_un.fxml"));
             Parent root = loader.load();
 
             // Create a new scene
@@ -191,7 +235,7 @@ public class DemandeReservation {
     void ajouterNav(ActionEvent event) throws IOException {
         try {
             // Load the new FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/admin/ajouterexpo.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/admin/ajouterExpo_1.fxml"));
             Parent root = loader.load();
 
             // Create a new scene
@@ -251,11 +295,34 @@ public class DemandeReservation {
             // Handle the exception (e.g., show an error message)
         }
     }
+    private void trierReser(String option) {
+        List<Reservation> reser;
 
+        if (option.equals("")) {
+            // Si l'option est vide, réinitialisez la TableView à son état initial
+            reser = resrInitiales;
+        } else {
+            // Sinon, faites une copie de la liste initiale et triez-la
+            reser = resrInitiales.stream().collect(Collectors.toList());
+            switch (option) {
+                case "Date ascendante":
+                    serviceReservation.triParDateReser(reser, true);
+                    break;
+                case "Date descendante":
+                    serviceReservation.triParDateReser(reser, false);
+                    break;
+                default:break;
 
+            }
+        }
 
-
-
+        reservationTableView.setItems(FXCollections.observableArrayList(reser));
     }
+
+
+
+
+
+}
 
 

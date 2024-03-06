@@ -9,6 +9,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ServicePersonne implements IService<User> {
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/musemakers";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = "";
     Connection cnx= DataSource.getInstance().getCnx();
     @Override
     public void ajouter(User p) {
@@ -43,8 +46,10 @@ public class ServicePersonne implements IService<User> {
                 Date date_de_naissance = res.getDate("date_de_naissance");
                 String cartepro = res.getString("cartepro");
                 String role = res.getString("role");
+                String status = res.getString("status");
+
                 System.out.println("personne mijoud !");
-                return new User(id,nom_user,prenom_user,email,mdp,num_tel,date_de_naissance,cartepro,role);
+                return new User(id,nom_user,prenom_user,email,mdp);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -71,7 +76,7 @@ public class ServicePersonne implements IService<User> {
                 Date d_naissance = res.getDate("date_de_naissance");
                 String carte_pro = res.getString(8);
                 String role = res.getString(9);
-                User p = new User(id,nom,prenom,email,mdp,num_tel,d_naissance,carte_pro,role);
+                User p = new User(id,nom,prenom,email,mdp);
                 personnes.add(p);
             }
         } catch (SQLException e) {
@@ -81,7 +86,30 @@ public class ServicePersonne implements IService<User> {
 
         return personnes;
     }
-}
+
+    public int getConnectedUserId() throws SQLException {
+        int userId = -1;
+        String sql = "SELECT id_user FROM user WHERE status = 'connected'";
+
+        try {
+            PreparedStatement ps = cnx.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();  // Add this line to execute the query
+
+            if (rs.next()) {
+                userId = rs.getInt("id_user");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return userId;
+    }
+
+
+
+
+
+    }
 
 
 

@@ -101,7 +101,8 @@
                                     </Text>
                                             </children>
                                         </AnchorPane>
-                              <Button layoutX="429.0" layoutY="475.0" mnemonicParsing="false" onAction="#displayStatistics" styleClass="round-button" text="statistics" />
+                              <Button layoutX="476.0" layoutY="482.0" mnemonicParsing="false" onAction="#displayStatistics" styleClass="round-button" text="afficher statistique des rservations" />
+                              <Button fx:id="statButton" layoutX="206.0" layoutY="482.0" mnemonicParsing="false" onAction="#handleAfficherStatistiquesButton" styleClass="round-button" text="afficher statistiques des clients fidèles " />
                                     </children>
                                 </AnchorPane>
                             </children></HBox>
