@@ -31,29 +31,29 @@ public class ReclamationService implements IService<Reclamation>{
         }
         String requete = " insert into reclamation (idU,descriRec,DateRec,CategorieRec,StatutRec) values (?,?,?,?,?)" ;
 
-            pst=cnx.prepareStatement(requete);
+        pst=cnx.prepareStatement(requete);
         pst.setInt(1, r.getUser().getId_user());  // Utilisez 'r.getUser().getId_user()' au lieu de 'r.getIdU()'
-            pst.setString(2,FilterBadWord.filter(r.getDescriRec()));
-            pst.setDate(3, new java.sql.Date(r.getDateRec().getTime()));
-            pst.setString(4,r.getCategorieRec());
-            pst.setString(5,r.getStatutRec());
-            pst.executeUpdate();
-            System.out.println("Reclamation ajoutée!");
+        pst.setString(2,FilterBadWord.filter(r.getDescriRec()));
+        pst.setDate(3, new java.sql.Date(r.getDateRec().getTime()));
+        pst.setString(4,r.getCategorieRec());
+        pst.setString(5,r.getStatutRec());
+        pst.executeUpdate();
+        System.out.println("Reclamation ajoutée!");
 
     }
 
     @Override
     public void modifier(Reclamation r) throws SQLException{
 
-            PreparedStatement ps = cnx.prepareStatement("UPDATE reclamation SET idU = ?, descriRec = ?, DateRec = ?, CategorieRec = ?, StatutRec = ? WHERE idRec = ?");
-            ps.setInt(1, r.getUser().getId_user());  // Utilisez 'r.getUser().getId_user()' au lieu de 'r.getIdU()'
-            ps.setString(2, r.getDescriRec());
-            ps.setDate(3, new java.sql.Date(r.getDateRec().getTime()));
-            ps.setString(4, r.getCategorieRec());
-            ps.setString(5, r.getStatutRec());
-            ps.setInt(6, r.getIdRec());
-            ps.executeUpdate();
-            System.out.println("Reclamation modifiée!");
+        PreparedStatement ps = cnx.prepareStatement("UPDATE reclamation SET idU = ?, descriRec = ?, DateRec = ?, CategorieRec = ?, StatutRec = ? WHERE idRec = ?");
+        ps.setInt(1, r.getUser().getId_user());  // Utilisez 'r.getUser().getId_user()' au lieu de 'r.getIdU()'
+        ps.setString(2, FilterBadWord.filter(r.getDescriRec()));
+        ps.setDate(3, new java.sql.Date(r.getDateRec().getTime()));
+        ps.setString(4, r.getCategorieRec());
+        ps.setString(5, r.getStatutRec());
+        ps.setInt(6, r.getIdRec());
+        ps.executeUpdate();
+        System.out.println("Reclamation modifiée!");
 
     }
 
@@ -96,14 +96,14 @@ public class ReclamationService implements IService<Reclamation>{
             ServiceUser us = new ServiceUser();
             u=us.getOneById(rst.getInt("IdU"));
             r.setUser(u);  // Utilisez 'user.setId_user(rst.getInt("IdU"))' au lieu de 'r.setIdRec(rst.getInt("IdU"))'
-              // Ajoutez cette ligne
+            // Ajoutez cette ligne
             r.setIdRec(rst.getInt("idRec"));
             r.setDescriRec(rst.getString("DescriRec"));
             r.setDateRec(rst.getDate("dateRec"));
             r.setCategorieRec(rst.getString("categorieRec"));
             r.setStatutRec(rst.getString("statutRec"));
         }
-return  r;
+        return  r;
     }
 
 

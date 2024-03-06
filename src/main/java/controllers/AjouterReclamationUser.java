@@ -265,7 +265,7 @@ public class AjouterReclamationUser {
                 } else if (reclamation.getDescriRec().toLowerCase().contains(lowerCaseFilter)) {
                     return true; // Le filtre correspond à la description
                 }
-                return false; // Aucune correspondance
+            return false; // Aucune correspondance
             });
         });
 
@@ -340,5 +340,22 @@ public class AjouterReclamationUser {
 
         // Afficher la nouvelle fenêtre
         stage.show();
+    }
+
+    @FXML
+    void joke(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/joke.fxml"));
+        Parent jokeRoot = loader.load();
+
+        // Créer une nouvelle scène avec l'interface joke
+        Scene jokeScene = new Scene(jokeRoot);
+
+        // Créer une nouvelle fenêtre pour l'interface joke
+        Stage Stage = new Stage();
+        Stage.setScene(jokeScene);
+       Stage.setTitle("joke");
+
+        // Afficher la nouvelle fenêtre
+        Stage.show();
     }
 }

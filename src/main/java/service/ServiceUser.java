@@ -172,9 +172,47 @@ public class ServiceUser implements IService<User> {
         return user; }
 
 
-   /* @Override
-    public Set<User> getAll() {
-        Set<User> users = new HashSet<>();
+    /* @Override
+     public Set<User> getAll() {
+         Set<User> users = new HashSet<>();
+         String sql = "SELECT * FROM user";
+
+         try (PreparedStatement pstmt = cnx.prepareStatement(sql)) {
+             ResultSet rs = pstmt.executeQuery();
+
+             while (rs.next()) {
+                 User user;
+                 String role = rs.getString("role");
+                 if ("Admin".equals(role)) {
+                     user = new Admin();
+                     // Ajoutez ici les autres attributs spécifiques à Admin si nécessaire
+                 } else if ("Client".equals(role)) {
+                     user = new Client();
+                     ((Client) user).setNum_tel(rs.getInt("num_tel"));
+                     ((Client) user).setDate_de_naissance(rs.getDate("date_de_naissance"));
+                 } else if ("Artiste".equals(role)) {
+                     user = new Artiste();
+                     ((Artiste) user).setNum_tel(rs.getInt("num_tel"));
+                     ((Artiste) user).setDate_de_naissance(rs.getDate("date_de_naissance"));
+                     ((Artiste) user).setCartepro(rs.getString("cartepro"));
+                 } else {
+                     user = new User();
+                 }
+                 user.setNom_user(rs.getString("nom_user"));
+                 user.setPrenom_user(rs.getString("prenom_user"));
+                 user.setEmail(rs.getString("email"));
+                 user.setMdp(rs.getString("mdp"));
+
+                 users.add(user);
+             }
+         } catch (SQLException e) {
+             System.out.println(e.getMessage());
+         }
+
+         return users;    }*/
+    @Override
+    public List<User> getAll() {
+        List<User> users = new ArrayList<>();
         String sql = "SELECT * FROM user";
 
         try (PreparedStatement pstmt = cnx.prepareStatement(sql)) {
@@ -209,45 +247,7 @@ public class ServiceUser implements IService<User> {
             System.out.println(e.getMessage());
         }
 
-        return users;    }*/
-   @Override
-   public List<User> getAll() {
-       List<User> users = new ArrayList<>();
-       String sql = "SELECT * FROM user";
-
-       try (PreparedStatement pstmt = cnx.prepareStatement(sql)) {
-           ResultSet rs = pstmt.executeQuery();
-
-           while (rs.next()) {
-               User user;
-               String role = rs.getString("role");
-               if ("Admin".equals(role)) {
-                   user = new Admin();
-                   // Ajoutez ici les autres attributs spécifiques à Admin si nécessaire
-               } else if ("Client".equals(role)) {
-                   user = new Client();
-                   ((Client) user).setNum_tel(rs.getInt("num_tel"));
-                   ((Client) user).setDate_de_naissance(rs.getDate("date_de_naissance"));
-               } else if ("Artiste".equals(role)) {
-                   user = new Artiste();
-                   ((Artiste) user).setNum_tel(rs.getInt("num_tel"));
-                   ((Artiste) user).setDate_de_naissance(rs.getDate("date_de_naissance"));
-                   ((Artiste) user).setCartepro(rs.getString("cartepro"));
-               } else {
-                   user = new User();
-               }
-               user.setNom_user(rs.getString("nom_user"));
-               user.setPrenom_user(rs.getString("prenom_user"));
-               user.setEmail(rs.getString("email"));
-               user.setMdp(rs.getString("mdp"));
-
-               users.add(user);
-           }
-       } catch (SQLException e) {
-           System.out.println(e.getMessage());
-       }
-
-       return users;
-   }
+        return users;
+    }
 
 }

@@ -13,12 +13,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
-import java.net.URL;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import java.util.ResourceBundle;
+
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 
@@ -33,7 +30,7 @@ public class ChatBotController implements Initializable {
     private Button btnSend;
     @FXML
     private Label lblOutput;
-
+    private StringBuilder chatHistory = new StringBuilder();
     /**
      * Initializes the controller class.
      */
@@ -42,14 +39,13 @@ public class ChatBotController implements Initializable {
         // Set button action
         btnSend.setOnAction(event -> {
             String input = txtInput.getText();
-            System.out.println("input"+input);
+            chatHistory.append("Client: ").append(input).append("\n"); // Add client message to chat history
             String response = getResponse(input);
-            System.out.println(response);
-            lblOutput.setText(response);
+            chatHistory.append("ArtWaves Bot: ").append(response).append("\n"); // Add bot response to chat history
+            lblOutput.setText(chatHistory.toString()); // Display chat history
             txtInput.clear();
         });
     }
-
 
     private static final String[] INAPPROPRIATE_WORDS = {
             "badword1",
@@ -63,26 +59,55 @@ public class ChatBotController implements Initializable {
         // Check for inappropriate words
         for (String word : INAPPROPRIATE_WORDS) {
             if (input.toLowerCase().contains(word)) {
-                return "EnergyBox Bot:This content may violate our content policy. If you believe this to be in error, \n "
+                return "ArtWaves Bot:This content may violate our content policy. If you believe this to be in error, \n "
                         + "please submit your feedback \n your input will aid our research in this area.";
             }
         }
 
         // Return a specific response for certain keywords or phrases
         if (input.toLowerCase().contains("salut")) {
-            return "EnergyBox Bot:Salut comment je peux vous aider ?";
+            return "ArtWaves Bot:Salut comment je peux vous aider ?";
         }
-        if (input.toLowerCase().contains("reclamation") || input.toLowerCase().contains("commentaire") || input.toLowerCase().contains("Reclamation") ) {
-            return "EnergyBox Bot:Vous trouvez tous les informations qui concerne la reclamation\n"
-                    + " dans la section reclamation \n"
-                    + "ou bien la partie du commentaire ";
+        if (input.toLowerCase().contains("reclamation") || input.toLowerCase().contains("réclamation") || input.toLowerCase().contains("Reclamation") ) {
+            return "ArtWaves Bot:Vous trouvez tous les informations qui concerne la reclamation\n"
+                    + " dans la section reclamation \n";
+
         }
+        if (input.toLowerCase().contains("information commentaire") || input.toLowerCase().contains("information comment") || input.toLowerCase().contains(" informations Commentaire")|| input.toLowerCase().contains(" informations Commentaires")|| input.toLowerCase().contains(" informations commentaire") ) {
+            return "ArtWaves Bot:Vous trouvez tous les informations qui concerne le commentaire\n"
+                    + " dans la section commentaire \n"; }
+        if (input.toLowerCase().contains("reservation") || input.toLowerCase().contains("réservation") || input.toLowerCase().contains("Reservation") ) {
+            return "ArtWaves Bot:Vous trouvez tous les informations qui concerne la reservation\n"
+                    + " dans la section reservation \n"; }
+        if (input.toLowerCase().contains("cours artistiques") || input.toLowerCase().contains("cours artistique") || input.toLowerCase().contains("Cours Artistiques")|| input.toLowerCase().contains("Cours artistique")|| input.toLowerCase().contains("Cours artistiques") ) {
+            return "ArtWaves Bot:Vous trouvez tous les informations qui concerne le commentaire\n"
+                    + " dans la section commentaire \n"; }
+        if (input.toLowerCase().contains("exposition") || input.toLowerCase().contains("expositions") || input.toLowerCase().contains("Expostions") ) {
+            return "ArtWaves Bot:Vous trouvez tous les informations qui concerne les expositions \n"
+                    + " dans la section expositions \n"; }
+        if (input.toLowerCase().contains("les chefs d'oeuvres") || input.toLowerCase().contains("Les chefs d'oeuvres") || input.toLowerCase().contains("LES CHEFS D'OEUVRES") ) {
+            return "ArtWaves Bot:Vous trouvez tous les informations qui concerne Les chefs d'oeuvres \n"
+                    + " dans la section des chefs d'oeuvres \n"; }
+        if (input.toLowerCase().contains("statut") || input.toLowerCase().contains("Statut") || input.toLowerCase().contains("STATUT") ) {
+            return "ArtWaves Bot:Vous trouvez les statuts de vos réclamations   \n"
+                    +"dans la section Vos Réclamations \n"
+                    + " Si le statut est en cours, attendez le sms auprès de l'admin \n"; }
+        if (input.toLowerCase().contains("supprimer") || input.toLowerCase().contains("effacer") || input.toLowerCase().contains("delete")|| input.toLowerCase().contains("Supprimer")|| input.toLowerCase().contains("SUPPRIMER")  ) {
+            return "ArtWaves Bot:Vous pouvez contactez l'admin  \n"
+                    +"pour la suppression de vos commentaires \n"
+                    + " par ce mail : khalil.chekili@esprit.tn \n"+
+                    " ou par ce numero : 27163524 \n"; }
+        if (input.toLowerCase().contains("modifier") || input.toLowerCase().contains("Modifier") || input.toLowerCase().contains("update")|| input.toLowerCase().contains("MODIFIER")|| input.toLowerCase().contains("UPDATE") || input.toLowerCase().contains("Update") ) {
+            return "ArtWaves Bot:Vous pouvez contactez l'admin  \n"
+                    +"pour la modification de vos commentaires \n"
+                    + " par ce mail : khalil.chekili@esprit.tn \n"+
+                    " ou par ce numero : 27163524 \n"; }
         if (input.toLowerCase().contains("I have some questions")) {
-            return "EnergyBox Bot:I will do my best to help you";
+            return "ArtWaves Bot:I will do my best to help you";
         }
 
         // Return default response if no specific response is matched
-        return "EnergyBox Bot:Je suis désolé, je ne comprends pas. \n"
+        return "ArtWaves Bot:Je suis désolé, je ne comprends pas. \n"
                 + "Pouvez-vous reformuler votre question s'il vous plaît ?";
     }
 

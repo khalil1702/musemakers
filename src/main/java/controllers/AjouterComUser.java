@@ -50,7 +50,7 @@ public class AjouterComUser {
     @FXML
     private Button supprimer;
 
-    private static final List<String> BAD_WORDS = Arrays.asList("Sick", "Bad", "Dump","khalil");
+    private static final List<String> BAD_WORDS = Arrays.asList("malade", "stupid", "abc","khalil");
     private static final Map<String, String> EMOJI_MAP = new HashMap<>();
 
     static {

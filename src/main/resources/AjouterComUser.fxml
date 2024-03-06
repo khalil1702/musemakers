@@ -88,7 +88,7 @@
                            </font>
                         </Label>
                         <ComboBox fx:id="trie" layoutX="567.0" layoutY="29.0" prefWidth="150.0" promptText="Trier ASC/DSC" />
-                        <Button layoutX="64.0" layoutY="260.0" mnemonicParsing="false" onAction="#chat" prefHeight="32.0" prefWidth="164.0" styleClass="underline-button" stylesheets="@style.css" text="Tu as besoin d'aide?">
+                        <Button layoutX="56.0" layoutY="260.0" mnemonicParsing="false" onAction="#chat" prefHeight="32.0" prefWidth="180.0" styleClass="underline-button" stylesheets="@style.css" text="Vous avez besoin d'aide?">
                            <graphic>
                               <ImageView fitHeight="55.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

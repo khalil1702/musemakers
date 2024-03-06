@@ -99,11 +99,20 @@
                                     </font>
                                 </Label>
                                 <ComboBox fx:id="CatRecCB" layoutX="27.0" layoutY="107.0" prefWidth="150.0" promptText="Catégorie" stylesheets="@style.css" />
-                        <Button layoutX="62.0" layoutY="370.0" mnemonicParsing="false" onAction="#chat" prefHeight="32.0" prefWidth="164.0" styleClass="underline-button" stylesheets="@style.css" text="Tu as besoin d'aide?">
+                        <Button layoutX="62.0" layoutY="370.0" mnemonicParsing="false" onAction="#chat" prefHeight="32.0" prefWidth="181.0" styleClass="underline-button" stylesheets="@style.css" text="Vous avez besoin d'aide?">
                            <graphic>
                               <ImageView fitHeight="55.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@img/help.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button layoutX="26.0" layoutY="40.0" mnemonicParsing="false" onAction="#joke" style="-fx-background-color: tra;" text="Surprise Humoristique" underline="true">
+                           <graphic>
+                              <ImageView fitHeight="115.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/heureux.png" />
                                  </image>
                               </ImageView>
                            </graphic>
